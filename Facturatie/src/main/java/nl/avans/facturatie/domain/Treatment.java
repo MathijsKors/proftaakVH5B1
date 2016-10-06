@@ -11,4 +11,20 @@ package nl.avans.facturatie.domain;
  */
 public class Treatment {
     
+    private int treatmentID;
+    private String treatmentName;
+
+    public Treatment(int treatmentID, String treatmentName) {
+        this.treatmentID = treatmentID;
+        this.treatmentName = treatmentName;
+    }
+    
+    public String TreatmentCode(){
+        return treatmentName;
+    }
+    
+    public String toString(){
+        return  treatmentID + " , " + treatmentName;
+    }
+    
 }
