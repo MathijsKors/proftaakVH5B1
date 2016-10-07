@@ -33,7 +33,7 @@ public class InsuranceTest {
     @Test
     public void testGetType() {
         System.out.println("getType");
-        Insurance instance = new Insurance("Type1", "Profiel1", 15);
+        Insurance instance = new Insurance(1, "Type1", "Profiel1", 15);
         String expResult = "Type1";
         String result = instance.getType();
         assertEquals(expResult, result);     
@@ -45,7 +45,7 @@ public class InsuranceTest {
     @Test
     public void testGetProfile() {
         System.out.println("getProfile");
-        Insurance instance = new Insurance("Type1", "Profiel1", 15);
+        Insurance instance = new Insurance(1, "Type1", "Profiel1", 15);
         String expResult = "Profiel1";
         String result = instance.getProfile();
         assertEquals(expResult, result);
@@ -58,7 +58,7 @@ public class InsuranceTest {
     @Test
     public void testGetcostpMonth() {
         System.out.println("getcostpMonth");
-        Insurance instance = new Insurance("Type1", "Profiel1", 15);
+        Insurance instance = new Insurance(1, "Type1", "Profiel1", 15);
         int expResult = 15;
         int result = instance.getcostpMonth();
         assertEquals(expResult, result);
@@ -72,7 +72,7 @@ public class InsuranceTest {
     public void testSetType() {
         System.out.println("setType");
         String type = "Type2";
-        Insurance instance = new Insurance("Type1", "Profiel1", 15);
+        Insurance instance = new Insurance(1, "Type1", "Profiel1", 15);
         instance.setType(type);
     }
 
@@ -83,7 +83,7 @@ public class InsuranceTest {
     public void testSetProfile() {
         System.out.println("setProfile");
         String profile = "Type2";
-        Insurance instance = new Insurance("Type1", "Profiel1", 15);
+        Insurance instance = new Insurance(1, "Type1", "Profiel1", 15);
         instance.setProfile(profile);
     }
 
@@ -94,7 +94,7 @@ public class InsuranceTest {
     public void testSetcostpMonth() {
         System.out.println("setcostpMonth");
         int costpMonth = 16;
-        Insurance instance = new Insurance("Type1", "Profiel1", 15);
+        Insurance instance = new Insurance(1, "Type1", "Profiel1", 15);
         instance.setcostpMonth(costpMonth);
     }    
 }

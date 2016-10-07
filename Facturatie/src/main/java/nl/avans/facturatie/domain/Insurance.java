@@ -12,13 +12,19 @@ package nl.avans.facturatie.domain;
 public class Insurance {
     private String type, profile;
     private int costpMonth;
+    private int insnumber;
     
-    public Insurance(String type, String profile, int costpMonth) {
+    public Insurance(int insnumber, String type, String profile, int costpMonth) {
+        this.insnumber = insnumber;
         this.type = type;
         this.profile = profile;
         this.costpMonth = costpMonth;
     }
 
+    public int getInsnumber(){
+        return insnumber;
+    }
+    
     public String getType() {
         return type;
     }
@@ -31,6 +37,10 @@ public class Insurance {
         return costpMonth;
     }
 
+    public void setInsnumber(int insnumber){
+        this.insnumber = insnumber;
+    }
+     
     public void setType(String type) {
         this.type = type;
     }
@@ -41,7 +51,5 @@ public class Insurance {
 
     public void setcostpMonth(int costpMonth) {
         this.costpMonth = costpMonth;
-    }
-    
-    
+    }      
 }
