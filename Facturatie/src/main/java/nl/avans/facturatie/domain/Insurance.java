@@ -7,26 +7,41 @@ package nl.avans.facturatie.domain;
 
 /**
  *
- * @author game
+ * @author Dorian
  */
 public class Insurance {
     private String type, profile;
-    private int monthlyFee;
+    private int costpMonth;
     
-    public Insurance() {
-        
+    public Insurance(String type, String profile, int costpMonth) {
+        this.type = type;
+        this.profile = profile;
+        this.costpMonth = costpMonth;
+    }
+
+    public String getType() {
+        return type;
+    }
+
+    public String getProfile() {
+        return profile;
+    }
+
+    public int getcostpMonth() {
+        return costpMonth;
+    }
+
+    public void setType(String type) {
+        this.type = type;
+    }
+
+    public void setProfile(String profile) {
+        this.profile = profile;
+    }
+
+    public void setcostpMonth(int costpMonth) {
+        this.costpMonth = costpMonth;
     }
     
-    public void insertInsurance() {
-        
-    }
-    
-    public void editInsurance() {
-        
-    }
-    
-    public void deleteInsurance() {
-        
-    }
     
 }

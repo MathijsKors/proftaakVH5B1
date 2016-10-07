@@ -5,10 +5,24 @@
  */
 package nl.avans.facturatie.businesslogic;
 
+import org.springframework.stereotype.Controller;
+
 /**
  *
  * @author Tom Maljaars
  */
+@Controller
 public class InsuranceController {
+        
+    public void insertInsurance() {
+        
+    }
     
+    public void editInsurance() {
+        
+    }
+    
+    public void deleteInsurance() {
+        
+    }
 }

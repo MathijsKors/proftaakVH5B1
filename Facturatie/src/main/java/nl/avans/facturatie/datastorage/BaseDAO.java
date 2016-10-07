@@ -7,12 +7,18 @@ package nl.avans.facturatie.datastorage;
 
 /**
  *
- * @author Tom Maljaars
+ * @author Dorian
  */
-public class InsuranceDAO extends BaseDAO{
+public class BaseDAO {
+    DatabaseConnection con;
     
-    public InsuranceDAO(DatabaseConnection con) {
-        super(con);
+    
+    public BaseDAO(DatabaseConnection con){
+        this.con = con;
+        
     }
     
+    public DatabaseConnection getDatabaseConnection(){
+        return this.con;
+    }
 }
