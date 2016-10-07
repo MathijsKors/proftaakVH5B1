@@ -10,5 +10,13 @@ package nl.avans.facturatie.domain;
  * @author Tom Maljaars
  */
 public class OwnRisk {
+    private int amount;
+    private int remnant;
     
+    public OwnRisk(int amount, int remnant){
+        this.amount = amount;
+        this.remnant = remnant;
+    }
 }
+    
+
