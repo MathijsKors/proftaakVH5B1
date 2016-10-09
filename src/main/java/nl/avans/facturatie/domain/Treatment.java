@@ -19,12 +19,16 @@ public class Treatment {
         this.treatmentName = treatmentName;
     }
     
-    public String TreatmentCode(){
-        return treatmentName;
+    public int TreatmentCode(){
+        return treatmentID;
+    }
+    
+    public String treatmentName(){
+        return treatmentName();
     }
     
     public String toString(){
-        return  treatmentID + " , " + treatmentName;
+        return  treatmentID + ", " + treatmentName;
     }
     
 }

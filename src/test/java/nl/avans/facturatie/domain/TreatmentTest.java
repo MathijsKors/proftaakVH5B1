@@ -31,7 +31,7 @@ public class TreatmentTest {
     
     @Before
     public void setUp() {
-        Treatment treatment = new Treatment(1, "Naam");
+        
     }
     
     @After
@@ -44,13 +44,18 @@ public class TreatmentTest {
      */
     @Test
     public void testTreatmentCode() {
+        
+        Treatment treatment = new Treatment(1, "Naam");
+        
         System.out.println("TreatmentCode");
-        Treatment instance = null;
+        
         String expResult = "1, Naam";
-        String result = instance.TreatmentCode();
+        String result = treatment.toString();
+        
+        System.err.println("result:" + result);
+        System.out.println("Expected result:" + expResult);
+        
         assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
-    }
-    
+
+    }    
 }
