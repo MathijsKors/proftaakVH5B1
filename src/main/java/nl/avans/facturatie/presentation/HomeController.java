@@ -21,10 +21,11 @@ class HomeController {
 
     @RequestMapping("/")
     String index(Model model) {
-        model.addAttribute("now", LocalDateTime.now());
+
         // Zet een 'flag' om in Bootstrap header nav het actieve menu item te vinden.
+        
         model.addAttribute("classActiveHome","active");
-        return "home/index";
+        return "views/home/index";
         
         
     }
