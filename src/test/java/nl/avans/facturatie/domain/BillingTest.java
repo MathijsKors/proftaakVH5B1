@@ -17,7 +17,6 @@ import static org.junit.Assert.*;
  * @author dyl
  */
 public class BillingTest {
-    private Billing b;
     
     public BillingTest() {
     }
@@ -32,9 +31,6 @@ public class BillingTest {
     
     @Before
     public void setUp() {
-        java.sql.Date date1 = java.sql.Date.valueOf( "2016-01-01" );
-        java.sql.Date date2 = java.sql.Date.valueOf( "2016-03-01" );
-        Billing b = new Billing("Dylan Martens", "Leutlaan 12", "4615JX", "Breda", "Rugklachten", date1, date2, 400, 200, 200);
     }
     
     @After
@@ -46,6 +42,9 @@ public class BillingTest {
      */
     @Test
     public void testGetPrize() {
+        java.sql.Date date1 = java.sql.Date.valueOf( "2016-01-01" );
+        java.sql.Date date2 = java.sql.Date.valueOf( "2016-03-01" );
+        Billing b = new Billing("Dylan Martens", "Leutlaan 12", "4615JX", "Breda", "Rugklachten", date1, date2, 400, 200, 200);
         System.out.println("getPrize");
         int expResult = 400;
         int result = b.getPrize();
@@ -57,11 +56,14 @@ public class BillingTest {
      */
     @Test
     public void testLowerToBePaid() {
+        java.sql.Date date1 = java.sql.Date.valueOf( "2016-01-01" );
+        java.sql.Date date2 = java.sql.Date.valueOf( "2016-03-01" );
+        Billing b = new Billing("Dylan Martens", "Leutlaan 12", "4615JX", "Breda", "Rugklachten", date1, date2, 400, 200, 200);
         System.out.println("lowerToBePaid");
         int amount = 50;
         b.lowerToBePaid(amount); // 200 - 50 = 150
         int expResult = 150;
-        int result = b.getPrize();
+        int result = b.getToBePaid();
         assertEquals(expResult, result);
     }
 
@@ -70,11 +72,14 @@ public class BillingTest {
      */
     @Test
     public void testRaiseToBePaid() {
+        java.sql.Date date1 = java.sql.Date.valueOf( "2016-01-01" );
+        java.sql.Date date2 = java.sql.Date.valueOf( "2016-03-01" );
+        Billing b = new Billing("Dylan Martens", "Leutlaan 12", "4615JX", "Breda", "Rugklachten", date1, date2, 400, 200, 200);
         System.out.println("raiseToBePaid");
         int amount = 50;
         b.raiseToBePaid(amount); // 200 + 50 = 250
         int expResult = 250;
-        int result = b.getPrize();
+        int result = b.getToBePaid();
         assertEquals(expResult, result);
     }
     

@@ -12,17 +12,18 @@ import java.sql.Date;
  * @author game
  */
 public class Customer {
-    private String name, address, zipCode, city, phoneNumber;
+    private String name, address, zipCode, city, phoneNumber, bankAccount;
     private Date birthDate;
     private int CSN; //Citizen Service Number
     private boolean invoice, collection;
             
-    public Customer(String name, String address, String zipCode, String city, String phoneNumber, Date birthDate, int CSN, boolean invoice, boolean collection) {
+    public Customer(String name, String address, String zipCode, String city, String phoneNumber, String bankAccount, Date birthDate, int CSN, boolean invoice, boolean collection) {
         this.name = name;
         this.address = address;
         this.zipCode = zipCode;
         this.city = city;
         this.phoneNumber = phoneNumber;
+        this.bankAccount = bankAccount;
         this.birthDate = birthDate;
         this.CSN = CSN;
         this.invoice = invoice;

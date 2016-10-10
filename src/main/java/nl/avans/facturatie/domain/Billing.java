@@ -33,6 +33,10 @@ public class Billing {
         return prize;
     }
     
+    public int getToBePaid() {
+        return toBePaid;
+    }
+    
     public void lowerToBePaid(int amount) {
         toBePaid -= amount;
     }
