@@ -19,7 +19,7 @@ import java.time.LocalDateTime;
 @Controller
 class HomeController {
 
-    @RequestMapping("/home")
+    @RequestMapping("/")
     String index(Model model) {
         model.addAttribute("now", LocalDateTime.now());
         // Zet een 'flag' om in Bootstrap header nav het actieve menu item te vinden.
