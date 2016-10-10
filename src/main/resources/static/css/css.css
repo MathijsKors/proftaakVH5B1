@@ -39,6 +39,7 @@
 .jumbotron{
    background: url(../img/office1.jpg) fixed;
    background-size: 100%;
+   background-repeat: no-repeat;
    
 }
 
