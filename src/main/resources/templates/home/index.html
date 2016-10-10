@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head></head>
+<body>
+
+<!-- Header -->
+<div></div>
+
+    <!--/* Content of this page will be decorated by the elements of layout.html (student/layout) */-->
+    <div class="container">
+
+    <!--<div class="container">-->
+        <div class="jumbotron">
+            <h1>Welkom bij facturatie</h1>
+            <p>
+                De tijd is <span th:text="${#temporals.format(now, 'd MM yyyy HH:mm')}">31/12/2015 15:00</span>
+            </p>
+        </div>
+
+        <div class="row">
+            <div class="col-xs-6 col-sm-4 col-md-3">
+                <div class="thumbnail frontpage">
+                    <img class="thumbnail smaller-img" />
+                    <div class="caption frontpage">
+                        <!-- Toon alleen de eerste n letters van de titel - sommige zijn heel lang. -->
+                        <h3><a>Titel</a></h3>
+                        <p>Author</p>
+                        <p>Exemplaren aanwezig</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer class="footer">
+        <div>&copy; 2016 Facturatie</div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/webjars/jquery/2.2.1/jquery.min.js" th:src="@{/webjars/jquery/2.2.1/jquery.min.js}"></script>
+    <script src="https://cdn.jsdelivr.net/webjars/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+</body>
+</html>
