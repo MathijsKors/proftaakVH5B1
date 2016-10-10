@@ -14,6 +14,7 @@ import org.thymeleaf.spring4.view.ThymeleafViewResolver;
 import org.thymeleaf.templateresolver.ClassLoaderTemplateResolver;
 
 import java.util.Properties;
+import org.thymeleaf.templateresolver.ServletContextTemplateResolver;
 
 /**
  * @author Petri Kainulainen
@@ -30,6 +31,9 @@ import java.util.Properties;
 //@Import({PersistenceContext.class})
 @PropertySource("classpath:application.properties")
 public class ApplicationContext extends WebMvcConfigurerAdapter {
+    
+    
+    
 
     private static final String MESSAGE_SOURCE_BASE_NAME = "i18n/messages";
 
@@ -94,4 +98,5 @@ public class ApplicationContext extends WebMvcConfigurerAdapter {
         viewResolver.setTemplateEngine(engine);
         return viewResolver;
     }
+    
 }
