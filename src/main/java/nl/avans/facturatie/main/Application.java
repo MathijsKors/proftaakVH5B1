@@ -2,7 +2,6 @@ package nl.avans.facturatie.main;
 
 import nl.avans.facturatie.config.ApplicationConfig;
 import nl.avans.facturatie.config.ApplicationContext;
-import nl.avans.facturatie.datastorage.DatabaseConnection;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -40,11 +39,6 @@ public class Application {
         // object te kunnen maken - bv bij XYZRepository.
         // DriverManagerDataSource driverMgr = ctx.getBean(DriverManagerDataSource.class);
         // logger.info("Database driver URL = "+ driverMgr.getUrl() + " usernem = " + driverMgr.getUsername());
-        
-        
-        //Database connectie
-        DatabaseConnection con = new DatabaseConnection( "jdbc:mysql://145.48.6.148/facturatie", "root", "10ec4u");
-        //OrderDAO daoOrder = new OrderDAO(con);
     }
 
     @Bean
