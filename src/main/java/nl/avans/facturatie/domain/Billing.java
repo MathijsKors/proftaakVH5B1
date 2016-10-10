@@ -16,9 +16,30 @@ public class Billing {
     private Date invoiceDate, expirationDate;
     private int prize, ownRisk, toBePaid;
     
-    public Billing(){
-        
+    public Billing(String customerName, String address, String zipCode, String city, String treatment, Date invoiceDate, Date expirationDate, int prize, int ownRisk, int toBePaid){
+        this.customerName = customerName;
+        this.address = address;
+        this.zipCode = zipCode;
+        this.city = city;
+        this.treatment = treatment;
+        this.invoiceDate = invoiceDate;
+        this.expirationDate = expirationDate;
+        this.prize = prize;
+        this.ownRisk = ownRisk;
+        this.toBePaid = toBePaid;
     }
+    
+    public int getPrize() {
+        return prize;
+    }
+    
+    public void lowerToBePaid(int amount) {
+        toBePaid -= amount;
+    }
+    
+    public void raiseToBePaid(int amount) {
+        toBePaid += amount;
+    } 
     
     
 }
