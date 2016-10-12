@@ -14,8 +14,6 @@ import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
 
-import java.time.LocalDateTime;
-
 @Controller
 class HomeController {
 
