@@ -22,6 +22,11 @@
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 		<java.version>1.8</java.version>
+			<maven.compiler.source>1.8</maven.compiler.source> <!-- REQUIRED -->
+			<maven.compiler.target>1.8</maven.compiler.target> <!-- REQUIRED -->
+			<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+			<failOnMissingWebXml>false</failOnMissingWebXml> <!-- REQUIRED -->
+			<appengine.maven.plugin>0.1.2</appengine.maven.plugin>
 	</properties>
 
 	<dependencies>
