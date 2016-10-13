@@ -1,0 +1,81 @@
+body {
+    font-family: 'Raleway', Verdana, Geneva, sans-serif;
+    padding-top: 10px;
+    padding-bottom: 50px;
+}
+
+.social-links {
+    max-width: 800px;
+    margin: 0 auto;
+    list-style: none;
+}
+.social-links > li {
+    width: 30%;
+    text-align: center;
+    vertical-align: middle;
+    display: inline-block;
+    margin: auto;
+}
+
+.searchform {
+    margin-top: 10px;
+    margin-bottom: 25px;
+}
+
+.thumbnail {
+    overflow: hidden;
+}
+
+img.thumbnail {
+    height: 230px;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    padding: 0;
+    border: 0px;
+}
+
+div.thumbnail.frontpage {
+    padding-top: 10px;
+    position: relative;
+}
+
+div.thumbnail.frontpage p {
+    margin-bottom: 2px;
+}
+
+div.thumbnail.frontpage h3 a:hover {
+    text-decoration: none;
+}
+
+div.thumbnail.frontpage:hover {
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+
+div.caption.frontpage {
+    height: 170px;
+    display: block;
+}
+
+@media (max-width: 550px) {
+    img.thumbnail.smaller-img {
+        height: 160px;
+    }
+    div.caption.frontpage {
+        height: 160px;
+    }
+    h3 {
+        font-size: 20px;
+    }
+}
+
+.glyphicon {
+    margin-right: 20px;
+}
+
+.glyphicon.nomargin {
+    margin-right: 0;
+}
+
+a.navbar-brand.active {
+    color: white;
+    font-weight: bolder;
+}
