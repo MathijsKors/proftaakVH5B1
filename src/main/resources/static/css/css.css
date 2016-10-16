@@ -57,3 +57,29 @@ p {
     font-family: 'Roboto', sans-serif;
 }
 
+a h1{
+    font-size: 20px;
+    float: right;
+    margin-top: 13px;
+}
+a .navbar-brand{
+    width: 150px;
+    
+}
+
+img.logo{
+    height: 50px;
+    width: 65px;
+    float: left;
+    
+}
+.navbar-brand{
+    padding: 0px;
+    
+}
+
+.navbar-form .form-control{
+    width: 140px!important;
+    
+}
+
