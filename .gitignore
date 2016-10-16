@@ -21,3 +21,5 @@ nbbuild/
 dist/
 nbdist/
 .nb-gradle/
+myapplication.log
+myapplication.log
