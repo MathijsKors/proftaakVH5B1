@@ -14,6 +14,20 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.thymeleaf.extras.java8time.dialect.Java8TimeDialect;
 
+import org.apache.catalina.Context;
+import org.apache.catalina.connector.Connector;
+import org.apache.tomcat.util.descriptor.web.SecurityCollection;
+import org.apache.tomcat.util.descriptor.web.SecurityConstraint;
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
+import org.springframework.boot.autoconfigure.web.HttpMessageConvertersAutoConfiguration;
+import org.springframework.boot.context.embedded.EmbeddedServletContainerFactory;
+import org.springframework.boot.context.embedded.tomcat.TomcatEmbeddedServletContainerFactory;
+import org.springframework.boot.context.properties.EnableConfigurationProperties;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+
+
 /**
  * Dit is een van de configuratiebestanden die vanuit de Application.java class worden
  * aangeroepen om je applicatie te initialiseren.
@@ -43,11 +57,33 @@ public class Application {
         
         
         //Database connection
-        DatabaseConnection con = new DatabaseConnection( "jdbc:mysql://145.48.6.148/facturatie", "root", "10ec4u");
+        DatabaseConnection con = new DatabaseConnection( "jdbc:mysql://145.48.6.147/facturatie", "root", "10ec4u");
         //OrderDAO daoOrder = new OrderDAO(con);
         
         
         
+    }
+    
+    TomcatEmbeddedServletContainerFactory tomcat = new TomcatEmbeddedServletContainerFactory() {
+        @Override
+        protected void postProcessContext(Context context) {
+            SecurityConstraint securityConstraint = new SecurityConstraint();
+            securityConstraint.setUserConstraint("CONFIDENTIAL");
+            SecurityCollection collection = new SecurityCollection();
+            collection.addPattern("/*");
+            securityConstraint.addCollection(collection);
+            context.addConstraint(securityConstraint);
+        }
+    };
+
+    private Connector createConnection() {
+        final String protocol = "org.apache.coyote.http11.Http11NioProtocol";
+        final Connector connector = new Connector(protocol);
+
+        connector.setScheme("http");
+        connector.setPort(8080);
+        connector.setRedirectPort(8443);
+        return connector;
     }
 
     @Bean

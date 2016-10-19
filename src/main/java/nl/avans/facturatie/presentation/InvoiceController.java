@@ -5,15 +5,15 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
-class LoginController {
+class InvoiceController {
 
-    @RequestMapping("/login")
-    String login(Model model) {
-
+    @RequestMapping("invoices")
+    String index(Model model) {
+        
         // Zet een 'flag' om in Bootstrap header nav het actieve menu item te vinden.
         
-        model.addAttribute("classActiveLogin","active");
-        return "views/userlogin/login";
+        model.addAttribute("classActiveInvoice","active");
+        return "views/invoice/invoices";
         
         
     }

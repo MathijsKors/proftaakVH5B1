@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html>
+<head th:replace="fragments/head :: head"></head>
+<body>
+
+<!-- Header -->
+<div th:replace="fragments/header :: header"></div>
+
+    <!--/* Content of this page will be decorated by the elements of layout.html (student/layout) */-->
+    <div class="container" layout:fragment="summary">
+
+        <div class="page-header">
+            <h1>Maak nieuwe maatschappij aan</h1>
+        </div>
+        <p>Voer a.u.b uw stamgegevens in.</p>
+        
+        <!-- TODO: Edit/Add object that is specified in th:object below -->
+        <form action="#" method="post" th:object="${InsuranceCompany}"> 
+        
+        <div class="row">
+            
+            <div class="col-sm-6">
+                <div class="form-group">
+                    <label for="name">Naam</label>
+                    <!-- th:field="*{name}" is de koppeling naar het attribuut 'name' van het object 'insurancecompany'-->
+                  <!-- <input type="text" class="form-control" id="name" th:field="*{name}"/> -->
+                </div>
+            </div> 
+            
+            <div class="col-sm-6">
+                <div class="form-group">
+                    <label for="address">Adres</label>
+                    <!-- th:field="*{address}" is de koppeling naar het attribuut 'address' van het object 'insurancecompany'-->
+                  <!--  <input type="text" class="form-control" id="address" th:field="*{address}"/>-->
+                </div>
+            </div>
+            
+        </div>    
+        
+        <div class="row">
+                
+            <div class="col-sm-6">
+                <div class="form-group">
+                    <label for="zipcode">Postcode</label>
+                    <!-- th:field="*{zipCode}" is de koppeling naar het attribuut 'zipCode' van het object 'insurancecompany'-->
+                   <!-- <input type="text" class="form-control" id="zipcode" th:field="*{zipCode}"/>-->
+                </div>
+            </div>   
+               
+            <div class="col-sm-6">
+                <div class="form-group">
+                    <label for="zipcode">Plaats</label>
+                    <!-- th:field="*{city}" is de koppeling naar het attribuut 'city' van het object 'insurancecompany'-->
+                    <!--<input type="text" class="form-control" id="city" th:field="*{city}"/>-->
+                </div>
+            </div>  
+                
+        </div>    
+            
+        <div class="row">
+                
+            <div class="col-sm-6">
+                <div class="form-group">
+                    <label for="telnumber">Telefoonnummer</label>
+                    <!-- th:field="*{zipCode}" is de koppeling naar het attribuut 'zipCode' van het object 'insurancecompany'-->
+                  <!--  <input type="text" class="form-control" id="telnumber" th:field="*{telNumber}"/>-->
+                </div>
+            </div>   
+               
+            <div class="col-sm-6">
+                <div class="form-group">
+                    <label for="zipcode">E-mailadres</label>
+                    <!-- th:field="*{city}" is de koppeling naar het attribuut 'city' van het object 'insurancecompany'-->
+                   <!-- <input type="text" class="form-control" id="email" th:field="*{email}"/>-->
+                </div>
+            </div>  
+                
+        </div> 
+        
+        <!-- De button die voor verzenden van het formulier zorgt.
+            De name 'save' is een parameter waarmee in de InsuranceCompanyController de juiste
+            save-actie wordt gestart. -->
+        <button type="submit" class="btn btn-primary" name="save">Bevestigen</button> 
+        
+        </form>
+        
+        
+    <footer class="footer">
+        <div th:replace="fragments/footer :: footer">&copy; 2016 Facturatie Systeem</div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/webjars/jquery/2.2.1/jquery.min.js" th:src="@{/webjars/jquery/2.2.1/jquery.min.js}"></script>
+    <script src="https://cdn.jsdelivr.net/webjars/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+</body>
+</html>
