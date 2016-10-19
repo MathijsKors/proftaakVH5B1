@@ -8,9 +8,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 class InvoiceController {
 
     @RequestMapping("invoices")
-
+    String index(Model model) {
+        
         // Zet een 'flag' om in Bootstrap header nav het actieve menu item te vinden.
         
+        model.addAttribute("classActiveInvoice","active");
         return "views/invoice/invoices";
         
         
