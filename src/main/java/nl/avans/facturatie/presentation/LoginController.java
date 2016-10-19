@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 class LoginController {
 
     @RequestMapping("/login")
-    String index(Model model) {
+    String login(Model model) {
 
         // Zet een 'flag' om in Bootstrap header nav het actieve menu item te vinden.
         
