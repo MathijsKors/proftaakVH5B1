@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html>
+<head th:replace="fragments/head :: head"></head>
+<body>
+
+<!-- Header -->
+<div th:replace="fragments/header :: header"></div>
+
+    <!--/* Content of this page will be decorated by the elements of layout.html (student/layout) */-->
+    <div class="container" layout:fragment="summary">
+
+    	<!-- Het gedeelte van het toevoegen van verzekeringen -->
+    	<div class="page-header">
+            <h1>Klant-verzekering toevoegen.</h1>
+        </div>
+        <p>Hier kunt u een verzekering toevoegen aan een bestaande klant</P>
+
+        	<div class="row">
+
+        		<div class="col-sm-4">
+                	<div class="form-group">
+                    	<label for="invoerveld">Naam/Klantnummer</label>                   
+                    	<input type="text" class="form-control" id="invoerveld"/>
+                	</div>
+            	</div> 
+
+            	<div class="col-sm-4">
+					<div class="dropdown">
+  						<button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+    						Dropdown
+    						<span class="caret"></span>
+  						</button>
+  						<ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+    						<li><a href="#">Klantgegevens</a></li>
+    						<li><a href="#">Naam</a></li>
+  						</ul>
+					</div>
+				</div>
+
+				<div class="col-sm-4">
+					<button type="submit" class="btn btn-primary" name="zoeken">Zoeken</button>
+				</div> 
+            
+        	</div> 
+
+
+        	<div class="panel panel-default">
+  				<div class="panel-body">
+    				<p>Naam: </p>
+    				<p>Geslacht: </p>
+    				<p>Geboortedatum: </p>
+    				<p>Adres: </P>
+    				<p>Postcode: </p>
+
+    				<p>Verzekeringsmaatschappij: </p>
+
+    				<button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+    					Dropdown
+    					<span class="caret"></span>
+  					</button>
+  					<ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+    					<li><a href="#">WA-plus</a></li>
+   						<li><a href="#">WA</a></li>
+   						<li><a href="#">Inboedel</a></li>
+  					</ul>
+				</div>  				
+  			</div>
+
+  			<button type="submit" class="btn btn-primary" name="save">Pas gegevens aan</button>
+
+  		<!--Het gedeelte van het aanpassen van verzekeringen van een klant -->
+  		<div class="page-header">
+            <h1>Klant-verzekering aanpassen.</h1>
+        </div>
+        <p>Hier kunt u de verzekering van een klant aanpassen</P>
+
+        	<div class="row">
+
+        		<div class="col-sm-4">
+                	<div class="form-group">
+                    	<label for="invoerveld">Naam/Klantnummer</label>                   
+                    	<input type="text" class="form-control" id="invoerveld"/>
+                	</div>
+            	</div> 
+
+            	<div class="col-sm-4">
+					<div class="dropdown">
+  						<button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+    						Dropdown
+    						<span class="caret"></span>
+  						</button>
+  						<ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+    						<li><a href="#">Klantgegevens</a></li>
+    						<li><a href="#">Naam</a></li>
+  						</ul>
+					</div>
+				</div>
+
+				<div class="col-sm-4">
+					<button type="submit" class="btn btn-primary" name="zoeken">Zoeken</button>
+				</div> 
+            
+        	</div> 
+
+
+        	<div class="panel panel-default">
+  				<div class="panel-body">
+    				<p>Naam: </p>
+    				<p>Geslacht: </p>
+    				<p>Geboortedatum: </p>
+    				<p>Adres: </P>
+    				<p>Postcode: </p>
+
+    				<p>Verzekeringsmaatschappij: </p>
+
+    				<button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+    					Dropdown
+    					<span class="caret"></span>
+  					</button>
+  					<ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+    					<li><a href="#">WA-plus</a></li>
+   						<li><a href="#">WA</a></li>
+   						<li><a href="#">Inboedel</a></li>
+  					</ul>
+				</div>  				
+  			</div>
+
+  			<button type="submit" class="btn btn-primary" name="save">Pas gegevens aan</button>
+  			
+
+  			<!-- Het gedeelte van het verwijderen van verzekering(en) van een klant. -->
+  		<div class="page-header">
+            <h1>Klant-verzekering verwijderen.</h1>
+        </div>
+        <p>Hier kunt u selecteren welke verzekeringen er verwijderd moeten worden</P>
+
+        	<div class="row">
+
+        		<div class="col-sm-4">
+                	<div class="form-group">
+                    	<label for="invoerveld">Naam/Klantnummer</label>                   
+                    	<input type="text" class="form-control" id="invoerveld"/>
+                	</div>
+            	</div> 
+
+            	<div class="col-sm-4">
+					<div class="dropdown">
+  						<button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+    						Dropdown
+    						<span class="caret"></span>
+  						</button>
+  						<ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+    						<li><a href="#">Klantgegevens</a></li>
+    						<li><a href="#">Naam</a></li>
+  						</ul>
+					</div>
+				</div>
+
+				<div class="col-sm-4">
+					<button type="submit" class="btn btn-primary" name="zoeken">Zoeken</button>
+				</div> 
+            
+        	</div> 
+
+        	<div class="panel panel-default">
+  				<div class="panel-body">
+    				<p>Naam: </p>
+    				<p>Geslacht: </p>
+    				<p>Geboortedatum: </p>
+    				<p>Adres: </P>
+    				<p>Postcode: </p>
+
+    				<p>Verzekeringsmaatschappij: </p>
+
+    				<div class="checkbox">
+  						<label><input type="checkbox" value="">WA</label>
+					</div>
+					<div class="checkbox">
+  						<label><input type="checkbox" value="">WA-plus</label>
+					</div>
+					<div class="checkbox disabled">
+  						<label><input type="checkbox" value="" disabled>Inboedel</label>
+					</div>
+				</div>  				
+  			</div>
+
+  			<button type="submit" class="btn btn-primary" name="save">Verwijder geselecteerde verzekering(en)</button>
+
+  	</div>
+
+</div>
