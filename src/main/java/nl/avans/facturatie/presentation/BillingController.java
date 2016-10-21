@@ -5,10 +5,25 @@
  */
 package nl.avans.facturatie.presentation;
 
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.RequestMapping;
+
 /**
  *
  * @author Tom Maljaars
  */
+
+@Controller
 public class BillingController {
+    
+    @RequestMapping("billing")
+    String billing(Model model) {
+        
+        // Zet een 'flag' om in Bootstrap header nav het actieve menu item te vinden.
+        
+        model.addAttribute("classActiveBilling","active");
+        return "views/billing/billing";
+    }
     
 }

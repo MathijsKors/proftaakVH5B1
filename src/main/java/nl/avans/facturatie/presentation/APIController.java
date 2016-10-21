@@ -5,16 +5,16 @@
  */
 package nl.avans.facturatie.presentation;
 
-import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 /**
  *
  * @author Tom Maljaars
  */
 
-@Controller
+@RestController
 class APIController {
 
     @RequestMapping("api")
