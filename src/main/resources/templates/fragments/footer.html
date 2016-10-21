@@ -2,11 +2,18 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <body>
     <div class="container" th:fragment="footer">
-        <p class="text-muted">
-            <a href="https://github.com/MathijsKors/proftaakVH5B1" target="_blank">Github</a> |
-            <a href="https://dashboard.heroku.com/apps/facturatie" target="_blank">Heroku</a> |
-            <a href="http://145.48.6.148/phpmyadmin/db_structure.php?server=1&db=facturatie" target="_blank">Database</a>
-        </p>
+        <div class="col-lg-10">
+            <p class="text-muted">
+                <a href="https://github.com/MathijsKors/proftaakVH5B1" target="_blank">Github</a> |
+                <a href="https://dashboard.heroku.com/apps/facturatie" target="_blank">Heroku</a> |
+                <a href="http://145.48.6.147/phpmyadmin/db_structure.php?server=1&db=facturatie" target="_blank">Database</a>
+            </p>
+        </div>
+        <div class="col-lg-2">
+            <p class="text-muted">
+                <a href="/api" target="_blank">API</a>
+            </p>
+        </div>
     </div>
 </body>
 </html>
