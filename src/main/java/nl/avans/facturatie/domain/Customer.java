@@ -8,54 +8,166 @@ package nl.avans.facturatie.domain;
 import java.sql.Date;
 import java.util.ArrayList;
 import java.util.List;
+import javax.validation.constraints.DecimalMin;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Pattern;
+import javax.validation.constraints.Size;
 
 /**
  *
  * @author game
  */
 public class Customer {
-    private String name, address, zipCode, city, phoneNumber, bankAccount;
-    private Date birthDate;
-    private int ID, CSN; //Citizen Service Number
-    private boolean invoice, collection;
-    List<Customer> customerList = new ArrayList<>();
-            
-    public Customer(int ID, String name, String address, String zipCode, String city, String phoneNumber, String bankAccount, Date birthDate, int CSN, boolean invoice, boolean collection) {
-        this.ID = ID;
-        this.name = name;
-        this.address = address;
-        this.zipCode = zipCode;
+    
+    private int customerID;
+
+    @NotNull
+    @Size(min = 1, max = 32)
+    private String firstName;
+
+    @NotNull
+    @Size(min = 1, max = 32)
+    private String lastName;
+    
+    @NotNull
+    @Size(min = 8, max = 9)
+    private int BSN;
+    
+    @NotNull
+    @Size(min = 1, max = 32)
+    private String street;
+
+    @NotNull
+    @DecimalMin("1")
+    private String houseNumber;
+
+    @NotNull
+    @Size(min = 1, max = 32)
+    private String city;
+
+    @NotNull
+    @Size(min = 1, max = 32)
+    private String phoneNumber;
+
+    @NotNull
+    @Pattern(regexp="[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\\."
+            +"[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@"
+            +"(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?",
+            message="{invalid.email}")
+    private String emailAddress;
+
+    @DecimalMin("0.0")
+    private double fine;
+
+    private java.util.Date lastUpdated;
+
+    public Customer() {  }
+
+    public Customer(String firstName, String lastName, int BSN,String street, String houseNumber, String city, String phoneNumber, String emailAddress, double fine) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.street = street;
+        this.houseNumber = houseNumber;
         this.city = city;
         this.phoneNumber = phoneNumber;
-        this.bankAccount = bankAccount;
-        this.birthDate = birthDate;
-        this.CSN = CSN;
-        this.invoice = invoice;
-        this.collection = collection;
+        this.emailAddress = emailAddress;
+        this.fine = fine;
+        // ID is de auto increment waarde uit de database.
+        // wordt hier ingevuld wanneer een Customer aangemaakt wordt in de dtb.
+        this.customerID = 0;
     }
 
-   
-    public void addCustomer() {
-        
+    public String getFirstName() {
+        return firstName;
     }
-    
-    public void editCustomer() {
-        
-    }
-    
-    public void deleteCustomer() {
-        
-    }
-    
-    public List<Customer> getAllCustomers() {
-        return customerList;
-    }
-    
 
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
+    }
+
+    public String getLastName() {
+        return lastName;
+    }
+
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
+    }
+
+    public String getFullName() { return this.firstName + " " + this.lastName; }
+
+    public String getStreet() {
+        return street;
+    }
+
+    public void setStreet(String street) {
+        this.street = street;
+    }
+
+    public String getHouseNumber() {
+        return houseNumber;
+    }
+
+    public void setHouseNumber(String houseNumber) {
+        this.houseNumber = houseNumber;
+    }
+
+    public String getCity() {
+        return city;
+    }
+
+    public void setCity(String city) {
+        this.city = city;
+    }
+
+    public String getPhoneNumber() {
+        return phoneNumber;
+    }
+
+    public void setPhoneNumber(String phoneNumber) {
+        this.phoneNumber = phoneNumber;
+    }
+
+    public String getEmailAddress() {
+        return emailAddress;
+    }
+
+    public void setEmailAddress(String emailAddress) {
+        this.emailAddress = emailAddress;
+    }
+
+    public double getFine() {
+        return fine;
+    }
+
+    public void setFine(double fine) {
+        this.fine = fine;
+    }
+
+    public void setCustomerID(int customerID) {
+        this.customerID = customerID;
+    }
+
+    public int getCustomerID() {
+        return customerID;
+    }
+
+    public java.util.Date getLastUpdated() {
+        return lastUpdated;
+    }
+    public int getBSN() {
+        return BSN;
+    }
+    
+    //Costumers vergelijken om de juiste te krijgen
+    
     @Override
-    public String toString() {
-        return super.toString(); //To change body of generated methods, choose Tools | Templates.
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Customer)) return false;
+
+        Customer customer = (Customer) o;
+
+        return getBSN() == customer.getBSN();
     }
 
-    
 }
