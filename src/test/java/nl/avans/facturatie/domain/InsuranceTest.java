@@ -5,6 +5,7 @@
  */
 package nl.avans.facturatie.domain;
 
+import nl.avans.facturatie.model.Insurance;
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.Test;

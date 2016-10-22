@@ -5,6 +5,7 @@
  */
 package nl.avans.facturatie.domain;
 
+import nl.avans.facturatie.model.Billing;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
