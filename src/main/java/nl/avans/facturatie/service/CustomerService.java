@@ -1,4 +1,4 @@
-package nl.avans.facturatie.businesslogic;
+package nl.avans.facturatie.service;
 
 
 import org.slf4j.Logger;
@@ -8,19 +8,19 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
-import nl.avans.facturatie.datastorage.CustomerDAO;
-import nl.avans.facturatie.domain.Customer;
+import nl.avans.facturatie.repository.CustomerRepository;
+import nl.avans.facturatie.model.Customer;
 
 @Service
-public class CustomerController {
+public class CustomerService {
 
-    private final Logger logger = LoggerFactory.getLogger(CustomerController.class);;
+    private final Logger logger = LoggerFactory.getLogger(CustomerService.class);;
 
-    private CustomerDAO customerDAO;
+    private CustomerRepository customerDAO;
     private Customer customer;
 
     @Autowired
-    public CustomerController(CustomerDAO customerDAO) {
+    public CustomerService(CustomerRepository customerDAO) {
         this.customerDAO = customerDAO;
     }
 

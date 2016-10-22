@@ -2,7 +2,7 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package nl.avans.facturatie.datastorage;
+package nl.avans.facturatie.repository;
 
 import java.sql.*;
 

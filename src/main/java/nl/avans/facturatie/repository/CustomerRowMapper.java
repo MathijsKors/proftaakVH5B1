@@ -1,10 +1,10 @@
-package nl.avans.facturatie.datastorage;
+package nl.avans.facturatie.repository;
 
 import org.springframework.jdbc.core.RowMapper;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import nl.avans.facturatie.domain.Customer;
+import nl.avans.facturatie.model.Customer;
 
 /**
  * Created by Robin Schellius on 31-8-2016.

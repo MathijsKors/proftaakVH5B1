@@ -3,12 +3,12 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package nl.avans.facturatie.presentation;
+package nl.avans.facturatie.controller;
 
 import java.util.List;
-import nl.avans.facturatie.businesslogic.CustomerController;
-import nl.avans.facturatie.datastorage.CustomerDAO;
-import nl.avans.facturatie.domain.Customer;
+import nl.avans.facturatie.service.CustomerService;
+import nl.avans.facturatie.repository.CustomerRepository;
+import nl.avans.facturatie.model.Customer;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -34,7 +34,7 @@ class APIController {
 //    
 //    @GetMapping("/api/customer/{ID}")
 //    public List<Customer> findCostumer(@PathVariable int ID, Model model) {
-//        List<Customer> customer = CustomerDAO.findAll();
+//        List<Customer> customer = CustomerRepository.findAll();
 //       //model.addAttribute("owner", customer);
 //       return List<Customer>;
 //    }

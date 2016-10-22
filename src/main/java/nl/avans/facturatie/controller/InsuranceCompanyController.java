@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package nl.avans.facturatie.presentation;
+package nl.avans.facturatie.controller;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -11,19 +11,22 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 /**
  *
- * @author Tom Maljaars
+ * @author Dorian
  */
-
 @Controller
-public class BillingController {
-    
-    @RequestMapping("billing")
-    String billing(Model model) {
-        
+class InsuranceCompanyController {
+
+    @RequestMapping("/insurancecompany")
+    String insurancecompany(Model model) {
+        model.addAttribute("insurancecompany");
+
         // Zet een 'flag' om in Bootstrap header nav het actieve menu item te vinden.
         
-        model.addAttribute("classActiveBilling","active");
-        return "views/billing/billing";
+        model.addAttribute("classActiveInsuranceCompany","active");
+        return "views/insurancecompany/create";
+        
+        
     }
+
     
 }

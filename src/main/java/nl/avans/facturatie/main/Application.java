@@ -2,7 +2,7 @@ package nl.avans.facturatie.main;
 
 import nl.avans.facturatie.config.ApplicationConfig;
 import nl.avans.facturatie.config.ApplicationContext;
-import nl.avans.facturatie.datastorage.DatabaseConnection;
+import nl.avans.facturatie.repository.DatabaseConnection;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

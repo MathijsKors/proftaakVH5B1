@@ -3,17 +3,17 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package nl.avans.facturatie.datastorage;
+package nl.avans.facturatie.repository;
 
 /**
  *
  * @author Dorian
  */
-public class BaseDAO {
+public class BaseRepository {
     DatabaseConnection con;
     
     
-    public BaseDAO(DatabaseConnection con){
+    public BaseRepository(DatabaseConnection con){
         this.con = con;
         
     }

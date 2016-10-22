@@ -3,9 +3,9 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package nl.avans.facturatie.datastorage;
+package nl.avans.facturatie.repository;
 
-import nl.avans.facturatie.domain.Insurance;
+import nl.avans.facturatie.model.Insurance;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -16,9 +16,9 @@ import java.util.logging.Logger;
  *
  * @author Dorian
  */
-public class InsuranceDAO extends BaseDAO{
+public class InsuranceRepository extends BaseRepository{
     
-    public InsuranceDAO(DatabaseConnection con) {
+    public InsuranceRepository(DatabaseConnection con) {
         super(con);
     }
         public ArrayList<Insurance> FindInsurances(){
@@ -41,7 +41,7 @@ public class InsuranceDAO extends BaseDAO{
                         insurancelist.add(new Insurance(insnumber, insurancetype, insuranceprofile, costpMonth));
                     }
                 } catch (SQLException ex) {
-                    Logger.getLogger(InsuranceDAO.class.getName()).log(Level.SEVERE, null, ex);
+                    Logger.getLogger(InsuranceRepository.class.getName()).log(Level.SEVERE, null, ex);
                 }
                 connection.closeConnection();
             }

@@ -3,12 +3,12 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package nl.avans.facturatie.businesslogic;
+package nl.avans.facturatie.service;
 
 /**
  *
  * @author Tom Maljaars
  */
-public class BillingController {
+public class BillingService {
     
 }

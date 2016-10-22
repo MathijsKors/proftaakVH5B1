@@ -1,4 +1,4 @@
-package nl.avans.facturatie.datastorage;
+package nl.avans.facturatie.repository;
 
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.DocumentBuilder;
@@ -8,7 +8,7 @@ import org.w3c.dom.Node;
 import org.w3c.dom.Element;
 import java.io.File;
 
-public class TreatmentDAO {
+public class TreatmentRepository {
 
 private void ReadXML() {
 

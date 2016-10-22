@@ -1,19 +1,20 @@
-package nl.avans.facturatie.presentation;
+package nl.avans.facturatie.controller;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+        
 
 @Controller
-class LoginController {
+class HomeController {
 
-    @RequestMapping("/login")
-    String login(Model model) {
+    @RequestMapping("/")
+    String index(Model model) {
 
         // Zet een 'flag' om in Bootstrap header nav het actieve menu item te vinden.
         
-        model.addAttribute("classActiveLogin","active");
-        return "views/userlogin/login";
+        model.addAttribute("classActiveHome","active");
+        return "views/home/index";
         
         
     }
