@@ -36,6 +36,8 @@
     background-color: white;
 }
 
+/* Header */
+
 .jumbotron{
    background: url(../img/office1.jpg) fixed;
    background-size: cover;

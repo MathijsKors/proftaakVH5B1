@@ -56,14 +56,11 @@ public class Customer {
             message="{invalid.email}")
     private String emailAddress;
 
-    @DecimalMin("0.0")
-    private double fine;
-
     private java.util.Date lastUpdated;
 
     public Customer() {  }
 
-    public Customer(String firstName, String lastName, int BSN,String street, String houseNumber, String city, String phoneNumber, String emailAddress, double fine) {
+    public Customer(String firstName, String lastName, int BSN,String street, String houseNumber, String city, String phoneNumber, String emailAddress) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.street = street;
@@ -71,7 +68,6 @@ public class Customer {
         this.city = city;
         this.phoneNumber = phoneNumber;
         this.emailAddress = emailAddress;
-        this.fine = fine;
         // ID is de auto increment waarde uit de database.
         // wordt hier ingevuld wanneer een Customer aangemaakt wordt in de dtb.
         this.customerID = 0;
@@ -133,14 +129,6 @@ public class Customer {
 
     public void setEmailAddress(String emailAddress) {
         this.emailAddress = emailAddress;
-    }
-
-    public double getFine() {
-        return fine;
-    }
-
-    public void setFine(double fine) {
-        this.fine = fine;
     }
 
     public void setCustomerID(int customerID) {

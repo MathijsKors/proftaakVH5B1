@@ -25,9 +25,9 @@ import javax.sql.DataSource;
 public class PersistenceContext {
 
     protected static final String PROPERTY_NAME_DATABASE_DRIVER = "com.mysql.jdbc.Driver";
-    protected static final String PROPERTY_NAME_DATABASE_PASSWORD = "10ec4u";
+    protected static final String PROPERTY_NAME_DATABASE_PASSWORD = "Fac*turatie";
     protected static final String PROPERTY_NAME_DATABASE_URL = "jdbc:mysql://145.48.6.147/facturatie";
-    protected static final String PROPERTY_NAME_DATABASE_USERNAME = "root";
+    protected static final String PROPERTY_NAME_DATABASE_USERNAME = "Facturatie";
 
     private static final String PROPERTY_PACKAGES_TO_SCAN = "nl.avans.facturatie.config";
 

@@ -22,7 +22,6 @@ class CustomerRowMapper implements RowMapper<Customer>
         customer.setCity(rs.getString("City"));
         customer.setPhoneNumber(rs.getString("PhoneNumber"));
         customer.setEmailAddress(rs.getString("EmailAddress"));
-        customer.setFine(rs.getDouble("Fine"));
         return customer;
     }
 }

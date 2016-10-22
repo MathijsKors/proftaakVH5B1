@@ -57,7 +57,7 @@ public class Application {
         
         
         //Database connection
-        DatabaseConnection con = new DatabaseConnection( "jdbc:mysql://145.48.6.147/facturatie", "root", "10ec4u");
+        DatabaseConnection con = new DatabaseConnection( "jdbc:mysql://145.48.6.147/facturatie", "Facturatie", "Fac*turatie");
         
         
         

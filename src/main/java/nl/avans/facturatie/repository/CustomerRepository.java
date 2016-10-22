@@ -40,7 +40,7 @@ public class CustomerRepository
     @Transactional(readOnly=true)
     public List<Customer> findAll() {
         logger.info("findAll");
-        List<Customer> result = jdbcTemplate.query("SELECT * FROM customer", new CustomerRowMapper());
+        List<Customer> result = jdbcTemplate.query("SELECT * FROM customers", new CustomerRowMapper());
         logger.info("found " + result.size() + " customers");
         return result;
     }
@@ -67,7 +67,7 @@ public class CustomerRepository
 
         logger.debug("create repository = " + customer.getFullName());
 
-        final String sql = "INSERT INTO customer(`FirstName`, `LastName`, `Street`, `HouseNumber`, `City`, `PhoneNumber`, `EmailAddress`, `Fine`) " +
+        final String sql = "INSERT INTO customers(`FirstName`, `LastName`, `Street`, `HouseNumber`, `City`, `PhoneNumber`, `EmailAddress`) " +
                 "VALUES(?,?,?,?,?,?,?,?)";
 
         // KeyHolder gaat de auto increment key uit de database bevatten.
@@ -84,7 +84,6 @@ public class CustomerRepository
                 ps.setString(5, customer.getCity());
                 ps.setString(6, customer.getPhoneNumber());
                 ps.setString(7, customer.getEmailAddress());
-                ps.setDouble(8, 0.0);
                 return ps;
             }
         }, holder);
@@ -97,6 +96,6 @@ public class CustomerRepository
 
     public void deleteCustomerById(int id) {
         logger.debug("deleteCustomerById");
-        jdbcTemplate.update("DELETE FROM customer WHERE CustomerID=?", new Object[]{id});
+        jdbcTemplate.update("DELETE FROM customer WHERE CustomersID=?", new Object[]{id});
     }
 }
