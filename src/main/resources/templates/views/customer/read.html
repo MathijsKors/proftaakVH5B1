@@ -4,13 +4,13 @@
 <body>
 
 <!-- Header -->
-    <div th:replace="fragments/header :: header"></div>
+<div th:replace="fragments/header :: header"></div>
 
     <!--/* Content of this page will be decorated by the elements of layout.html (student/layout) */-->
     <div class="container" layout:fragment="summary">
 
         <div class="page-header">
-            <h1>Informatie</h1>
+            <h1>Informatie klant</h1>
         </div>
         <p>Hieronder ziet u de geselecteerde klant.</p>
             <!--<p th:if="${repository.empty}"> No customers found.</p>-->
@@ -34,52 +34,7 @@
                             <div class="col-xs-3">Telefoon</div>
                                 <div class="col-xs-9"><p th:text="${customer.phoneNumber}">Tele ...</p>
                             </div>
-                            <div class="col-xs-3">Boete</div>
-                            <div class="col-xs-9">
-                                <p th:text="${customer.fine}">Email ...</p>
-                            </div>
                         </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-sm-8">
-                <div class="panel panel-default">
-                    <div class="panel-body">
-                        <h2>Boeken in bezit</h2>
-
-                        <table class="table table-condensed">
-                            <thead>
-                            <tr>
-                                <th class="col-sm-2">ISBN</th>
-                                <th class="col-sm-1">CopyID</th>
-                                <th class="col-sm-4">Titel</th>
-                                <th class="col-sm-3">Auteur</th>
-                                <th class="col-sm-2">Geleend op</th>
-                                <th></th>
-                            </tr>
-                            </thead>
-                            <tbody>
-                                <tr th:if="${loans.empty}">
-                                    <td colspan="4">Geen uitleningen gevonden.</td>
-                                </tr>
-                                <tr th:each="loan : ${loans}">
-                                    <td th:text="${loan.bookISBN}">ISBN</td>
-                                    <td th:text="${loan.CopyID}">ISBN</td>
-                                    <td><a th:href="@{/book/{id}(id=${loan.bookISBN})}" th:text="${loan.BookTitle}">Titel...</a></td>
-                                    <td th:text="${loan.bookAuthor}">Author</td>
-                                    <td th:text="${loan.loanDate}">Date</td>
-                                    <td>
-                                        <form th:action="@{/loan/finish}" th:object="${loan}" method="POST" class="form-horizontal">
-                                            <input type="hidden" name="LoanID" th:value="${loan.LoanID}" />
-                                            <input type="hidden" name="customerID" th:value="${loan.customerID}" />
-                                            <div class="form-group">
-                                                <button type="submit" class="btn btn-warning" name="save"><i class="glyphicon glyphicon-download-alt nomargin"></i></button>
-                                            </div>
-                                        </form>
-                                    </td>
-                                </tr>
-                            </tbody>
-                        </table>
                     </div>
                 </div>
             </div>
@@ -87,11 +42,9 @@
 
         <div class="row">
             <div class="col-sm-6">
-                <a href="/customer" class="btn btn-primary btn-lg active pull-left" role="button">Terug naar het overzicht</a>
-            </div>
-            <div class="col-sm-6">
+                <a href="/customers" class="btn btn-primary active pull-left" role="button">Terug naar het overzicht</a>
                 <!-- Button trigger modal -->
-                <button type="button" class="btn btn-danger btn-lg pull-right" data-toggle="modal" data-target="#myModal">
+                <button type="button" class="btn btn-danger pull-left" data-toggle="modal" data-target="#myModal">
                     Verwijderen
                 </button>
             </div>
@@ -105,7 +58,7 @@
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                         </button>
-                        <h4 class="modal-title" id="myModalLabel">Member verwijderen</h4>
+                        <h4 class="modal-title" id="myModalLabel">Klant verwijderen</h4>
                     </div>
                     <div class="modal-body">
                         <p>Weet je zeker dat je <span th:text="${customer.firstName} + ' ' + ${customer.lastName}">deze customer</span> wilt verwijderen?</p>
@@ -122,26 +75,11 @@
     </div>
 
     <footer class="footer">
-        <div th:replace="fragments/footer :: footer">&copy; 2016 blog.codeleak.pl</div>
+        <div th:replace="fragments/footer :: footer">&copy; 2016 Facturatie Systeem</div>
     </footer>
+    
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
 
-    <script>
-        function sendAjaxDeleteRequest(id) {
-            $.ajax({
-                url: '/customer/' + id,
-                type: 'DELETE',
-                success: function(result) {
-                    // Go to the list of customers
-                    location.href = "/customer"
-                },
-                error: function(result) {
-                    alert('Error: kon deze persoon niet verwijderen.');
-                }
-            });
-         }
-    </script>
-
-    <script src="https://cdn.jsdelivr.net/webjars/jquery/2.2.1/jquery.min.js" th:src="@{/webjars/jquery/2.2.1/jquery.min.js}"></script>
-    <script src="https://cdn.jsdelivr.net/webjars/bootstrap/3.3.6/js/bootstrap.min.js" th:src="@{/webjars/bootstrap/3.3.6/js/bootstrap.min.js}"></script>
 </body>
 </html>

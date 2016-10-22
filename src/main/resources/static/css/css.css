@@ -85,3 +85,8 @@ img.logo{
     
 }
 
+
+.thead-default th {
+    color: rgb(85, 89, 92);
+    background-color: rgb(236, 238, 239);
+}

@@ -54,7 +54,7 @@ public class CustomerRepository
     public Customer findCustomerById(int id) {
         logger.info("findCustomerById");
         return jdbcTemplate.queryForObject(
-                "SELECT * FROM customer WHERE CustomerID=?",
+                "SELECT * FROM customers WHERE CustomerID=?",
                 new Object[]{id}, new CustomerRowMapper());
     }
 

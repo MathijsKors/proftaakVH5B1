@@ -16,13 +16,14 @@
         <p>Hieronder ziet u het overzicht van de klanten. Door op de naam te klikken, kunt u de gegevens inzien.</p>
         
         <div class="table-responsive">
-            <table class="table table-striped table-hover table-bordered ">
-                <thead class="thead-inverse">
+            <table class="table table-striped table-hover table-condensed">
+                <thead class="thead-default">
                     <tr>
                         <th>Klanten ID</th>
                         <th>Naam</th>
                         <th>Telefoonnummer</th>
                         <th>Email</th>
+                        <th>Meer informatie</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -31,9 +32,10 @@
                     </tr>
                     <tr th:each="customer : ${customers}">
                         <td th:text="${customer.customerID}">1</td>
-                        <td><a th:href="@{/customer/{id}(id=${customer.customerID})}" th:text="${customer.firstName} + ' ' + ${customer.lastName}">Naam ...</a></td>
+                        <td th:text="${customer.firstName} + ' ' + ${customer.lastName}">Naam ...</td>
                         <td th:text="${customer.phoneNumber}">Telefoonnummer ...</td>
                         <td th:text="${customer.emailAddress}">Email ...</td>
+                        <td><a class="btn btn-primary btn-xs active" role="button" th:href="@{/customer/{id}(id=${customer.customerID})}">Meer info</a></td>
                     </tr>
                 </tbody>
             </table>

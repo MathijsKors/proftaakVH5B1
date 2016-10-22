@@ -5,62 +5,62 @@
  */
 package nl.avans.facturatie.controller;
 
+import java.util.Collection;
 import java.util.List;
-import nl.avans.facturatie.service.CustomerService;
-import nl.avans.facturatie.repository.CustomerRepository;
 import nl.avans.facturatie.model.Customer;
+import nl.avans.facturatie.service.CustomerService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 /**
  *
  * @author Tom Maljaars
  */
-
-@Controller
+@RestController
+@RequestMapping("/api")
 class APIController {
     
-    @RequestMapping("/api")
-    String api(Model model) {
-        model.addAttribute("classActiveApi","active");
-        // Zet een 'flag' om in Bootstrap header nav het actieve menu item te vinden.
-        return "views/api/api";
-    }
-//    
-//    @GetMapping("/api/customer/{ID}")
-//    public List<Customer> findCostumer(@PathVariable int ID, Model model) {
-//        List<Customer> customer = CustomerRepository.findAll();
-//       //model.addAttribute("owner", customer);
-//       return List<Customer>;
-//    }
-//    
-//    @RequestMapping(value = "/customers", method = RequestMethod.GET)
-//    public String listCustomers(Model model) {
-//        logger.debug("listCustomers");
-//        // Zet de opgevraagde members in het model
-//        model.addAttribute("customers", CustomersService.findAllMembers());
-//        // Open de juiste view template als resultaat.
-//        return "views/member/list";
-//    }
+    private final Logger logger = LoggerFactory.getLogger(CustomerController.class);;
+    private List<Customer> customer;
+    
+    @Autowired
+    CustomerService customerService;
 
-    
-//    @RequestMapping("/api/customer/all")
-//    public List getAllCustomers(@RequestParam(value="name", defaultValue="Null") String name) {
-//        return new Greeting(counter.incrementAndGet(),
-//                            String.format(template, name));
-//    }
-    
-//    @RequestMapping
-//    public List<Customer> getAllCustomers {
-//        return Customer.getAllCustomers();
-//    }
+    @RequestMapping(value = "/customer/all", method = RequestMethod.GET)
+    public ResponseEntity<List<Customer>> findAllCustomers() {
+        List<Customer> customer = customerService.findAllCustomers();
+        if(customer.isEmpty()){
+            return new ResponseEntity<List<Customer>>(HttpStatus.NO_CONTENT);//You many decide to return HttpStatus.NOT_FOUND
+        }
+        return new ResponseEntity<List<Customer>>(customer, HttpStatus.OK);
+    }
+
+    @RequestMapping(value = "/customer/{id}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<Customer> getCustomer(@PathVariable("id") int id) {
+        System.out.println("Fetching Customer with id " + id);
+        Customer customer = customerService.findCustomerById(id);
+        if (customer == null) {
+            System.out.println("Customer with id " + id + " not found");
+            return new ResponseEntity<Customer>(HttpStatus.NOT_FOUND);
+        }
+        return new ResponseEntity<Customer>(customer, HttpStatus.OK);
+    }
     
 }
+
 
 
 
