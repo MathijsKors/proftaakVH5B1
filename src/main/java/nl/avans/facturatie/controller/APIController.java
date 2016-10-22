@@ -30,7 +30,7 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
  * @author Tom Maljaars
  */
 @RestController
-@RequestMapping("/api")
+@RequestMapping("/api/customer")
 class APIController {
     
     private final Logger logger = LoggerFactory.getLogger(CustomerController.class);;
@@ -39,7 +39,7 @@ class APIController {
     @Autowired
     CustomerService customerService;
 
-    @RequestMapping(value = "/customer/all", method = RequestMethod.GET)
+    @RequestMapping(value = "/all", method = RequestMethod.GET)
     public ResponseEntity<List<Customer>> findAllCustomers() {
         List<Customer> customer = customerService.findAllCustomers();
         if(customer.isEmpty()){
@@ -48,7 +48,7 @@ class APIController {
         return new ResponseEntity<List<Customer>>(customer, HttpStatus.OK);
     }
 
-    @RequestMapping(value = "/customer/{id}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+    @RequestMapping(value = "/{id}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Customer> getCustomer(@PathVariable("id") int id) {
         System.out.println("Fetching Customer with id " + id);
         Customer customer = customerService.findCustomerById(id);
