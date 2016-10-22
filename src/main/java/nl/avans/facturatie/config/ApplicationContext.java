@@ -24,7 +24,7 @@ import org.thymeleaf.templateresolver.ServletContextTemplateResolver;
  *
  */
 @Configuration
-@EnableAutoConfiguration
+@EnableAutoConfiguration(exclude={PersistenceContext.class})
 @ComponentScan(basePackages = {
         "nl.avans.facturatie"
 })
