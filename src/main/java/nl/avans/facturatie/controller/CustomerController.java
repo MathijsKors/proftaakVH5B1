@@ -59,17 +59,17 @@ public class CustomerController {
      * @param model
      * @return
      */
-    @RequestMapping(value="/customers/create", method = RequestMethod.GET)
+    @RequestMapping(value="/customer/create", method = RequestMethod.GET)
     public String showCreateCustomerForm(final Customer customer, final ModelMap model) {
         logger.debug("showCreateCustomerForm");
         return "views/customer/create";
     }
 
-    @RequestMapping(value = "/customers/{id}", method = RequestMethod.DELETE)
+    @RequestMapping(value = "/customer/{id}", method = RequestMethod.DELETE)
     public String deleteCustomer(Model model, @PathVariable String id) {
         logger.debug("deleteCustomer, id = " + id);
 
-        // Delete de customer aan via de customer
+        // Delete de customer
         customerService.delete(Integer.parseInt(id));
         // We gaan de lijst met customers tonen, met een bericht dat de nieuwe customer toegevoegd is.
         // Zet de opgevraagde customers in het model
@@ -80,13 +80,13 @@ public class CustomerController {
     }
 
     /**
-     * Haal het member met gegeven ID uit de database en toon deze in een view.
+     * Haal het customer met gegeven ID uit de database en toon deze in een view.
      * @param model
      * @param id
      * @return
      */
     @RequestMapping(value = "/customer/{id}", method = RequestMethod.GET)
-    public String listOneMember(Model model, @PathVariable int id) {
+    public String listOneCustomer(Model model, @PathVariable int id) {
         // Zet de opgevraagde waarden in het model
         model.addAttribute("customer", customerService.findCustomerById(id));
         return "views/customer/read";
@@ -106,6 +106,7 @@ public class CustomerController {
 //        mav.setViewName("views/customer/create");
         return mav;
     }
+    
 
     /**
      * Retourneer alle customers. Wordt gebruikt bij het uitlenen van een boek,

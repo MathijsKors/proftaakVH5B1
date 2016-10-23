@@ -96,6 +96,6 @@ public class CustomerRepository
 
     public void deleteCustomerById(int id) {
         logger.debug("deleteCustomerById");
-        jdbcTemplate.update("DELETE FROM customer WHERE CustomersID=?", new Object[]{id});
+        jdbcTemplate.update("DELETE FROM customers WHERE CustomerID=?", new Object[]{id});
     }
 }
