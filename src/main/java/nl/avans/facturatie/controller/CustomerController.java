@@ -64,6 +64,33 @@ public class CustomerController {
         logger.debug("showCreateCustomerForm");
         return "views/customer/create";
     }
+    
+    
+    @RequestMapping(value="/customer/create", method = RequestMethod.POST)
+    public String validateAndSaveCustomer(@Valid Customer customer, final BindingResult bindingResult, final ModelMap model) {
+        logger.debug("validateAndSaveCustomer - adding customer = " + customer.getFullName());
+
+        if (bindingResult.hasErrors()) {
+            // Als er velden in het formulier zijn die niet correct waren ingevuld vinden we die hier.
+            // We blijven dan op dezelfde pagina. De foutmeldingen worden daar getoond
+            // (zie het create.html bestand.
+            logger.debug("validateAndSaveCustomer - not added, bindingResult.hasErrors");
+            return "views/customer/create";
+        }
+        // Maak de customer aan via de customer
+        Customer newCustomer = customerService.create(customer);
+        if(newCustomer != null) {
+            model.addAttribute("info", "Customer '" + newCustomer.getFirstName() + " " + newCustomer.getLastName() + "' is toegevoegd.");
+        } else {
+            logger.error("Customer kon niet gemaakt worden.");
+            model.addAttribute("info", "Customer kon niet gemaakt worden.");
+        }
+        // We gaan de lijst met customers tonen, met een bericht dat de nieuwe customer toegevoegd is.
+        // Zet de opgevraagde customers in het model
+        model.addAttribute("customers", customerService.findAllCustomers());
+        // Open de juiste view template als resultaat.
+        return "views/customer/list";
+    }
 
     @RequestMapping(value = "/customer/{id}", method = RequestMethod.DELETE)
     public String deleteCustomer(Model model, @PathVariable String id) {

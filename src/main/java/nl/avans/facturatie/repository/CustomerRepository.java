@@ -67,7 +67,7 @@ public class CustomerRepository
 
         logger.debug("create repository = " + customer.getFullName());
 
-        final String sql = "INSERT INTO customers(`FirstName`, `LastName`, `Street`, `HouseNumber`, `City`, `PhoneNumber`, `EmailAddress`) " +
+        final String sql = "INSERT INTO customers(`FirstName`, `LastName`, `Street`, `HouseNumber`, `City`, `PhoneNumber`, `EmailAddress`, `bsnNumber`) " +
                 "VALUES(?,?,?,?,?,?,?,?)";
 
         // KeyHolder gaat de auto increment key uit de database bevatten.
@@ -84,6 +84,7 @@ public class CustomerRepository
                 ps.setString(5, customer.getCity());
                 ps.setString(6, customer.getPhoneNumber());
                 ps.setString(7, customer.getEmailAddress());
+                ps.setString(8, customer.getbsnNumber());
                 return ps;
             }
         }, holder);
