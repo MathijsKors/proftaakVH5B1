@@ -9,15 +9,15 @@
     <div class="container">
 
         <div class="page-header">
-            <h1>Create Member</h1>
+            <h1>Create Customer</h1>
         </div>
-        <p>Hier kunt je een nieuwe member toevoegen.</p>
+        <p>Hier kunt je een nieuwe customer toevoegen.</p>
 
         <!-- Form om een nieuwe repository te maken. Het object 'repository' is het object waarin de
-            waarden uit het formulier worden ingevuld. Het is afkomstig uit de MemberController. -->
-        <form id="createMemberForm" action="#" th:action="@{/member/create}" th:object="${member}" method="post">
+            waarden uit het formulier worden ingevuld. Het is afkomstig uit de CustomerController. -->
+        <form id="createCustomerForm" action="#" th:action="@{/customer/create}" th:object="${customer}" method="post">
 
-            <!-- Het formulier wordt na verzenden gevalideerd in de MemberController.
+            <!-- Het formulier wordt na verzenden gevalideerd in de CustomerController.
                 Als er fouten waren kun je hier een lijst met foutmeldingen tonen.
                 Je kunt ook de melding bij het inputveld tonen (zie code hieronder) en evt. de CSS class
                 van het inputveld veranderen. -->
@@ -26,7 +26,7 @@
             <!--</ul>-->
 
             <div th:if="${#fields.hasErrors('*')}">
-                <div layout:include="views/member/alert :: alert" th:with="type='danger', header='Fouten in het formulier'" th:remove="tag">
+                <div layout:include="views/customer/alert :: alert" th:with="type='danger', header='Fouten in het formulier'" th:remove="tag">
                     <!--/* Implements alert summary fragment with full-blown HTML summary */-->
                     <th:block layout:fragment="alert-summary">
                         <p>Niet alle velden in het formulier zijn correct ingevuld. Corrigeer deze en verzend opnieuw.</p>
@@ -35,7 +35,7 @@
                 </div>
             </div>
             <div th:if="${exception}">
-                <div layout:include="views/member/alert :: alert" th:with="type='danger', header='Fouten in het formulier'" th:remove="tag">
+                <div layout:include="views/customer/alert :: alert" th:with="type='danger', header='Fouten in het formulier'" th:remove="tag">
                     <!--/* Implements alert summary fragment with full-blown HTML summary */-->
                     <th:block layout:fragment="alert-summary">
                         <p th:text="${exception}">Exception message</p>
@@ -103,7 +103,7 @@
                 </div>
             </div>
             <!-- De button die voor verzenden van het formulier zorgt.
-                De name 'save' is een parameter waarmee in de MemberController de juiste
+                De name 'save' is een parameter waarmee in de CustomerController de juiste
                 save-actie wordt gestart. -->
             <button type="submit" class="btn btn-primary" name="save">Submit</button>
 
