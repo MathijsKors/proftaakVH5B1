@@ -16,37 +16,36 @@ public class CustomerService {
 
     private final Logger logger = LoggerFactory.getLogger(CustomerService.class);;
 
-    private CustomerRepository customerDAO;
+    private CustomerRepository customerRepository;
     private Customer customer;
 
     @Autowired
-    public CustomerService(CustomerRepository customerDAO) {
-        this.customerDAO = customerDAO;
+    public CustomerService(CustomerRepository customerRepository) {
+        this.customerRepository = customerRepository;
     }
 
-//    public Customer create(Customer customer) {
-//        logger.info("create - new customer = " + customer.getName());
-//
-//        // Maak de customer aan via de repository
-//        Customer newCustomer = customerDAO.create(customer);
-//        return newCustomer;
-//    }
+    public Customer create(Customer customer) {
+        logger.info("create - new customer = " + customer.getFullName());
 
+        // Maak de customer aan via de repository
+        Customer newCustomer = customerRepository.create(customer);
+        return newCustomer;
+    }
 
     public void delete(int id) {
         logger.info("delete - customer = " + id);
-        this.customerDAO.deleteCustomerById(id);
+        this.customerRepository.deleteCustomerById(id);
     }
 
     public Customer findCustomerById(int id) {
         logger.info("findCustomerById - customer = " + id);
-        Customer result = customerDAO.findCustomerById(id);
+        Customer result = customerRepository.findCustomerById(id);
         return result;
     }
 
     public List<Customer> findAllCustomers() {
         logger.info("findAllCustomers");
-        return customerDAO.findAll();
+        return customerRepository.findAll();
     }
 
 }

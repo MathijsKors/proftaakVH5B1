@@ -30,10 +30,6 @@ public class Customer {
     private String lastName;
     
     @NotNull
-    @Size(min = 8, max = 9)
-    private int BSN;
-    
-    @NotNull
     @Size(min = 1, max = 32)
     private String street;
 
@@ -55,12 +51,16 @@ public class Customer {
             +"(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?",
             message="{invalid.email}")
     private String emailAddress;
+    
+    @NotNull
+    @Size(min = 7, max = 10)
+    private String bsnNumber;
 
     private java.util.Date lastUpdated;
 
     public Customer() {  }
 
-    public Customer(String firstName, String lastName, int BSN,String street, String houseNumber, String city, String phoneNumber, String emailAddress) {
+    public Customer(String firstName, String lastName,String street, String houseNumber, String city, String phoneNumber, String emailAddress, String bsnNumber) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.street = street;
@@ -68,6 +68,7 @@ public class Customer {
         this.city = city;
         this.phoneNumber = phoneNumber;
         this.emailAddress = emailAddress;
+        this.bsnNumber = bsnNumber;
         // ID is de auto increment waarde uit de database.
         // wordt hier ingevuld wanneer een Customer aangemaakt wordt in de dtb.
         this.customerID = 0;
@@ -142,20 +143,26 @@ public class Customer {
     public java.util.Date getLastUpdated() {
         return lastUpdated;
     }
-    public int getBSN() {
-        return BSN;
+    public String getbsnNumber() {
+        return bsnNumber;
     }
+    
+    public void setbsnNumber(String bsnNumber) {
+        this.bsnNumber = bsnNumber;
+    }
+
     
     //Costumers vergelijken om de juiste te krijgen
-    
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (!(o instanceof Customer)) return false;
+//    
+//    @Override
+//    public boolean equals(Object o) {
+//        if (this == o) return true;
+//        if (!(o instanceof Customer)) return false;
+//
+//        Customer customer = (Customer) o;
+//
+//        return getBSNNumber() == customer.getBSNNumber();
+//    }
 
-        Customer customer = (Customer) o;
-
-        return getBSN() == customer.getBSN();
-    }
 
 }
