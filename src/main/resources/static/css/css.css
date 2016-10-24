@@ -109,3 +109,47 @@ img.logo{
     border-color: #000;
     
 }
+
+/* Fix knop in tabel op mobile */
+/*@media (max-width: @screen-xs-max) {
+  .table-responsive {
+    width: 100%;
+    margin-bottom: (@line-height-computed * 0.75);
+    overflow-x: scroll;
+  }
+}
+.table-responsive.foo {
+      overflow-x: visible !important;
+      overflow-y: visible !important;
+    }
+    */
+    @media (max-width: 767px) {
+    .table-responsive .dropdown-menu {
+        position: static !important;
+    }
+}
+@media (min-width: 768px) {
+    .table-responsive {
+        overflow: visible;
+    }
+}
+
+.dropdownCell {
+    min-width:175px; 
+}
+
+@media (max-width: 500px) {
+ .btn-bekijk {
+  float: left;
+}
+}
+
+ @media (min-width: 501px) {
+ .btn-bekijk {
+  float: right;
+}
+}
+
+
+
+

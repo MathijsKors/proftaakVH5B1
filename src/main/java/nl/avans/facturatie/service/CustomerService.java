@@ -32,11 +32,11 @@ public class CustomerService {
         return newCustomer;
     }
     
-        public Customer edit(Customer customer) {
+    public Customer edit(Customer customer, int id) {
         logger.info("edit - customer = " + customer.getFullName());
 
         // Maak de customer aan via de repository
-        Customer editedcustomer = customerRepository.edit(customer);
+        Customer editedcustomer = customerRepository.edit(customer,id);
         return editedcustomer;
     }
 
