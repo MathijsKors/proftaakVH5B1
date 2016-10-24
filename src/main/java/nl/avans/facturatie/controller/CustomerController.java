@@ -91,6 +91,12 @@ public class CustomerController {
         // Open de juiste view template als resultaat.
         return "views/customer/list";
     }
+    
+    @RequestMapping(value="/customer/{id}/edit", method = RequestMethod.GET)
+    public String showEditCustomerForm(final Customer customer, final ModelMap model) {
+        logger.debug("showEditCustomerForm");
+        return "views/customer/edit";
+    }
 
     @RequestMapping(value = "/customer/{id}", method = RequestMethod.DELETE)
     public String deleteCustomer(Model model, @PathVariable String id) {
