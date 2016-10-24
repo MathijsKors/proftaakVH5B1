@@ -19,8 +19,8 @@ import nl.avans.facturatie.service.CustomerService;
 @Controller
 public class CustomerController {
 
-    private final Logger logger = LoggerFactory.getLogger(CustomerController.class);;
-
+    private final Logger logger = LoggerFactory.getLogger(CustomerService.class);;
+    
     private CustomerService customerService;
     private Customer customer;
 
@@ -91,6 +91,36 @@ public class CustomerController {
         // Open de juiste view template als resultaat.
         return "views/customer/list";
     }
+    
+    @RequestMapping(value="/customer/{id}/edit", method = RequestMethod.GET)
+    public String showEditCustomerForm(final Customer customer, final ModelMap model, @PathVariable int id) {
+        logger.debug("showEditCustomerForm");
+        model.addAttribute("customer", customerService.findCustomerById(id));
+        return "views/customer/edit";
+    }
+    
+    @RequestMapping(value="/customer/{id}/edit", method = RequestMethod.POST)
+    public String validateAndSaveEditedCustomer(@Valid Customer customer, @PathVariable String id, final BindingResult bindingResult, final ModelMap model) {
+        logger.debug("validateAndSaveEditedCustomer - edited customer = " + customer.getFullName());
+
+        if (bindingResult.hasErrors()) {
+            // Als er velden in het formulier zijn die niet correct waren ingevuld vinden we die hier.
+            // We blijven dan op dezelfde pagina. De foutmeldingen worden daar getoond
+            // (zie het create.html bestand.
+            logger.debug("validateAndSaveCustomer - not added, bindingResult.hasErrors");
+            return "views/customer/edit";
+        }
+        // Maak de customer aan via de customer
+        
+        customerService.edit(customer,Integer.parseInt(id));
+        
+        // We gaan de lijst met customers tonen, met een bericht dat de nieuwe customer toegevoegd is.
+        // Zet de opgevraagde customers in het model
+        model.addAttribute("customers", customerService.findAllCustomers());
+        // Open de juiste view template als resultaat.
+        return "views/customer/list";
+    }
+    
 
     @RequestMapping(value = "/customer/{id}", method = RequestMethod.DELETE)
     public String deleteCustomer(Model model, @PathVariable String id) {

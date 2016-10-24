@@ -14,9 +14,13 @@ import javax.sql.DataSource;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
+import java.sql.SQLIntegrityConstraintViolationException;
 import java.sql.Statement;
 import java.util.List;
+import nl.avans.facturatie.controller.CustomerController;
 import nl.avans.facturatie.model.Customer;
+import nl.avans.facturatie.service.CustomerService;
+import org.springframework.dao.DataIntegrityViolationException;
 
 /**
  * Created by Robin Schellius on 31-8-2016.
@@ -24,7 +28,7 @@ import nl.avans.facturatie.model.Customer;
 @Repository
 public class CustomerRepository
 {
-    private final Logger logger = LoggerFactory.getLogger(CustomerRepository.class);;
+    private final Logger logger = LoggerFactory.getLogger(CustomerService.class);;
 
     @SuppressWarnings("SpringJavaAutowiringInspection")
     @Autowired
@@ -72,6 +76,7 @@ public class CustomerRepository
 
         // KeyHolder gaat de auto increment key uit de database bevatten.
         KeyHolder holder = new GeneratedKeyHolder();
+        
         jdbcTemplate.update(new PreparedStatementCreator() {
 
             @Override
@@ -84,7 +89,7 @@ public class CustomerRepository
                 ps.setString(5, customer.getCity());
                 ps.setString(6, customer.getPhoneNumber());
                 ps.setString(7, customer.getEmailAddress());
-                ps.setString(8, customer.getbsnNumber());
+                ps.setString(8, customer.getBsnNumber());
                 return ps;
             }
         }, holder);
@@ -92,11 +97,79 @@ public class CustomerRepository
         // Zet de auto increment waarde in de Customer
         int newCustomerId = holder.getKey().intValue();
         customer.setCustomerID(newCustomerId);
+        logger.info(sql);
         return customer;
     }
 
+     public Customer edit(final Customer customer, int id) {
+
+        logger.info("edit repository = " + customer.getFullName());
+        
+        final String sql = "UPDATE `customers` SET `FirstName` = ?, `LastName` = ?, `Street` = ?, `HouseNumber` = ?, `City` = ?, `PhoneNumber` = ?, `EmailAddress` = ?, `bsnNumber` = ? WHERE `customers`.`CustomerID` = ?;";
+           
+        
+                //"UPDATE customers set (`FirstName`, `LastName`, `Street`, `HouseNumber`, `City`, `PhoneNumber`, `EmailAddress`, `bsnNumber`) WHERE CustomerID=?";
+
+        // KeyHolder gaat de auto increment key uit de database bevatten.
+        KeyHolder holder = new GeneratedKeyHolder();
+        
+        try {
+        jdbcTemplate.update(new PreparedStatementCreator() {
+
+            @Override
+            public PreparedStatement createPreparedStatement(Connection connection) throws SQLException {
+                PreparedStatement ps = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
+                ps.setString(1, customer.getFirstName());
+                ps.setString(2, customer.getLastName());
+                ps.setString(4, customer.getHouseNumber());
+                ps.setString(3, customer.getStreet());
+                ps.setString(5, customer.getCity());
+                ps.setString(6, customer.getPhoneNumber());
+                ps.setString(7, customer.getEmailAddress());
+                ps.setString(8, customer.getBsnNumber());
+                ps.setInt(9, id);
+                
+                return ps;
+            }
+        }, holder);
+
+        } catch (DataIntegrityViolationException e) {
+            System.out.println(e);
+        }
+     
+        
+        
+        
+        return customer;
+    }
+    
+    
+    
     public void deleteCustomerById(int id) {
         logger.debug("deleteCustomerById");
         jdbcTemplate.update("DELETE FROM customers WHERE CustomerID=?", new Object[]{id});
     }
+
+    
+        public boolean findCustomerByBSN(String bsn) {
+        logger.debug("findCustomerByBSN");
+        jdbcTemplate.update("SELECT FROM member WHERE bsnNumber=?", new Object[]{bsn});
+        return Boolean.TRUE;
+    }
+
+    
+ 
+//    @Transactional(readOnly=true)
+//    public boolean findCustomerByBSN(String bsn) {
+//        logger.info("findCustomerByBSN");
+//        Integer dbbsn = jdbcTemplate.queryForObject("SELECT count(*) FROM customers WHERE bsnNumber=918273953)", Integer.class, bsn);
+//        
+//        logger.info(dbbsn + "");
+//        
+//        if(dbbsn != null && dbbsn > 0){
+//            return true;
+//        }else{
+//            return false;
+//        }
+//    }
 }

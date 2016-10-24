@@ -10,13 +10,13 @@
     <div class="container" layout:fragment="summary">
 
         <div class="page-header">
-            <h1><i class="fa fa-plus" aria-hidden="true"></i>&nbsp;Nieuwe klant</h1>
+            <h1><i class="fa fa-pencil fa-fw"></i>&nbsp;Pas klant aan</h1>
         </div>
-        <p>Hier kunt je een nieuwe klant toevoegen.</p>
+        <p>Hier kunt u de klant aanpassen</p>
 
         <!-- Form om een nieuwe repository te maken. Het object 'repository' is het object waarin de
             waarden uit het formulier worden ingevuld. Het is afkomstig uit de CustomerController. -->
-        <form id="createCustomerForm" action="#" th:action="@{/customer/create}" th:object="${customer}" method="post">
+        <form id="editCustomerForm" action="#" th:action="@{'/customer/' + ${customer.customerID} + '/edit'}" th:object="${customer}" method="post">
 
             <!-- Het formulier wordt na verzenden gevalideerd in de CustomerController.
                 Als er fouten waren kun je hier een lijst met foutmeldingen tonen.
@@ -48,8 +48,8 @@
                 <div class="col-sm-4">
                     <div class="form-group">
                         <label for="firstname">Voornaam</label>
-                        <!-- th:field="*{name}" is de koppeling naar het attribuut 'name' van het object 'repository'-->
-                        <input type="text" class="form-control" id="firstname" th:field="*{firstName}"/>
+                        <!-- th:field="*{name}" is de koppeling naar het attribuut 'name' van het object 'repository' th:value="{costumer.}"-->
+                        <input type="text" class="form-control" id="firstname" th:value="${customer.firstName}" th:field="*{firstName}"/>
                         <p th:if="${#fields.hasErrors('firstName')}" th:errors="*{firstName}">Name Error</p>
                     </div>
                 </div>
@@ -113,7 +113,7 @@
             <!-- De button die voor verzenden van het formulier zorgt.
                 De name 'save' is een parameter waarmee in de CustomerController de juiste
                 save-actie wordt gestart. -->
-            <button type="submit" class="btn btn-primary" name="save">Maak aan</button>
+            <button type="submit" class="btn btn-primary" name="save">Pas aan</button>
 
         </form>
     </div>

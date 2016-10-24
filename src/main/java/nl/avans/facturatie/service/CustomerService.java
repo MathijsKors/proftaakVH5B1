@@ -31,6 +31,15 @@ public class CustomerService {
         Customer newCustomer = customerRepository.create(customer);
         return newCustomer;
     }
+    
+    public Customer edit(Customer customer, int id) {
+        logger.info("edit - customer = " + customer.getFullName());
+
+        // Maak de customer aan via de repository
+        Customer editedcustomer = customerRepository.edit(customer,id);
+        return editedcustomer;
+    }
+
 
     public void delete(int id) {
         logger.info("delete - customer = " + id);
