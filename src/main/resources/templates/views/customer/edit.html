@@ -31,7 +31,7 @@
                     <!--/* Implements alert summary fragment with full-blown HTML summary */-->
                     <th:block layout:fragment="alert-summary">
                         <p>Niet alle velden in het formulier zijn correct ingevuld. Corrigeer deze en verzend opnieuw.</p>
-                        <!--<p><button type="button" class="btn btn-danger">Take this action</button></p>-->
+                        
                     </th:block>
                 </div>
             </div>
@@ -40,10 +40,12 @@
                     <!--/* Implements alert summary fragment with full-blown HTML summary */-->
                     <th:block layout:fragment="alert-summary">
                         <p th:text="${exception}">Exception message</p>
+                        <ul th:if="${#fields.hasErrors('*')}" class="errorlist">
+                            <li th:each="err : ${#fields.errors('*')}" th:text="${err}">Input is incorrect</li>
+                        </ul>
                     </th:block>
                 </div>
             </div>
-
             <div class="row">
                 <div class="col-sm-4">
                     <div class="form-group">

@@ -1,4 +1,5 @@
 package nl.avans.facturatie.controller;
+import com.mysql.jdbc.exceptions.MySQLIntegrityConstraintViolationException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -77,14 +78,26 @@ public class CustomerController {
             logger.debug("validateAndSaveCustomer - not added, bindingResult.hasErrors");
             return "views/customer/create";
         }
+       
+        //check of BSN al bestaat
+        int status = customerService.findCustomerByBSN(customer.getBsnNumber());
+                
+        if(status >= 1){
+            System.out.println("BSN is al ingebruik.");
+            bindingResult.rejectValue("bsnNumber", "", "BSN is al ingebruik.");
+            return "views/customer/create";
+        }
+        
         // Maak de customer aan via de customer
         Customer newCustomer = customerService.create(customer);
         if(newCustomer != null) {
-            model.addAttribute("info", "Customer '" + newCustomer.getFirstName() + " " + newCustomer.getLastName() + "' is toegevoegd.");
+            model.addAttribute("info", "Klant '" + newCustomer.getFirstName() + " " + newCustomer.getLastName() + "' is toegevoegd.");
         } else {
-            logger.error("Customer kon niet gemaakt worden.");
-            model.addAttribute("info", "Customer kon niet gemaakt worden.");
-        }
+                logger.error("Klant kon niet gemaakt worden.");
+                model.addAttribute("info", "Klant kon niet gemaakt worden.");
+            }
+
+
         // We gaan de lijst met customers tonen, met een bericht dat de nieuwe customer toegevoegd is.
         // Zet de opgevraagde customers in het model
         model.addAttribute("customers", customerService.findAllCustomers());
@@ -103,6 +116,9 @@ public class CustomerController {
     public String validateAndSaveEditedCustomer(@Valid Customer customer, @PathVariable String id, final BindingResult bindingResult, final ModelMap model) {
         logger.debug("validateAndSaveEditedCustomer - edited customer = " + customer.getFullName());
 
+        
+        //error handeling met het aanpassen van een gebruiker gaat nog niet goed!
+        
         if (bindingResult.hasErrors()) {
             // Als er velden in het formulier zijn die niet correct waren ingevuld vinden we die hier.
             // We blijven dan op dezelfde pagina. De foutmeldingen worden daar getoond
@@ -110,7 +126,6 @@ public class CustomerController {
             logger.debug("validateAndSaveCustomer - not added, bindingResult.hasErrors");
             return "views/customer/edit";
         }
-        // Maak de customer aan via de customer
         
         customerService.edit(customer,Integer.parseInt(id));
         
@@ -152,7 +167,6 @@ public class CustomerController {
     @ExceptionHandler(value = SQLException.class)
     public ModelAndView handleError(HttpServletRequest req, SQLException ex) {
         // logger.error("Request: " + req.getRequestURL() + " raised " + ex);
-
         ModelAndView mav = new ModelAndView();
         mav.addObject("exception", ex);
         mav.addObject("title", "Exception in CustomerController");
