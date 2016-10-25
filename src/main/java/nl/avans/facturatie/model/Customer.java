@@ -23,7 +23,7 @@ public class Customer {
     private int customerID;
     
     @NotNull
-    @Size(min = 7, max = 10)
+    @Size(min = 9, max = 10, message = "BSN moet 9 tot 10 cijfers bevatten.")
     //@UniqueBSN(message = "BSN is al in gebruik!")
     private String bsnNumber;
 
