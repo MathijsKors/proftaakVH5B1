@@ -7,7 +7,10 @@
         <h4 th:text="${header}">Alert header</h4>
         <!--/* 'layout:fragment' attribute defines a replaceable content section */-->
         <th:block layout:fragment="alert-content">
-            <p>Default alert content</p>
+            <p>Controleer de/het volgende veld(en):</p>
+            <ul th:if="${#fields.hasErrors('*')}" class="errorlist">
+                <li th:each="err : ${#fields.errors('*')}" th:text="${err}">Input is incorrect</li>
+            </ul>
         </th:block>
     </div>
 </th:block>

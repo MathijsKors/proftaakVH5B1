@@ -51,6 +51,12 @@ public class CustomerService {
         Customer result = customerRepository.findCustomerById(id);
         return result;
     }
+    
+    public int findCustomerByBSN(String bsnNumber){
+        logger.info("findCustomerByBSN - BSN = " + bsnNumber);
+        int result = customerRepository.findcustomerByBSN(bsnNumber);
+        return result;
+    }
 
     public List<Customer> findAllCustomers() {
         logger.info("findAllCustomers");

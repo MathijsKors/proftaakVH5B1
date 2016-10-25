@@ -28,7 +28,15 @@ public class UniqueBSNValidator implements ConstraintValidator<UniqueBSN, String
 
     @Override
     public boolean isValid(String bsn, ConstraintValidatorContext cvc) {
-        return customerRepository.findCustomerByBSN(bsn);
+        boolean valid;
+        
+        if (customerRepository.findcustomerByBSN(bsn) >= 1){
+            valid = false;
+        }else{
+            valid = true;
+        }
+        
+        return valid;
     }
 
   

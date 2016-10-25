@@ -1,5 +1,6 @@
 package nl.avans.facturatie.repository;
 
+import com.mysql.jdbc.exceptions.MySQLIntegrityConstraintViolationException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -61,6 +62,15 @@ public class CustomerRepository
                 "SELECT * FROM customers WHERE CustomerID=?",
                 new Object[]{id}, new CustomerRowMapper());
     }
+    
+    
+    //bsn nummer controleren
+    public int findcustomerByBSN(String bsn){
+        String sql = "SELECT COUNT(*) FROM customers WHERE bsnNumber=?";
+        return jdbcTemplate.queryForObject(sql, new Object[] { bsn }, int.class);
+    }
+    
+     
 
     /**
      *
@@ -77,6 +87,7 @@ public class CustomerRepository
         // KeyHolder gaat de auto increment key uit de database bevatten.
         KeyHolder holder = new GeneratedKeyHolder();
         
+//        try{
         jdbcTemplate.update(new PreparedStatementCreator() {
 
             @Override
@@ -93,8 +104,7 @@ public class CustomerRepository
                 return ps;
             }
         }, holder);
-
-        // Zet de auto increment waarde in de Customer
+        
         int newCustomerId = holder.getKey().intValue();
         customer.setCustomerID(newCustomerId);
         logger.info(sql);
@@ -137,39 +147,12 @@ public class CustomerRepository
             System.out.println(e);
         }
      
-        
-        
-        
         return customer;
     }
-    
-    
+
     
     public void deleteCustomerById(int id) {
         logger.debug("deleteCustomerById");
         jdbcTemplate.update("DELETE FROM customers WHERE CustomerID=?", new Object[]{id});
     }
-
-    
-        public boolean findCustomerByBSN(String bsn) {
-        logger.debug("findCustomerByBSN");
-        jdbcTemplate.update("SELECT FROM member WHERE bsnNumber=?", new Object[]{bsn});
-        return Boolean.TRUE;
-    }
-
-    
- 
-//    @Transactional(readOnly=true)
-//    public boolean findCustomerByBSN(String bsn) {
-//        logger.info("findCustomerByBSN");
-//        Integer dbbsn = jdbcTemplate.queryForObject("SELECT count(*) FROM customers WHERE bsnNumber=918273953)", Integer.class, bsn);
-//        
-//        logger.info(dbbsn + "");
-//        
-//        if(dbbsn != null && dbbsn > 0){
-//            return true;
-//        }else{
-//            return false;
-//        }
-//    }
 }
