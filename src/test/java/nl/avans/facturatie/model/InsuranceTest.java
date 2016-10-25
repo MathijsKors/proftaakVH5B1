@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package nl.avans.facturatie.domain;
+package nl.avans.facturatie.model;
 
 import nl.avans.facturatie.model.Insurance;
 import org.junit.AfterClass;
