@@ -1,5 +1,4 @@
 package nl.avans.facturatie.controller;
-import com.mysql.jdbc.exceptions.MySQLIntegrityConstraintViolationException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,7 +8,6 @@ import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
-
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 import java.sql.SQLException;
@@ -22,7 +20,7 @@ public class CustomerController {
 
     private final Logger logger = LoggerFactory.getLogger(CustomerService.class);;
     
-    private CustomerService customerService;
+    private final CustomerService customerService;
     private Customer customer;
 
     @Autowired
