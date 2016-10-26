@@ -79,14 +79,14 @@
     <script>
         function sendAjaxDeleteRequest(id) {
             $.ajax({
-                url: '/customer/' + id,
+                url: '/insurancecompany/' + id,
                 type: 'DELETE',
                 success: function(result) {
                     // Go to the list of customer
-                    location.href = "/customers"
+                    location.href = "/insurancecompanies"
                 },
                 error: function(result) {
-                    alert('Error: kon deze persoon niet verwijderen.');
+                    alert('Error: kon dit verzekeringsbedrijf niet verwijderen.');
                 }
             });
          }

@@ -22,7 +22,7 @@ public class InsuranceCompany {
     public String Address;
     @NotNull
     @Size(min = 1, max = 35)
-    public String zipCode;
+    public String Zipcode;
     @NotNull
     @Size(min = 1, max = 35)
     public String City;
@@ -35,10 +35,10 @@ public class InsuranceCompany {
 
     public InsuranceCompany() {  }
 
-    public InsuranceCompany(String Name, String Address, String zipCode, String City, String Telnumber, String Email, int InsuranceCompanyID) {
+    public InsuranceCompany(String Name, String Address, String Zipcode, String City, String Telnumber, String Email, int InsuranceCompanyID) {
         this.Name = Name;
         this.Address = Address;
-        this.zipCode = zipCode;
+        this.Zipcode = Zipcode;
         this.City = City;
         this.Telnumber = Telnumber;
         this.Email = Email;
@@ -55,7 +55,7 @@ public class InsuranceCompany {
     }
 
     public String getZipCode() {
-        return zipCode;
+        return Zipcode;
     }
 
     public String getCity() {
@@ -82,8 +82,8 @@ public class InsuranceCompany {
         this.Address = Address;
     }
 
-    public void setZipCode(String zipCode) {
-        this.zipCode = zipCode;
+    public void setZipCode(String Zipcode) {
+        this.Zipcode = Zipcode;
     }
 
     public void setCity(String City) {
@@ -106,7 +106,7 @@ public class InsuranceCompany {
 
     @Override
     public String toString() {
-        return "InsuranceCompany{" + "name=" + Name + ", address=" + Address + ", zipCode=" + zipCode + ", city=" + City + ", telNumber=" + Telnumber + ", email=" + Email + '}';
+        return "InsuranceCompany{" + "name=" + Name + ", address=" + Address + ", Zipcode=" + Zipcode + ", city=" + City + ", telNumber=" + Telnumber + ", email=" + Email + '}';
     }
     
     
