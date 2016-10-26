@@ -5,6 +5,7 @@
  */
 package nl.avans.facturatie.model;
 
+import java.sql.Date;
 import javax.validation.constraints.DecimalMin;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
@@ -50,7 +51,11 @@ public class Customer {
     @Size(min = 1, max = 32, message = "Telefoonummer is te kort of te lang.")
     //@Pattern(regexp = "/\\(?([0-9]{3})\\)?([ .-]?)([0-9]{3})\\2([0-9]{4})/", message = "Telefoon nummer is in een niet goed formaat")
     private String phoneNumber;
-
+    
+    @NotNull 
+    @Size(min = 1, max = 32, message = "Geboortedatum is te kort of te lang.")
+    private java.util.Date birthDate;
+    
     @NotNull
     @Size(min = 1, max = 32, message = "Emailadres is te kort of te lang.")
     @Pattern(regexp="[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\\."
@@ -60,6 +65,7 @@ public class Customer {
     private String emailAddress;
 
     private java.util.Date lastUpdated;
+    
 
     /**
      *
@@ -71,16 +77,18 @@ public class Customer {
      * @param bsnNumber
      * @param firstName
      * @param lastName
+     * @param BirthDate
      * @param street
      * @param houseNumber
      * @param city
      * @param phoneNumber
      * @param emailAddress
      */
-    public Customer(String bsnNumber, String firstName, String lastName, String street, String houseNumber, String city, String phoneNumber, String emailAddress) {
+    public Customer(String bsnNumber, String firstName, String lastName, String BirthDate, String street, String houseNumber, String city, String phoneNumber, String emailAddress) {
         this.bsnNumber = bsnNumber;
         this.firstName = firstName;
         this.lastName = lastName;
+        this.birthDate = birthDate;
         this.street = street;
         this.houseNumber = houseNumber;
         this.city = city;
@@ -138,6 +146,22 @@ public class Customer {
      */
     public void setLastName(String lastName) {
         this.lastName = lastName;
+    }
+    
+    /**
+     *
+     * @return BirthDate
+     */
+    public java.util.Date getBirthDate() {
+        return birthDate;
+    }
+
+    /**
+     *
+     * @param BirthDate
+     */
+    public void setBirthDate(java.util.Date BirthDate) {
+        this.birthDate = birthDate;
     }
 
     /**

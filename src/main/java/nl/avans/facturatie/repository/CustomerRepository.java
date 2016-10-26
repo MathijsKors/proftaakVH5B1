@@ -11,6 +11,7 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 import javax.sql.DataSource;
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -88,8 +89,8 @@ public class CustomerRepository
 
         logger.debug("create repository = " + customer.getFullName());
 
-        final String sql = "INSERT INTO customers(`FirstName`, `LastName`, `Street`, `HouseNumber`, `City`, `PhoneNumber`, `EmailAddress`, `bsnNumber`) " +
-                "VALUES(?,?,?,?,?,?,?,?)";
+        final String sql = "INSERT INTO customers(`FirstName`, `LastName`, `BirthDate`, `Street`, `HouseNumber`, `City`, `PhoneNumber`, `EmailAddress`, `bsnNumber`) " +
+                "VALUES(?,?,?,?,?,?,?,?,?)";
 
         // KeyHolder gaat de auto increment key uit de database bevatten.
         KeyHolder holder = new GeneratedKeyHolder();
@@ -102,6 +103,7 @@ public class CustomerRepository
                 PreparedStatement ps = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
                 ps.setString(1, customer.getFirstName());
                 ps.setString(2, customer.getLastName());
+                ps.setDate(3, (Date) customer.getBirthDate());
                 ps.setString(4, customer.getHouseNumber());
                 ps.setString(3, customer.getStreet());
                 ps.setString(5, customer.getCity());
