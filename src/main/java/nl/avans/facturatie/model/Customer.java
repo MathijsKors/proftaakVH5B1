@@ -5,14 +5,13 @@
  */
 package nl.avans.facturatie.model;
 
-import java.sql.Date;
-import java.util.ArrayList;
-import java.util.List;
 import javax.validation.constraints.DecimalMin;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
-import nl.avans.facturatie.annotation.UniqueBSN;
+import nl.avans.facturatie.annotation.UniqueBSN; //import is voor de UniqueBSN
+
+
 
 /**
  *
@@ -62,8 +61,22 @@ public class Customer {
 
     private java.util.Date lastUpdated;
 
+    /**
+     *
+     */
     public Customer() {  }
 
+    /**
+     *
+     * @param bsnNumber
+     * @param firstName
+     * @param lastName
+     * @param street
+     * @param houseNumber
+     * @param city
+     * @param phoneNumber
+     * @param emailAddress
+     */
     public Customer(String bsnNumber, String firstName, String lastName, String street, String houseNumber, String city, String phoneNumber, String emailAddress) {
         this.bsnNumber = bsnNumber;
         this.firstName = firstName;
@@ -79,81 +92,160 @@ public class Customer {
         this.customerID = 0;
     }
 
-    
+    /**
+     *
+     * @return
+     */
     public String getBsnNumber() {
         return bsnNumber;
     }
     
+    /**
+     *
+     * @param bsnNumber
+     */
     public void setBsnNumber(String bsnNumber) {
         this.bsnNumber = bsnNumber;
     }
     
+    /**
+     *
+     * @return
+     */
     public String getFirstName() {
         return firstName;
     }
 
+    /**
+     *
+     * @param firstName
+     */
     public void setFirstName(String firstName) {
         this.firstName = firstName;
     }
 
+    /**
+     *
+     * @return
+     */
     public String getLastName() {
         return lastName;
     }
 
+    /**
+     *
+     * @param lastName
+     */
     public void setLastName(String lastName) {
         this.lastName = lastName;
     }
 
+    /**
+     *
+     * @return
+     */
     public String getFullName() { return this.firstName + " " + this.lastName; }
 
+    /**
+     *
+     * @return
+     */
     public String getStreet() {
         return street;
     }
 
+    /**
+     *
+     * @param street
+     */
     public void setStreet(String street) {
         this.street = street;
     }
 
+    /**
+     *
+     * @return
+     */
     public String getHouseNumber() {
         return houseNumber;
     }
 
+    /**
+     *
+     * @param houseNumber
+     */
     public void setHouseNumber(String houseNumber) {
         this.houseNumber = houseNumber;
     }
 
+    /**
+     *
+     * @return
+     */
     public String getCity() {
         return city;
     }
 
+    /**
+     *
+     * @param city
+     */
     public void setCity(String city) {
         this.city = city;
     }
 
+    /**
+     *
+     * @return
+     */
     public String getPhoneNumber() {
         return phoneNumber;
     }
 
+    /**
+     *
+     * @param phoneNumber
+     */
     public void setPhoneNumber(String phoneNumber) {
         this.phoneNumber = phoneNumber;
     }
 
+    /**
+     *
+     * @return
+     */
     public String getEmailAddress() {
         return emailAddress;
     }
 
+    /**
+     *
+     * @param emailAddress
+     */
     public void setEmailAddress(String emailAddress) {
         this.emailAddress = emailAddress;
     }
 
+    /**
+     *
+     * @param customerID
+     */
     public void setCustomerID(int customerID) {
         this.customerID = customerID;
     }
 
+    /**
+     *
+     * @return
+     */
     public int getCustomerID() {
         return customerID;
     }
 
+    /**
+     *
+     * @return
+     */
     public java.util.Date getLastUpdated() {
         return lastUpdated;
     }
@@ -174,17 +266,17 @@ public class Customer {
 
 
     
-    //Costumers vergelijken om de juiste te krijgen
-//    
-//    @Override
-//    public boolean equals(Object o) {
-//        if (this == o) return true;
-//        if (!(o instanceof Customer)) return false;
-//
-//        Customer customer = (Customer) o;
-//
-//        return getBSNNumber() == customer.getBSNNumber();
-//    }
+    //Costumers vergelijken om de juiste te krijgen kan worden gebruikt voor UniqueBSN
+    
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Customer)) return false;
+
+        Customer customer = (Customer) o;
+
+        return getBsnNumber()== customer.getBsnNumber();
+    }
 
 
 }

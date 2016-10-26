@@ -1,6 +1,5 @@
 package nl.avans.facturatie.repository;
 
-import com.mysql.jdbc.exceptions.MySQLIntegrityConstraintViolationException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,15 +9,12 @@ import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.jdbc.support.KeyHolder;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
-
 import javax.sql.DataSource;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
-import java.sql.SQLIntegrityConstraintViolationException;
 import java.sql.Statement;
 import java.util.List;
-import nl.avans.facturatie.controller.CustomerController;
 import nl.avans.facturatie.model.Customer;
 import nl.avans.facturatie.service.CustomerService;
 import org.springframework.dao.DataIntegrityViolationException;
@@ -33,9 +29,14 @@ public class CustomerRepository
 
     @SuppressWarnings("SpringJavaAutowiringInspection")
     @Autowired
-    private JdbcTemplate jdbcTemplate;
+    private final JdbcTemplate jdbcTemplate;
 
     // Deze constructor wordt aangeroepen vanuit de config/PersistenceContext class.
+
+    /**
+     *
+     * @param dataSource
+     */
     public CustomerRepository(DataSource dataSource) { this.jdbcTemplate = new JdbcTemplate(dataSource); }
 
     /**
@@ -65,6 +66,12 @@ public class CustomerRepository
     
     
     //bsn nummer controleren
+
+    /**
+     *
+     * @param bsn
+     * @return
+     */
     public int findcustomerByBSN(String bsn){
         String sql = "SELECT COUNT(*) FROM customers WHERE bsnNumber=?";
         return jdbcTemplate.queryForObject(sql, new Object[] { bsn }, int.class);
@@ -111,7 +118,13 @@ public class CustomerRepository
         return customer;
     }
 
-     public Customer edit(final Customer customer, int id) {
+    /**
+     *
+     * @param customer
+     * @param id
+     * @return
+     */
+    public Customer edit(final Customer customer, int id) {
 
         logger.info("edit repository = " + customer.getFullName());
         
@@ -150,7 +163,10 @@ public class CustomerRepository
         return customer;
     }
 
-    
+    /**
+     *
+     * @param id
+     */
     public void deleteCustomerById(int id) {
         logger.debug("deleteCustomerById");
         jdbcTemplate.update("DELETE FROM customers WHERE CustomerID=?", new Object[]{id});

@@ -8,8 +8,6 @@ package nl.avans.facturatie.annotation;
 import javax.validation.ConstraintValidator;
 import javax.validation.ConstraintValidatorContext;
 import nl.avans.facturatie.repository.CustomerRepository;
-import static org.codehaus.groovy.runtime.DefaultGroovyMethods.any;
-import static org.codehaus.groovy.runtime.DefaultGroovyMethods.any;
 import org.springframework.beans.factory.annotation.Autowired;
 
 /**
