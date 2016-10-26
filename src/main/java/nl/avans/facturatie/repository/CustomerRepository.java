@@ -88,6 +88,9 @@ public class CustomerRepository
     public Customer create(final Customer customer) {
 
         logger.debug("create repository = " + customer.getFullName());
+        
+        java.util.Date utilBirthDate = customer.getBirthDate();
+        java.sql.Date sqlBirthDate = new java.sql.Date(utilBirthDate.getTime());
 
         final String sql = "INSERT INTO customers(`FirstName`, `LastName`, `BirthDate`, `Street`, `HouseNumber`, `City`, `PhoneNumber`, `EmailAddress`, `bsnNumber`) " +
                 "VALUES(?,?,?,?,?,?,?,?,?)";
@@ -103,13 +106,13 @@ public class CustomerRepository
                 PreparedStatement ps = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
                 ps.setString(1, customer.getFirstName());
                 ps.setString(2, customer.getLastName());
-                ps.setDate(3, (Date) customer.getBirthDate());
-                ps.setString(4, customer.getHouseNumber());
-                ps.setString(3, customer.getStreet());
-                ps.setString(5, customer.getCity());
-                ps.setString(6, customer.getPhoneNumber());
-                ps.setString(7, customer.getEmailAddress());
-                ps.setString(8, customer.getBsnNumber());
+                ps.setDate(3, sqlBirthDate);
+                ps.setString(4, customer.getStreet());
+                ps.setString(5, customer.getHouseNumber());
+                ps.setString(6, customer.getCity());
+                ps.setString(7, customer.getPhoneNumber());
+                ps.setString(8, customer.getEmailAddress());
+                ps.setString(9, customer.getBsnNumber());
                 return ps;
             }
         }, holder);

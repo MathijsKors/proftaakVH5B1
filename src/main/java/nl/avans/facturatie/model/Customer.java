@@ -11,6 +11,7 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 import nl.avans.facturatie.annotation.UniqueBSN; //import is voor de UniqueBSN
+import org.springframework.format.annotation.DateTimeFormat;
 
 
 
@@ -52,8 +53,8 @@ public class Customer {
     //@Pattern(regexp = "/\\(?([0-9]{3})\\)?([ .-]?)([0-9]{3})\\2([0-9]{4})/", message = "Telefoon nummer is in een niet goed formaat")
     private String phoneNumber;
     
-    @NotNull 
-    @Size(min = 1, max = 32, message = "Geboortedatum is te kort of te lang.")
+    @NotNull(message = "Geboortedatum mag niet leeg zijn.")
+    @DateTimeFormat(pattern = "dd-MM-yyyy")
     private java.util.Date birthDate;
     
     @NotNull
@@ -77,14 +78,14 @@ public class Customer {
      * @param bsnNumber
      * @param firstName
      * @param lastName
-     * @param BirthDate
+     * @param birthDate
      * @param street
      * @param houseNumber
      * @param city
      * @param phoneNumber
      * @param emailAddress
      */
-    public Customer(String bsnNumber, String firstName, String lastName, String BirthDate, String street, String houseNumber, String city, String phoneNumber, String emailAddress) {
+    public Customer(String bsnNumber, String firstName, String lastName, java.util.Date birthDate, String street, String houseNumber, String city, String phoneNumber, String emailAddress) {
         this.bsnNumber = bsnNumber;
         this.firstName = firstName;
         this.lastName = lastName;
@@ -158,9 +159,9 @@ public class Customer {
 
     /**
      *
-     * @param BirthDate
+     * @param birthDate
      */
-    public void setBirthDate(java.util.Date BirthDate) {
+    public void setBirthDate(java.util.Date birthDate) {
         this.birthDate = birthDate;
     }
 
