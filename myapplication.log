@@ -5189,3 +5189,38 @@ org.thymeleaf.exceptions.TemplateInputException: Error resolving template "views
 2016-10-25 00:25:28.124  INFO 9248 --- [http-nio-8080-exec-7] n.a.facturatie.service.CustomerService   : found 11 customers
 2016-10-25 00:25:37.871  INFO 9248 --- [http-nio-8080-exec-1] n.a.facturatie.service.CustomerService   : findCustomerById - customer = 6
 2016-10-25 00:25:38.038  INFO 9248 --- [http-nio-8080-exec-1] n.a.facturatie.service.CustomerService   : findCustomerById
+2016-10-25 16:29:52.143  INFO 3568 --- [main] nl.avans.facturatie.main.Application     : Starting Application on Mathijs with PID 3568 (C:\Users\Mathijs\workspace\proftaakVH5B1\target\classes started by Mathijs in C:\Users\Mathijs\workspace\proftaakVH5B1)
+2016-10-25 16:29:52.144  INFO 3568 --- [main] nl.avans.facturatie.main.Application     : The following profiles are active: default
+2016-10-25 16:29:52.326  INFO 3568 --- [main] ationConfigEmbeddedWebApplicationContext : Refreshing org.springframework.boot.context.embedded.AnnotationConfigEmbeddedWebApplicationContext@2a5c8d3f: startup date [Tue Oct 25 16:29:52 CEST 2016]; root of context hierarchy
+2016-10-25 16:29:53.692  INFO 3568 --- [main] trationDelegate$BeanPostProcessorChecker : Bean 'org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration' of type [class org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration$$EnhancerBySpringCGLIB$$4836f4ab] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2016-10-25 16:29:54.225  INFO 3568 --- [main] s.b.c.e.t.TomcatEmbeddedServletContainer : Tomcat initialized with port(s): 8080 (http)
+2016-10-25 16:29:54.239  INFO 3568 --- [main] o.apache.catalina.core.StandardService   : Starting service Tomcat
+2016-10-25 16:29:54.240  INFO 3568 --- [main] org.apache.catalina.core.StandardEngine  : Starting Servlet Engine: Apache Tomcat/8.5.5
+2016-10-25 16:29:54.478  INFO 3568 --- [localhost-startStop-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2016-10-25 16:29:54.483  INFO 3568 --- [localhost-startStop-1] o.s.web.context.ContextLoader            : Root WebApplicationContext: initialization completed in 2161 ms
+2016-10-25 16:29:54.606  INFO 3568 --- [localhost-startStop-1] o.s.b.w.servlet.ServletRegistrationBean  : Mapping servlet: 'dispatcherServlet' to [/]
+2016-10-25 16:29:54.609  INFO 3568 --- [localhost-startStop-1] o.s.b.w.servlet.FilterRegistrationBean   : Mapping filter: 'characterEncodingFilter' to: [/*]
+2016-10-25 16:29:54.610  INFO 3568 --- [localhost-startStop-1] o.s.b.w.servlet.FilterRegistrationBean   : Mapping filter: 'hiddenHttpMethodFilter' to: [/*]
+2016-10-25 16:29:54.613  INFO 3568 --- [localhost-startStop-1] o.s.b.w.servlet.FilterRegistrationBean   : Mapping filter: 'httpPutFormContentFilter' to: [/*]
+2016-10-25 16:29:54.613  INFO 3568 --- [localhost-startStop-1] o.s.b.w.servlet.FilterRegistrationBean   : Mapping filter: 'requestContextFilter' to: [/*]
+2016-10-25 16:29:54.665  INFO 3568 --- [main] o.s.j.d.DriverManagerDataSource          : Loaded JDBC driver: com.mysql.jdbc.Driver
+2016-10-25 16:29:54.771  WARN 3568 --- [main] ationConfigEmbeddedWebApplicationContext : Exception encountered during context initialization - cancelling refresh attempt: org.springframework.beans.factory.UnsatisfiedDependencyException: Error creating bean with name 'billingService' defined in file [C:\Users\Mathijs\workspace\proftaakVH5B1\target\classes\nl\avans\facturatie\service\BillingService.class]: Unsatisfied dependency expressed through constructor parameter 0; nested exception is org.springframework.beans.factory.NoSuchBeanDefinitionException: No qualifying bean found for dependency [nl.avans.facturatie.repository.BillingRepository]: expected at least 1 bean which qualifies as autowire candidate. Dependency annotations: {}
+2016-10-25 16:29:54.776  INFO 3568 --- [main] o.apache.catalina.core.StandardService   : Stopping service Tomcat
+2016-10-25 16:29:54.788  INFO 3568 --- [main] utoConfigurationReportLoggingInitializer : 
+
+Error starting ApplicationContext. To display the auto-configuration report re-run your application with 'debug' enabled.
+2016-10-25 16:29:54.838 ERROR 3568 --- [main] o.s.b.d.LoggingFailureAnalysisReporter   : 
+
+***************************
+APPLICATION FAILED TO START
+***************************
+
+Description:
+
+Parameter 0 of constructor in nl.avans.facturatie.service.BillingService required a bean of type 'nl.avans.facturatie.repository.BillingRepository' that could not be found.
+
+
+Action:
+
+Consider defining a bean of type 'nl.avans.facturatie.repository.BillingRepository' in your configuration.
+

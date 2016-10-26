@@ -9,6 +9,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import nl.avans.facturatie.model.Billing;
+
 /**
  *
  * @author Tom Maljaars
@@ -16,6 +18,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
 public class BillingController {
+	
+	private Billing billing;
+	
+	
     
     @RequestMapping("billing")
     String billing(Model model) {
