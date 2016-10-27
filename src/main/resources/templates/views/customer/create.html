@@ -10,10 +10,11 @@
     <div class="container" layout:fragment="summary">
 
         <div class="page-header">
-            <h1>Nieuw klant</h1>
+            <h1><i class="fa fa-plus" aria-hidden="true"></i>&nbsp;Nieuwe klant</h1>
         </div>
         <p>Hier kunt je een nieuwe klant toevoegen.</p>
 
+        
         <!-- Form om een nieuwe repository te maken. Het object 'repository' is het object waarin de
             waarden uit het formulier worden ingevuld. Het is afkomstig uit de CustomerController. -->
         <form id="createCustomerForm" action="#" th:action="@{/customer/create}" th:object="${customer}" method="post">
@@ -22,16 +23,15 @@
                 Als er fouten waren kun je hier een lijst met foutmeldingen tonen.
                 Je kunt ook de melding bij het inputveld tonen (zie code hieronder) en evt. de CSS class
                 van het inputveld veranderen. -->
-            <!--<ul th:if="${#fields.hasErrors('*')}" class="errorlist">-->
-                <!--<li th:each="err : ${#fields.errors('*')}" th:text="${err}">Input is incorrect</li>-->
-            <!--</ul>-->
+            
+            
 
             <div th:if="${#fields.hasErrors('*')}">
                 <div layout:include="views/customer/alert :: alert" th:with="type='danger', header='Fouten in het formulier'" th:remove="tag">
                     <!--/* Implements alert summary fragment with full-blown HTML summary */-->
                     <th:block layout:fragment="alert-summary">
                         <p>Niet alle velden in het formulier zijn correct ingevuld. Corrigeer deze en verzend opnieuw.</p>
-                        <!--<p><button type="button" class="btn btn-danger">Take this action</button></p>-->
+                        
                     </th:block>
                 </div>
             </div>
@@ -40,6 +40,9 @@
                     <!--/* Implements alert summary fragment with full-blown HTML summary */-->
                     <th:block layout:fragment="alert-summary">
                         <p th:text="${exception}">Exception message</p>
+                        <ul th:if="${#fields.hasErrors('*')}" class="errorlist">
+                            <li th:each="err : ${#fields.errors('*')}" th:text="${err}">Input is incorrect</li>
+                        </ul>
                     </th:block>
                 </div>
             </div>
@@ -70,6 +73,15 @@
                         <input type="text" class="form-control" id="street" th:field="*{street}"/>
                         <p th:if="${#fields.hasErrors('street')}" th:errors="*{street}">Name Error</p>
                     </div>
+                    
+                    
+                    <div class="form-group">
+                        <label for="birthDate">Geboortedatum</label>
+                        <!-- th:field="*{name}" is de koppeling naar het attribuut 'name' van het object 'repository'-->
+                        <input type="date"  class="form-control" id="birthDate" th:field="*{birthDate}"/>
+                        <p th:if="${#fields.hasErrors('birthDate')}" th:errors="*{birthDate}">Name Error</p>
+                    </div>
+                    
                 </div>
                 <div class="col-sm-4">
                     <div class="form-group">
