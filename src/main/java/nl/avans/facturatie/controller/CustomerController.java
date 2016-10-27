@@ -23,10 +23,20 @@ import org.springframework.web.bind.WebDataBinder;
 public class CustomerController {
     
     @InitBinder
-    public void initBinder(final WebDataBinder binder){
-        final SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy"); 
-        binder.registerCustomEditor(Date.class, new CustomDateEditor(dateFormat, true));
+    public void initBinder(WebDataBinder binder) {
+    String format = "yyyy-MM-dd";
+    SimpleDateFormat dateFormat = new SimpleDateFormat(format);
+    dateFormat.setLenient(false);
+    CustomDateEditor customDateEditor = new CustomDateEditor(dateFormat,true,format.length());
+
+    binder.registerCustomEditor(Date.class, customDateEditor);
     }
+    
+//    @InitBinder
+//    public void initBinder(final WebDataBinder binder){
+//        final SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy"); 
+//        binder.registerCustomEditor(Date.class, new CustomDateEditor(dateFormat, true));
+//    }
 
     private final Logger logger = LoggerFactory.getLogger(CustomerService.class);;
     
@@ -123,8 +133,8 @@ public class CustomerController {
     }
     
     @RequestMapping(value="/customer/{id}/edit", method = RequestMethod.POST)
-    public String validateAndSaveEditedCustomer(@Valid Customer customer, @PathVariable String id, final BindingResult bindingResult, final ModelMap model) {
-        logger.debug("validateAndSaveEditedCustomer - edited customer = " + customer.getFullName());
+    public String validateAndSaveEditedCustomer(final ModelMap model, @Valid Customer customer, final BindingResult bindingResult, @PathVariable String id) {
+        logger.info("validateAndSaveEditedCustomer - edited customer = " + customer.getFullName());
 
         
         //error handeling met het aanpassen van een gebruiker gaat nog niet goed!
@@ -133,7 +143,7 @@ public class CustomerController {
             // Als er velden in het formulier zijn die niet correct waren ingevuld vinden we die hier.
             // We blijven dan op dezelfde pagina. De foutmeldingen worden daar getoond
             // (zie het create.html bestand.
-            logger.debug("validateAndSaveCustomer - not added, bindingResult.hasErrors");
+            logger.info("validateAndSaveCustomer - not added, bindingResult.hasErrors");
             return "views/customer/edit";
         }
         
@@ -188,14 +198,6 @@ public class CustomerController {
         return mav;
     }
     
-    
-    
-//    @InitBinder     
-//    public void initBinder(WebDataBinder binder){
-//        binder.registerCustomEditor(       Date.class,     
-//                            new CustomDateEditor(new SimpleDateFormat("dd/MM/yyyy"), true, 10));   
-//    }
-//    
     /**
      * Retourneer alle customers. Wordt gebruikt bij het uitlenen van een boek,
      * om een uitlening aan een customer te koppelen.

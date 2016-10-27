@@ -89,6 +89,7 @@ public class CustomerRepository
 
         logger.debug("create repository = " + customer.getFullName());
         
+        //Geboortedatum aanpassen naar SQL formaat
         java.util.Date utilBirthDate = customer.getBirthDate();
         java.sql.Date sqlBirthDate = new java.sql.Date(utilBirthDate.getTime());
 
@@ -98,7 +99,6 @@ public class CustomerRepository
         // KeyHolder gaat de auto increment key uit de database bevatten.
         KeyHolder holder = new GeneratedKeyHolder();
         
-//        try{
         jdbcTemplate.update(new PreparedStatementCreator() {
 
             @Override
@@ -133,15 +133,19 @@ public class CustomerRepository
 
         logger.info("edit repository = " + customer.getFullName());
         
-        final String sql = "UPDATE `customers` SET `FirstName` = ?, `LastName` = ?, `Street` = ?, `HouseNumber` = ?, `City` = ?, `PhoneNumber` = ?, `EmailAddress` = ?, `bsnNumber` = ? WHERE `customers`.`CustomerID` = ?;";
-           
         
-                //"UPDATE customers set (`FirstName`, `LastName`, `Street`, `HouseNumber`, `City`, `PhoneNumber`, `EmailAddress`, `bsnNumber`) WHERE CustomerID=?";
+        
+        //Geboortedatum aanpassen naar SQL formaat
+        java.util.Date utilBirthDate = customer.getBirthDate();
+        logger.info(""+ utilBirthDate);
+        java.sql.Date sqlBirthDate = new java.sql.Date(utilBirthDate.getTime());
+        logger.info(""+ sqlBirthDate);
+        final String sql = "UPDATE `customers` SET `FirstName` = ?, `LastName` = ?, `BirthDate` = ?, `Street` = ?, `HouseNumber` = ?, `City` = ?, `PhoneNumber` = ?, `EmailAddress` = ?, `bsnNumber` = ? WHERE `customers`.`CustomerID` = ?;";
 
         // KeyHolder gaat de auto increment key uit de database bevatten.
         KeyHolder holder = new GeneratedKeyHolder();
         
-        try {
+
         jdbcTemplate.update(new PreparedStatementCreator() {
 
             @Override
@@ -149,22 +153,19 @@ public class CustomerRepository
                 PreparedStatement ps = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
                 ps.setString(1, customer.getFirstName());
                 ps.setString(2, customer.getLastName());
-                ps.setString(4, customer.getHouseNumber());
-                ps.setString(3, customer.getStreet());
-                ps.setString(5, customer.getCity());
-                ps.setString(6, customer.getPhoneNumber());
-                ps.setString(7, customer.getEmailAddress());
-                ps.setString(8, customer.getBsnNumber());
-                ps.setInt(9, id);
+                ps.setDate(3, sqlBirthDate);
+                ps.setString(4, customer.getStreet());
+                ps.setString(5, customer.getHouseNumber());
+                ps.setString(6, customer.getCity());
+                ps.setString(7, customer.getPhoneNumber());
+                ps.setString(8, customer.getEmailAddress());
+                ps.setString(9, customer.getBsnNumber());
+                ps.setInt(10, id);
                 
                 return ps;
             }
         }, holder);
 
-        } catch (DataIntegrityViolationException e) {
-            System.out.println(e);
-        }
-     
         return customer;
     }
 
