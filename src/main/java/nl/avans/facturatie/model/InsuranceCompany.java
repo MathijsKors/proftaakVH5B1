@@ -28,12 +28,13 @@ public class InsuranceCompany {
     public String City;
     @NotNull
     @Size(min = 1, max = 35)
-    public String Telnumber;@NotNull
+    public String Telnumber;
+    @NotNull
     @Size(min = 1, max = 35)
     public String Email;
     public int InsuranceCompanyID;
 
-    public InsuranceCompany() {  }
+    public InsuranceCompany() {}
 
     public InsuranceCompany(String Name, String Address, String Zipcode, String City, String Telnumber, String Email, int InsuranceCompanyID) {
         this.Name = Name;
@@ -45,7 +46,6 @@ public class InsuranceCompany {
         this.InsuranceCompanyID = 0;
     }
     
-
     public String getName() {
         return Name;
     }
@@ -100,14 +100,5 @@ public class InsuranceCompany {
 
     public void setId(int InsuranceCompanyID) {
         this.InsuranceCompanyID = InsuranceCompanyID;
-    }
-
-    
-
-    @Override
-    public String toString() {
-        return "InsuranceCompany{" + "name=" + Name + ", address=" + Address + ", Zipcode=" + Zipcode + ", city=" + City + ", telNumber=" + Telnumber + ", email=" + Email + '}';
-    }
-    
-    
+    }    
 }
