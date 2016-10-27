@@ -25,3 +25,4 @@ myapplication.log
 myapplication.log
 myapplication.log
 myapplication.log
+src/main/resources/templates/fragments/header.html

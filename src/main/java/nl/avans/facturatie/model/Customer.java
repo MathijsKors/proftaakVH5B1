@@ -54,7 +54,8 @@ public class Customer {
     private String phoneNumber;
     
     @NotNull(message = "Geboortedatum mag niet leeg zijn.")
-    @DateTimeFormat(pattern = "dd-MM-yyyy")
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    //@Pattern(regexp = "[0-9]{2}-[0-9]{2}-[0-9]{4}", message = "Gebruik het volgende formaat: 'dd-mm-jjjj'")
     private java.util.Date birthDate;
     
     @NotNull

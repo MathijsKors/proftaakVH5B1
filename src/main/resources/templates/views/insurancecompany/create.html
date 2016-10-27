@@ -12,7 +12,7 @@
         <div class="page-header">
             <h1>Nieuw Verzekeringsbedrijf</h1>
         </div>
-        <p>Hier kunt je het nieuwe verzekeringsbedrijf toevoegen.</p>
+        <p>Hier kunt u het nieuwe verzekeringsbedrijf toevoegen.</p>
 
         <!-- Form om een nieuwe repository te maken. Het object 'repository' is het object waarin de
             waarden uit het formulier worden ingevuld. Het is afkomstig uit de CustomerController. -->
@@ -63,17 +63,17 @@
                  </div>
             </div>
             <div class="row">
-                <div class="col-sm-8">
+                <div class="col-sm-4">
                     <div class="form-group">
-                        <label for="street">Straat</label>
+                        <label for="street">Zip</label>
                         <!-- th:field="*{name}" is de koppeling naar het attribuut 'name' van het object 'repository'-->
                         <input type="text" class="form-control" id="zipCode" th:field="*{zipCode}"/>
                         <p th:if="${#fields.hasErrors('zipCode')}" th:errors="*{zipCode}">Name Error</p>
                     </div>
                 </div>
-                <div class="col-sm-4">
+                <div class="col-sm-8">
                     <div class="form-group">
-                        <label for="housenumber">Zipcode</label>
+                        <label for="housenumber">Stad</label>
                         <!-- th:field="*{name}" is de koppeling naar het attribuut 'name' van het object 'repository'-->
                         <input type="text" class="form-control" id="City" th:field="*{City}"/>
                         <p th:if="${#fields.hasErrors('City')}" th:errors="*{City}">Name Error</p>
@@ -83,12 +83,12 @@
             <div class="row">
                 <div class="col-sm-4">
                     <div class="form-group">
-                        <label for="city">Stad</label>
+                        <label for="city">Telefoonnummer</label>
                         <input type="text" class="form-control" id="Telnumber" th:field="*{Telnumber}"/>
                         <p th:if="${#fields.hasErrors('Telnumber')}" th:errors="*{Telnumber}">Name Error</p>
                     </div>
                  </div>
-                <div class="col-sm-4">
+                <div class="col-sm-8">
                     <div class="form-group">
                         <label for="email">Email</label>
                         <input type="text" class="form-control" id="Email" th:field="*{Email}"/>
