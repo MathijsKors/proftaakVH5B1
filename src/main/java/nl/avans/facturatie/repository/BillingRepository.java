@@ -9,7 +9,6 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.sql.DataSource;
@@ -22,11 +21,9 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.PreparedStatementCreator;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.jdbc.support.KeyHolder;
-import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import nl.avans.facturatie.model.Billing;
-import nl.avans.facturatie.model.Customer;
 import nl.avans.facturatie.service.CustomerService;
 
 /**
@@ -64,7 +61,7 @@ public class BillingRepository {
     public Billing findBillingById(int id) {
         logger.info("findBillingById");
         return jdbcTemplate.queryForObject(
-                "SELECT * FROM bills WHERE BillingID=?",
+                "SELECT * FROM bills WHERE BillingID = ?",
                 new Object[]{id}, new BillingRowMapper());
     }
 
@@ -78,7 +75,7 @@ public class BillingRepository {
         logger.debug("create repository = " + billing.getBillingID());
 
         final String sql = "INSERT INTO bills(`CustomerName`, `Address`, `ZipCode`, `City`, `Treatment`, `InvoiceDate`, `Prize`, `OwnRisk`, `ToBePaid`, `BillingID`) " +
-                "VALUES(?,?,?,?,?,?,?,?,?,?)";
+                "VALUES(?,?,?,?,?,?,?,?,?)";
 
         // KeyHolder gaat de auto increment key uit de database bevatten.
         KeyHolder holder = new GeneratedKeyHolder();
@@ -88,16 +85,10 @@ public class BillingRepository {
             @Override
             public PreparedStatement createPreparedStatement(Connection connection) throws SQLException {
                 PreparedStatement ps = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
-                ps.setString(1, billing.getCustomerName());
-                ps.setString(2, billing.getAddress());
-                ps.setString(3, billing.getZipCode());
-                ps.setString(4, billing.getCity());
-                ps.setString(5, billing.getTreatment());
+                ps.setInt(1, billing.getCustomerID());
+                ps.setInt(5, billing.getTreatmentID());
                 ps.setDate(6, billing.getInvoiceDate());
-                ps.setInt(7, billing.getPrize());
-                ps.setInt(8, billing.getOwnRisk());
-                ps.setInt(9, billing.getToBePaid());
-                ps.setInt(10, billing.getBillingID());
+                ps.setInt(7, billing.getDuration());
                 return ps;
             }
         }, holder);
@@ -113,11 +104,8 @@ public class BillingRepository {
 
         logger.info("edit repository = " + billing.getBillingID());
         
-        final String sql = "UPDATE `bills` SET `CustomerName` = ?, `Address` = ?, `ZipCode` = ?, `City` = ?, `Treatment` = ?, `InvoiceDate` = ?, `Prize` = ?, `OwnRisk` = ?, `ToBePaid` = ? WHERE `bills`.`BillingID` = ?;";
+        final String sql = "UPDATE `bills` SET `CustomerID` = ?, `TreatmentID` = ?, `InvoiceDate` = ?, BillingID` = ?, Duration = ?;";
            
-        
-                //"UPDATE customers set (`FirstName`, `LastName`, `Street`, `HouseNumber`, `City`, `PhoneNumber`, `EmailAddress`, `bsnNumber`) WHERE CustomerID=?";
-
         // KeyHolder gaat de auto increment key uit de database bevatten.
         KeyHolder holder = new GeneratedKeyHolder();
         
@@ -127,17 +115,10 @@ public class BillingRepository {
             @Override
             public PreparedStatement createPreparedStatement(Connection connection) throws SQLException {
                 PreparedStatement ps = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
-                ps.setString(1, billing.getCustomerName());
-                ps.setString(2, billing.getAddress());
-                ps.setString(3, billing.getZipCode());
-                ps.setString(5, billing.getTreatment());
+                ps.setInt(1, billing.getCustomerID());
+                ps.setInt(5, billing.getTreatmentID());
                 ps.setDate(6, billing.getInvoiceDate());
-                ps.setInt(8, billing.getOwnRisk());
-                ps.setString(4, billing.getCity());
-                ps.setInt(7, billing.getPrize());
-                ps.setInt(9, billing.getToBePaid());
-                ps.setInt(10, id);
-                
+                ps.setInt(7, billing.getDuration());
                 return ps;
             }
         }, holder);
@@ -146,9 +127,6 @@ public class BillingRepository {
             System.out.println(e);
         }
      
-        
-        
-        
         return billing;
     }
     
@@ -163,20 +141,4 @@ public class BillingRepository {
         jdbcTemplate.update("SELECT FROM billing WHERE BillingID=?", new Object[]{billingID});
         return Boolean.TRUE;
     }
-
-    
- 
-//    @Transactional(readOnly=true)
-//    public boolean findBillingByBillingID(String billingID) {
-//        logger.info("findBillingByBillingID");
-//        Integer bilingID = jdbcTemplate.queryForObject("SELECT count(*) FROM bills WHERE billingID=918273953)", Integer.class, billingID);
-//        
-//        logger.info(billingID + "");
-//        
-//        if(billingID != null && billingID > 0){
-//            return true;
-//        }else{
-//            return false;
-//        }
-//    }
 }

@@ -12,61 +12,31 @@ import java.sql.Date;
  * @author game
  */
 public class Billing {
-	private String customerName, address, zipCode, city, treatment;
 	private Date invoiceDate, expirationDate;
-	private int billingID, prize, ownRisk, toBePaid;
+	private int billingID, duration, customerID, treatmentID;
 
-	public Billing() {}	
-	
-	public Billing(String customerName, String address, String zipCode, String city, String treatment, Date invoiceDate,
-			Date expirationDate, int billingID, int prize, int ownRisk, int toBePaid) {
-		this.customerName = customerName;
-		this.address = address;
-		this.zipCode = zipCode;
-		this.city = city;
-		this.treatment = treatment;
+        
+        public Billing() {  }
+        
+	public Billing(int customerID, int treatmentID, Date invoiceDate, Date expirationDate, int billingID, int duration, int ownRisk, int toBePaid) {
+		this.customerID = customerID;
+		this.treatmentID = treatmentID;
 		this.invoiceDate = invoiceDate;
 		this.expirationDate = expirationDate;
 		this.billingID = billingID;
-		this.prize = prize;
-		this.ownRisk = ownRisk;
-		this.toBePaid = toBePaid;
+		this.duration = duration;
 	}
 
-	public int getPrize() {
-		return prize;
+	public int getDuration() {
+		return duration;
 	}
 
-	public int getToBePaid() {
-		return toBePaid;
+	public int getCustomerID() {
+		return customerID;
 	}
 
-	public void lowerToBePaid(int amount) {
-		toBePaid -= amount;
-	}
-
-	public void raiseToBePaid(int amount) {
-		toBePaid += amount;
-	}
-
-	public String getCustomerName() {
-		return customerName;
-	}
-
-	public String getAddress() {
-		return address;
-	}
-
-	public String getZipCode() {
-		return zipCode;
-	}
-
-	public String getCity() {
-		return city;
-	}
-
-	public String getTreatment() {
-		return treatment;
+	public int getTreatmentID() {
+		return treatmentID;
 	}
 
 	public Date getInvoiceDate() {
@@ -81,12 +51,9 @@ public class Billing {
 		return billingID;
 	}
 
-	public int getOwnRisk() {
-		return ownRisk;
-	}
 
-	public void setTreatment(String treatment) {
-		this.treatment = treatment;
+	public void setTreatmentID(int treatmentID) {
+		this.treatmentID = treatmentID;
 	}
 
 	public void setInvoiceDate(Date invoiceDate) {
@@ -97,37 +64,17 @@ public class Billing {
 		this.billingID = billingID;
 	}
 
-	public void setPrize(int prize) {
-		this.prize = prize;
+	public void setDuration(int duration) {
+		this.duration = duration;
 	}
 
-	public void setToBePaid(int toBePaid) {
-		this.toBePaid = toBePaid;
-	}
 
-	public void setCustomerName(String customerName) {
-		this.customerName = customerName;
-	}
-
-	public void setAddress(String address) {
-		this.address = address;
-	}
-
-	public void setZipCode(String zipCode) {
-		this.zipCode = zipCode;
-	}
-
-	public void setCity(String city) {
-		this.city = city;
+	public void setCustomerID(int customerID) {
+		this.customerID = customerID;
 	}
 
 	public void setExpirationDate(Date expirationDate) {
 		this.expirationDate = expirationDate;
 	}
-
-	public void setOwnRisk(int ownRisk) {
-		this.ownRisk = ownRisk;
-	}
-
 	
 }

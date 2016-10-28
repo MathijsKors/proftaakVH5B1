@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html>
+<head th:replace="fragments/head :: head"></head>
+<body>
+
+<!-- Header -->
+<div th:replace="fragments/header :: header"></div>
+
+    <!--/* Content of this page will be decorated by the elements of layout.html (student/layout) */-->
+    <div class="container" layout:fragment="summary">
+
+        <div class="page-header">
+            <h1><i class="fa fa-user" aria-hidden="true"></i>&nbsp;Informatie klant</h1>
+        </div>
+        <p>Hieronder ziet u de geselecteerde klant.</p>
+            <!--<p th:if="${repository.empty}"> No billings found.</p>-->
+
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="panel panel-default">
+                    <div class="panel-body">
+                        
+                        <p th:text="${billing.billingID}">1</p>
+                        <!--
+                        <td th:text="${billing.customerID}">1</td>
+                        <td th:text="${billing.invoiceDate}">Factuurdatum ...</td>
+                        <td th:text="${billing.expirationDate}">Verloopdatum ...</td>
+                        <td th:text="${billing.treatmentID}">BehandelingID ...</td>
+                        <td th:text="${billing.duration}">Duration ...</td>
+                        -->
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-3">
+                        <a href="/billing" class="btn btn-primary" role="button">Terug naar het overzicht</a>
+                        <!-- Button trigger modal -->
+                    </div>
+                    <div class="col-sm-3">
+                        <a class="btn btn-succes" th:href="@{/billing/{id}/edit (id=${billing.billingID})}"><i class="fa fa-pencil fa-fw"></i>&nbsp;Accepteren</a>
+                        <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#myModal"><i class="fa fa-trash-o fa-fw" ></i>&nbsp;Verwijderen</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Modal -->
+        <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                        <h4 class="modal-title" id="myModalLabel">Klant verwijderen</h4>
+                    </div>
+                    <div class="modal-body">
+                        <p>Weet je zeker dat je wilt verwijderen?</p>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Nee, annuleer</button>
+                        <button type="button" class="btn btn-danger" th:onclick="'javascript:sendAjaxDeleteRequest(\'' + ${billing.billingID} + '\');'"><i class="fa fa-trash-o fa-fw" ></i>&nbsp;Ja, verwijder</button>
+
+                        <!--  -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer class="footer">
+        <div th:replace="fragments/footer :: footer">&copy; 2016 Facturatie Systeem</div>
+    </footer>
+    
+    <script>
+        function sendAjaxDeleteRequest(id) {
+            $.ajax({
+                url: '/billing/' + id,
+                type: 'DELETE',
+                success: function(result) {
+                    // Go to the list of billing
+                    location.href = "/billings"
+                },
+                error: function(result) {
+                    alert('Error: kon deze persoon niet verwijderen.');
+                }
+            });
+         }
+    </script>
+    
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+
+</body>
+</html>

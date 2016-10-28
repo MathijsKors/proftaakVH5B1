@@ -22,7 +22,9 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
 import nl.avans.facturatie.model.Billing;
+import nl.avans.facturatie.model.User;
 import nl.avans.facturatie.service.BillingService;
+import org.springframework.web.bind.annotation.SessionAttributes;
 
 /**
  *
@@ -30,45 +32,32 @@ import nl.avans.facturatie.service.BillingService;
  */
 
 @Controller
+@SessionAttributes (value = "user", types = {User.class} )
 public class BillingController {
-	
-	private final Logger logger = LoggerFactory.getLogger(BillingService.class);;
-	
-	private BillingService billingService;
-	private Billing billing;
-	
-    @RequestMapping("billing")
-    String billing(Model model) {
-        
-        // Zet een 'flag' om in Bootstrap header nav het actieve menu item te vinden.
-        
-        model.addAttribute("classActiveBilling","active");
-        return "views/billing/billing";
-    }
     
+    @ModelAttribute("user")
+    public User getUser() {
+        return new User();
+    } 
+	
+    private final Logger logger = LoggerFactory.getLogger(BillingService.class);;
+
+    private BillingService billingService;
+    private Billing billing;
+        
     @Autowired
     public BillingController(BillingService billingService){
         this.billingService = billingService;
     }
-    
-    @ModelAttribute("page")
-    public String module() {
-        return "billings";
-    }
-    
-    // Zet een 'flag' om in Bootstrap header nav het actieve menu item te vinden.
-    @ModelAttribute("classActiveBilling")
-    public String highlightNavMenuItem(){ return "active"; };
-    
     
     /**
      * Haal een lijst van Billings en toon deze in een view.
      * @param model
      * @return
      */
-    @RequestMapping(value = "/billings", method = RequestMethod.GET)
+    @RequestMapping(value = "/billing", method = RequestMethod.GET)
     public String listBillings(Model model) {
-        logger.debug("listBillings");
+        logger.info("listBillings");
         // Zet de opgevraagde billings in het model
         model.addAttribute("billings", billingService.findAllBillings());
         // Open de juiste view template als resultaat.
@@ -81,11 +70,23 @@ public class BillingController {
      * @param id
      * @return
      */
-    @RequestMapping(value = "/billing/{id}", method = RequestMethod.GET)
-    public String listOneBilling(Model model, @PathVariable int id) {
+     @RequestMapping(value = "/billing/{id}", method = RequestMethod.GET)
+    public String listOneBilling(@ModelAttribute("user") User user, Model model, @PathVariable int id) {
+        if (!user.isAuthenticated()) {
+            return "redirect:/login";
+        }        
+
         // Zet de opgevraagde waarden in het model
         model.addAttribute("billing", billingService.findBillingById(id));
         return "views/billing/read";
+    }
+    
+    
+    @RequestMapping(value = "/billing/{id}/accept", method = RequestMethod.GET)
+    public String acceptBilling(Model model, @PathVariable int id) {
+        // Zet de opgevraagde waarden in het model
+        model.addAttribute("billing", billingService.findBillingById(id));
+        return "views/billing/list";
     }
 
     @ExceptionHandler(value = SQLException.class)
