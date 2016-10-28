@@ -17,7 +17,7 @@ public class DirectDebit extends Billing{
     LocalDate firstOfMonth = now.withDayOfMonth(1);     //First day of the month variable
 
     public DirectDebit(String customerName, String address, String zipCode, String city, String treatment, Date invoiceDate, Date expirationDate, int prize, int ownRisk, int toBePaid) {
-//        super(customerName, address, zipCode, city, treatment, invoiceDate, expirationDate, billingID, prize, ownRisk, toBePaid);
+        super(customerName, address, zipCode, city, treatment, invoiceDate, expirationDate, billingID, prize, ownRisk, toBePaid);
     }
     
     public void Debit() {

@@ -45,11 +45,11 @@ public class BillingTest {
     public void testGetPrize() {
         java.sql.Date date1 = java.sql.Date.valueOf( "2016-01-01" );
         java.sql.Date date2 = java.sql.Date.valueOf( "2016-03-01" );
-        //Billing b = new Billing("Dylan Martens", "Leutlaan 12", "4615JX", "Breda", "Rugklachten", date1, date2, 400, 200, 200);
+        Billing b = new Billing("Dylan Martens", "Leutlaan 12", "4615JX", "Breda", "Rugklachten", date1, date2, 400, 200, 200);
         System.out.println("getPrize");
         int expResult = 400;
-        //int result = b.getPrize();
-        //assertEquals(expResult, result);
+        int result = b.getPrize();
+        assertEquals(expResult, result);
     }
 
     /**
@@ -59,13 +59,13 @@ public class BillingTest {
     public void testLowerToBePaid() {
         java.sql.Date date1 = java.sql.Date.valueOf( "2016-01-01" );
         java.sql.Date date2 = java.sql.Date.valueOf( "2016-03-01" );
-        //Billing b = new Billing("Dylan Martens", "Leutlaan 12", "4615JX", "Breda", "Rugklachten", date1, date2, 400, 200, 200);
+        Billing b = new Billing("Dylan Martens", "Leutlaan 12", "4615JX", "Breda", "Rugklachten", date1, date2, 400, 200, 200);
         System.out.println("lowerToBePaid");
         int amount = 50;
-        //b.lowerToBePaid(amount); // 200 - 50 = 150
+        b.lowerToBePaid(amount); // 200 - 50 = 150
         int expResult = 150;
-       // int result = b.getToBePaid();
-       // assertEquals(expResult, result);
+        int result = b.getToBePaid();
+        assertEquals(expResult, result);
     }
 
     /**
@@ -75,13 +75,13 @@ public class BillingTest {
     public void testRaiseToBePaid() {
         java.sql.Date date1 = java.sql.Date.valueOf( "2016-01-01" );
         java.sql.Date date2 = java.sql.Date.valueOf( "2016-03-01" );
-       // Billing b = new Billing("Dylan Martens", "Leutlaan 12", "4615JX", "Breda", "Rugklachten", date1, date2, 400, 200, 200);
+        Billing b = new Billing("Dylan Martens", "Leutlaan 12", "4615JX", "Breda", "Rugklachten", date1, date2, 400, 200, 200);
         System.out.println("raiseToBePaid");
         int amount = 50;
-       // b.raiseToBePaid(amount); // 200 + 50 = 250
+        b.raiseToBePaid(amount); // 200 + 50 = 250
         int expResult = 250;
-       // int result = b.getToBePaid();
-       // assertEquals(expResult, result);
+        int result = b.getToBePaid();
+        assertEquals(expResult, result);
     }
     
 }
