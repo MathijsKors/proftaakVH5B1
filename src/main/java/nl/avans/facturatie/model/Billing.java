@@ -14,7 +14,7 @@ import java.sql.Date;
 public class Billing {
 	private String customerName, address, zipCode, city, treatment;
 	private Date invoiceDate, expirationDate;
-	private int billingID, prize, ownRisk, toBePaid;
+	int billingID, prize, ownRisk, toBePaid;
 
 	public Billing() {}	
 	

@@ -74,6 +74,12 @@
 	  <version>4.3.2.RELEASE</version>
 	  <type>jar</type>
 	 </dependency>
+	 <dependency>
+	  <groupId>net.minidev</groupId>
+	  <artifactId>json-smart</artifactId>
+	  <version>2.2.1</version>
+	  <type>jar</type>
+	 </dependency>
 	</dependencies>
 
 	<build>
