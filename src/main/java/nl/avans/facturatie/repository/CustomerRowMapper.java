@@ -18,6 +18,7 @@ class CustomerRowMapper implements RowMapper<Customer>
         customer.setBsnNumber(rs.getString("BsnNumber"));
         customer.setFirstName(rs.getString("FirstName"));
         customer.setLastName(rs.getString("LastName"));
+        customer.setBirthDate((rs.getDate("BirthDate")));
         customer.setStreet(rs.getString("Street"));
         customer.setHouseNumber(rs.getString("HouseNumber"));
         customer.setCity(rs.getString("City"));

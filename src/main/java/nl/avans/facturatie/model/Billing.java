@@ -27,7 +27,7 @@ public class Billing {
 		this.treatment = treatment;
 		this.invoiceDate = invoiceDate;
 		this.expirationDate = expirationDate;
-		this.billingID = 0;
+		this.billingID = billingID;
 		this.prize = prize;
 		this.ownRisk = ownRisk;
 		this.toBePaid = toBePaid;

@@ -14,7 +14,6 @@ import org.thymeleaf.spring4.view.ThymeleafViewResolver;
 import org.thymeleaf.templateresolver.ClassLoaderTemplateResolver;
 
 import java.util.Properties;
-import org.thymeleaf.templateresolver.ServletContextTemplateResolver;
 
 /**
  * @author Petri Kainulainen

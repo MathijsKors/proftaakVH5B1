@@ -5,81 +5,100 @@
  */
 package nl.avans.facturatie.model;
 
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
+
 /**
  *
  * @author Tom Maljaars
  */
 public class InsuranceCompany {
     
-    public String name;
-    public String address;
-    public String zipCode;
-    public String city;
-    public String telNumber;
-    public String email;
+    @NotNull
+    @Size(min = 1, max = 35)
+    public String Name;
+    @NotNull
+    @Size(min = 1, max = 35)
+    public String Address;
+    @NotNull
+    @Size(min = 1, max = 35)
+    public String Zipcode;
+    @NotNull
+    @Size(min = 1, max = 35)
+    public String City;
+    @NotNull
+    @Size(min = 1, max = 35)
+    public String Telnumber;
+    @NotNull
+    @Size(min = 1, max = 35)
+    public String Email;
+    public int InsuranceCompanyID;
 
-    public InsuranceCompany(String name, String address, String zipCode, String city, String telNumber, String email) {
-        this.name = name;
-        this.address = address;
-        this.zipCode = zipCode;
-        this.city = city;
-        this.telNumber = telNumber;
-        this.email = email;
+    public InsuranceCompany() {}
+
+    public InsuranceCompany(String Name, String Address, String Zipcode, String City, String Telnumber, String Email, int InsuranceCompanyID) {
+        this.Name = Name;
+        this.Address = Address;
+        this.Zipcode = Zipcode;
+        this.City = City;
+        this.Telnumber = Telnumber;
+        this.Email = Email;
+        this.InsuranceCompanyID = 0;
     }
-
+    
     public String getName() {
-        return name;
+        return Name;
     }
 
     public String getAddress() {
-        return address;
+        return Address;
     }
 
-    public String getZipcode() {
-        return zipCode;
+    public String getZipCode() {
+        return Zipcode;
     }
 
     public String getCity() {
-        return city;
+        return City;
     }
 
-    public String getTelNumber() {
-        return telNumber;
+    public String getTelnumber() {
+        return Telnumber;
     }
 
     public String getEmail() {
-        return email;
+        return Email;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public int getId() {
+        return InsuranceCompanyID;
     }
 
-    public void setAddress(String address) {
-        this.address = address;
+    public void setName(String Name) {
+        this.Name = Name;
     }
 
-    public void setZipcode(String zipCode) {
-        this.zipCode = zipCode;
+    public void setAddress(String Address) {
+        this.Address = Address;
     }
 
-    public void setCity(String city) {
-        this.city = city;
+    public void setZipCode(String Zipcode) {
+        this.Zipcode = Zipcode;
     }
 
-    public void setTelNumber(String telNumber) {
-        this.telNumber = telNumber;
+    public void setCity(String City) {
+        this.City = City;
     }
 
-    public void setEmail(String email) {
-        this.email = email;
+    public void setTelnumber(String Telnumber) {
+        this.Telnumber = Telnumber;
     }
 
-    
-    @Override
-    public String toString() {
-        return "InsuranceCompany{" + "name=" + name + ", address=" + address + ", zipCode=" + zipCode + ", city=" + city + ", telNumber=" + telNumber + ", email=" + email + '}';
+    public void setEmail(String Email) {
+        this.Email = Email;
     }
-    
-    
+
+    public void setId(int InsuranceCompanyID) {
+        this.InsuranceCompanyID = InsuranceCompanyID;
+    }    
 }

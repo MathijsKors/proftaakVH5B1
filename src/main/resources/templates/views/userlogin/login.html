@@ -15,7 +15,7 @@
         <p>Voer a.u.b uw logingegevens in.</p>
         
         <!-- TODO: Edit/Add object that is specified in th:object below -->
-        <form action="#" method="post"> 
+        <form action="#" method="post" th:object="${user}"> 
         
         <div class="row">
             <div class="col-sm-12">
@@ -23,7 +23,7 @@
                     <i class="fa fa-user" aria-hidden="true"></i> <br />
                     <label for="username">Gebruikersnaam</label>
                     <!-- th:field="*{username}" is de koppeling naar het attribuut 'username' van het object 'member'-->
-                    <input type="text" class="form-control" id="username"/>
+                    <input type="text" class="form-control" id="username" th:field="*{username}"/>
                 </div>
             </div> 
         </div>
@@ -34,12 +34,15 @@
                     <i class="fa fa-key" aria-hidden="true"></i> <br />
                     <label for="password">Wachtwoord</label>
                     <!-- th:field="*{password}" is de koppeling naar het attribuut 'wachtwoord' van het object 'employee'-->
-                    <input type="text" class="form-control" id="username"/>
+                    <input type="password" class="form-control" id="password" th:field="*{password}"/>
                 </div>
             </div>
         </div>    
         
+        <button type="submit" class="btn btn-primary" name="save">Log in</button>
         </form>
+        
+    </div>    
         
     <footer class="footer">
         <div th:replace="fragments/footer :: footer">&copy; 2016 Facturatie Systeem</div>
