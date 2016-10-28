@@ -18,12 +18,21 @@ import java.util.Date;
 import java.util.List;
 import javax.servlet.http.HttpServletResponse;
 import nl.avans.facturatie.model.Customer;
+import nl.avans.facturatie.model.User;
 import nl.avans.facturatie.service.CustomerService;
 import org.springframework.beans.propertyeditors.CustomDateEditor;
 import org.springframework.web.bind.WebDataBinder;
 
 @Controller
+@SessionAttributes (value = "user", types = {User.class} )
 public class CustomerController {
+
+
+
+    @ModelAttribute("user")
+    public User getUser() {
+        return new User();
+    }     
 
     @InitBinder
     public void initBinder(WebDataBinder binder) {
@@ -70,7 +79,11 @@ public class CustomerController {
      * @return
      */
     @RequestMapping(value = "/customers", method = RequestMethod.GET)
-    public String listCustomers(Model model) {
+    public String listCustomers(@ModelAttribute("user") User user, Model model) {
+        if (!user.isAuthenticated()) {
+            return "redirect:/login";
+        }
+        
         logger.debug("listCustomers");
         // Zet de opgevraagde customers in het model
         model.addAttribute("customers", customerService.findAllCustomers());
@@ -86,16 +99,24 @@ public class CustomerController {
      * @param model
      * @return
      */
-    @RequestMapping(value = "/customer/create", method = RequestMethod.GET)
-    public String showCreateCustomerForm(final Customer customer, final ModelMap model) {
+    @RequestMapping(value="/customer/create", method = RequestMethod.GET)
+    public String showCreateCustomerForm(@ModelAttribute("user") User user, final Customer customer, final ModelMap model) {
+        if (!user.isAuthenticated()) {
+            return "redirect:/login";
+        }    
+        
         logger.debug("showCreateCustomerForm");
         return "views/customer/create";
     }
-
-    @RequestMapping(value = "/customer/create", method = RequestMethod.POST)
-    public String validateAndSaveCustomer(@Valid Customer customer, final BindingResult bindingResult, final ModelMap model) {
+    
+    
+    @RequestMapping(value="/customer/create", method = RequestMethod.POST)
+    public String validateAndSaveCustomer(@ModelAttribute("user") User user, @Valid Customer customer, final BindingResult bindingResult, final ModelMap model) {
+        if (!user.isAuthenticated()) {
+            return "redirect:/login";
+        }
+        
         logger.debug("validateAndSaveCustomer - adding customer = " + customer.getFullName());
-
         if (bindingResult.hasErrors()) {
             // Als er velden in het formulier zijn die niet correct waren ingevuld vinden we die hier.
             // We blijven dan op dezelfde pagina. De foutmeldingen worden daar getoond
@@ -128,16 +149,24 @@ public class CustomerController {
         // Open de juiste view template als resultaat.
         return "views/customer/list";
     }
-
-    @RequestMapping(value = "/customer/{id}/edit", method = RequestMethod.GET)
-    public String showEditCustomerForm(final Customer customer, final ModelMap model, @PathVariable int id) {
+    
+    @RequestMapping(value="/customer/{id}/edit", method = RequestMethod.GET)
+    public String showEditCustomerForm(@ModelAttribute("user") User user, final Customer customer, final ModelMap model, @PathVariable int id) {
+        if (!user.isAuthenticated()) {
+            return "redirect:/login";
+        }
+        
         logger.debug("showEditCustomerForm");
         model.addAttribute("customer", customerService.findCustomerById(id));
         return "views/customer/edit";
     }
-
-    @RequestMapping(value = "/customer/{id}/edit", method = RequestMethod.POST)
-    public String validateAndSaveEditedCustomer(final ModelMap model, @Valid Customer customer, final BindingResult bindingResult, @PathVariable String id) {
+    
+    @RequestMapping(value="/customer/{id}/edit", method = RequestMethod.POST)
+    public String validateAndSaveEditedCustomer(@ModelAttribute("user") User user, final ModelMap model, @Valid Customer customer, final BindingResult bindingResult, @PathVariable String id) {
+        if (!user.isAuthenticated()) {
+            return "redirect:/login";
+        }
+        
         logger.info("validateAndSaveEditedCustomer - edited customer = " + customer.getFullName());
 
         //error handeling met het aanpassen van een gebruiker gaat nog niet goed!
@@ -159,7 +188,11 @@ public class CustomerController {
     }
 
     @RequestMapping(value = "/customer/{id}", method = RequestMethod.DELETE)
-    public String deleteCustomer(Model model, @PathVariable String id) {
+    public String deleteCustomer(@ModelAttribute("user") User user, Model model, @PathVariable String id) {
+        if (!user.isAuthenticated()) {
+            return "redirect:/login";
+        }        
+        
         logger.debug("deleteCustomer, id = " + id);
 
         // Delete de customer
@@ -194,7 +227,11 @@ public class CustomerController {
      * @return
      */
     @RequestMapping(value = "/customer/{id}", method = RequestMethod.GET)
-    public String listOneCustomer(Model model, @PathVariable int id) {
+    public String listOneCustomer(@ModelAttribute("user") User user, Model model, @PathVariable int id) {
+        if (!user.isAuthenticated()) {
+            return "redirect:/login";
+        }        
+
         // Zet de opgevraagde waarden in het model
         model.addAttribute("customer", customerService.findCustomerById(id));
         return "views/customer/read";
