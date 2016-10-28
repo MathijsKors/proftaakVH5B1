@@ -1,28 +1,47 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package nl.avans.facturatie.model;
+
+import java.sql.Date;
+import java.util.ArrayList;
+import java.util.List;
+import javax.validation.constraints.DecimalMin;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Pattern;
+import javax.validation.constraints.Size;
 
 /**
  *
  * @author Dorian
  */
+
 public class Insurance {
-    private String type, profile;
-    private int costpMonth;
-    private int insnumber;
     
-    public Insurance(int insnumber, String type, String profile, int costpMonth) {
-        this.insnumber = insnumber;
+    public int insuranceID;
+    
+    @NotNull
+    @Size(min = 1, max = 35)
+    public String type;
+    
+    @NotNull
+    @Size(min = 1, max = 35)
+    public String profile;
+    
+    @NotNull
+    @DecimalMin("1")
+    public String costpMonth;
+   
+    public Insurance() {  }
+    
+    public Insurance(String type, String profile, String costpMonth) {
         this.type = type;
         this.profile = profile;
-        this.costpMonth = costpMonth;
+        this.costpMonth = costpMonth;     
+        // ID is de auto increment waarde uit de database.
+        // wordt hier ingevuld wanneer een Insurance aangemaakt wordt in de dtb.
+        this.insuranceID = 0;
     }
 
-    public int getInsnumber(){
-        return insnumber;
+    public int getInsuranceID(){
+        return insuranceID;
     }
     
     public String getType() {
@@ -33,12 +52,12 @@ public class Insurance {
         return profile;
     }
 
-    public int getcostpMonth() {
+    public String getCostpMonth() {
         return costpMonth;
     }
 
-    public void setInsnumber(int insnumber){
-        this.insnumber = insnumber;
+    public void setInsuranceID(int insuranceID){
+        this.insuranceID = insuranceID;
     }
      
     public void setType(String type) {
@@ -49,7 +68,7 @@ public class Insurance {
         this.profile = profile;
     }
 
-    public void setcostpMonth(int costpMonth) {
+    public void setCostpMonth(String costpMonth) {
         this.costpMonth = costpMonth;
     }      
 }

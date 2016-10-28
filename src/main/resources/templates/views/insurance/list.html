@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+
+<html>
+<head th:replace="fragments/head :: head"></head>
+<body>
+
+<!-- Header -->
+<div th:replace="fragments/header :: header"></div>
+
+    <!--/* Content of this page will be decorated by the elements of layout.html (insurance/layout.html) */-->
+    <div class="container" layout:fragment="summary">
+
+        <div class="page-header">
+            <h1><i class="fa fa-server" aria-hidden="true"></i>&nbsp;Verzekeringen</h1>
+        </div>
+        
+        <div class="tekst-btn-margin">
+            <a class="btn btn-primary pull-right" role="button" th:href="@{/insurance/create}" ><i class="fa fa-plus" aria-hidden="true"></i>&nbsp;Verzekering toevoegen</a>
+            <p>Dit is een overzicht van de huidige verzekeringen:</p>
+        </div>  
+        
+        
+        <div class="table-responsive">
+            <table class="table table-striped table-hover table-condensed">
+                <thead class="thead-default">
+                    <tr>
+                        <th>Verzekering ID</th>
+                        <th>Type</th>
+                        <th>Profiel</th>
+                        <th>Prijs per maand</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr th:if="${insurances.empty}">
+                        <td colspan="4">Geen verzekeringen gevonden</td>
+                    </tr>
+                    <tr th:each="insurance : ${insurances}">
+                        <td th:text="${insurance.insuranceID}">1</td>
+                        <td th:text="${insurance.type}">Type ...</td>
+                        <td th:text="${insurance.profile}">Profiel ...</td>
+                        <td th:text="${insurance.costpMonth}">Kosten per maand ...</td>
+                        <td>
+                            <div class="btn-group">
+                                <a class="btn btn-primary" th:href="@{/insurance/{id}(id=${insurance.insuranceID})}"><i class="fa fa-user fa-fw"></i>Bekijk</a>
+                                <a class="btn btn-primary dropdown-toggle" data-toggle="dropdown" href="#">
+                                  <span class="fa fa-caret-down" title="Toggle dropdown menu"></span>
+                                </a>
+                                <ul class="dropdown-menu">
+                                  <li><a th:href="@{/insurance/{id}/edit (id=${insurance.insuranceID})}"><i class="fa fa-pencil fa-fw"></i> Aanpassen</a></li>
+                                  <li><a type="button" data-toggle="modal" th:attr="data-target='#popup-' + ${insurance.insuranceID}"><i class="fa fa-trash-o fa-fw"></i>Delete</a></li>
+                                </ul>
+                            </div>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        
+        <div th:each="insurance : ${insurances}">
+            
+                <!-- Popup verwijderen -->
+            <div class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" th:id="'popup-' + ${insurance.insuranceID}">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                            <h4 class="modal-title" id="myModalLabel">Verzekering verwijderen</h4>
+                        </div>
+                        <div class="modal-body">
+                            <p>Weet je zeker dat je <span th:text="${insurance.type}">deze verzekering</span> wilt verwijderen?</p>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Nee, annuleer</button>
+                            <button type="button" class="btn btn-danger" th:onclick="'javascript:sendAjaxDeleteRequest(\'' + ${insurance.insuranceID} + '\');'"><i class="fa fa-trash-o fa-fw"></i>&nbsp;Ja, verwijder</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+
+
+
+    <footer class="footer">
+        <div th:replace="fragments/footer :: footer">&copy; 2016 Facturatie Systeem</div>
+    </footer>
+    
+    <script>
+        function sendAjaxDeleteRequest(id) {
+            $.ajax({
+                url: '/insurance/' + id,
+                type: 'DELETE',
+                success: function(result) {
+                    // Go to the list of insurances
+                    location.href = "/insurances"
+                },
+                error: function(result) {
+                    alert('Error: kon deze verzekering niet verwijderen.');
+                }
+            });
+         }
+    </script>
+    
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+
+</body>
+</html>

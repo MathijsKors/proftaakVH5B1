@@ -1,0 +1,155 @@
+#custom-bootstrap-menu.navbar-default .navbar-brand {
+    color: rgba(255, 255, 255, 1);
+}
+#custom-bootstrap-menu.navbar-default {
+    font-size: 15px;
+    background-color: rgba(18, 40, 89, 1);
+    border-bottom-width: 0px;
+}
+#custom-bootstrap-menu.navbar-default .navbar-nav>li>a {
+    color: rgba(255, 255, 255, 1);
+    background-color: rgba(47, 31, 110, 0);
+}
+#custom-bootstrap-menu.navbar-default .navbar-nav>li>a:hover,
+#custom-bootstrap-menu.navbar-default .navbar-nav>li>a:focus {
+    color: rgba(51, 51, 51, 1);
+    background-color: rgba(0, 0, 0, 1);
+}
+#custom-bootstrap-menu.navbar-default .navbar-nav>.active>a,
+#custom-bootstrap-menu.navbar-default .navbar-nav>.active>a:hover,
+#custom-bootstrap-menu.navbar-default .navbar-nav>.active>a:focus {
+    color: rgba(0, 0, 0, 1);
+    background-color: rgba(255, 255, 255, 1);
+}
+#custom-bootstrap-menu.navbar-default .navbar-toggle {
+    border-color: #ffffff;
+}
+#custom-bootstrap-menu.navbar-default .navbar-toggle:hover,
+#custom-bootstrap-menu.navbar-default .navbar-toggle:focus {
+    background-color: #ffffff;
+}
+#custom-bootstrap-menu.navbar-default .navbar-toggle .icon-bar {
+    background-color: #ffffff;
+}
+#custom-bootstrap-menu.navbar-default .navbar-toggle:hover .icon-bar,
+#custom-bootstrap-menu.navbar-default .navbar-toggle:focus .icon-bar {
+    background-color: white;
+}
+
+/* Header */
+
+.jumbotron{
+   background: url(../img/office1.jpg) fixed;
+   background-size: cover;
+   background-repeat: no-repeat;
+   background-position: center center;
+   
+}
+
+.jumbotron h1, .jumbotron p{
+    color: white;
+
+}
+
+h1,h2,h3,h4,h5,h6 {
+    font-family: 'Bree Serif', serif;
+}
+
+p {
+    font-family: 'Roboto', sans-serif;
+}
+
+a h1{
+    font-size: 20px;
+    float: right;
+    margin-top: 13px;
+}
+a .navbar-brand{
+    width: 150px;
+    
+}
+
+img.logo{
+    height: 50px;
+    width: 65px;
+    float: left;
+    
+}
+.navbar-brand{
+    padding: 0px;
+    
+}
+
+.navbar-form .form-control{
+    width: 140px!important;
+    
+}
+
+
+.thead-default th {
+    color: rgb(85, 89, 92);
+    background-color: rgb(236, 238, 239);
+}
+
+
+/* Buttons */
+
+.tekst-btn-margin{
+    margin-bottom: 25px!important;
+    
+}
+
+.btn-margin{
+    
+    
+}
+
+.btn-primary{
+    background-color: rgba(18, 40, 89, 1);
+    border-color: #000;
+    
+}
+
+/* Fix knop in tabel op mobile */
+/*@media (max-width: @screen-xs-max) {
+  .table-responsive {
+    width: 100%;
+    margin-bottom: (@line-height-computed * 0.75);
+    overflow-x: scroll;
+  }
+}
+.table-responsive.foo {
+      overflow-x: visible !important;
+      overflow-y: visible !important;
+    }
+    */
+    @media (max-width: 767px) {
+    .table-responsive .dropdown-menu {
+        position: static !important;
+    }
+}
+@media (min-width: 768px) {
+    .table-responsive {
+        overflow: visible;
+    }
+}
+
+.dropdownCell {
+    min-width:175px; 
+}
+
+@media (max-width: 500px) {
+ .btn-bekijk {
+  float: left;
+}
+}
+
+ @media (min-width: 501px) {
+ .btn-bekijk {
+  float: right;
+}
+}
+
+
+
+
