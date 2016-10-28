@@ -55,6 +55,33 @@ h1,h2,h3,h4,h5,h6 {
     font-family: 'Bree Serif', serif;
 }
 
+#homepagelistdiv {
+    padding-top: 10px;
+}
+
+#homepagelistdiv1 {
+    display: block;
+    float: left;
+    margin: 1.7% 0 1% 4.6%;
+    text-align: center;
+}
+
+.homepageheader {
+    color: #014682;
+    text-align: center;
+    font-size: 30px
+}
+
+#indexicon {
+    font-size: 16px;
+    color: #777
+}
+
+.homepagetext {
+    font-size: 16px;
+    color: #777
+}
+
 p {
     font-family: 'Roboto', sans-serif;
 }
