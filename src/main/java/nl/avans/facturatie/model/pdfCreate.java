@@ -21,11 +21,11 @@ import com.itextpdf.layout.element.Paragraph;
 public class pdfCreate {
  
 	// Generating random String to save pdf	
-	private static String FILE = "results/Factuur.pdf";
+	/**private static String FILE = "results/Factuur.pdf";
 	DateFormat df = new SimpleDateFormat("yyyyMMddhhmmss"); 
 	String filename = FILE.split(".")[0] + df.format(new Date()) + FILE.split(".")[1];
-	
-    public static final String DEST = "";
+	*/
+    public static final String DEST = "results/Factuur.pdf";
  
     public static void main(String args[]) throws IOException {
         File file = new File(DEST);
@@ -42,12 +42,13 @@ public class pdfCreate {
  
         // Initialize document
         Document document = new Document(pdf);
- 
-        //Add Date to document
-        document.add(new Paragraph(new Date().toString()));
         
         //Add paragraph to the document
         document.add(new Paragraph("Factuur"));
+        document.add(new Paragraph("---------------------------------------------------"));
+        
+        //Add Date to document
+        document.add(new Paragraph(new Date().toString()));
         document.add(new Paragraph("---------------------------------------------------"));
         
         // Customer section
