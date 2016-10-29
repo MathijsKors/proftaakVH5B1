@@ -22,11 +22,14 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
 import nl.avans.facturatie.model.Billing;
+import nl.avans.facturatie.model.Customer;
 import nl.avans.facturatie.model.Invoice;
+import nl.avans.facturatie.model.Treatment;
 import nl.avans.facturatie.model.User;
 import nl.avans.facturatie.service.BillingService;
 import nl.avans.facturatie.service.CustomerService;
 import nl.avans.facturatie.service.InvoiceService;
+import nl.avans.facturatie.service.TreatmentService;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.SessionAttributes;
 
@@ -49,38 +52,44 @@ public class InvoiceController {
     private final BillingService billingService;
     private final CustomerService customerService;
     private final InvoiceService invoiceService;
+    private final TreatmentService treatmentService;
     private Billing billing;
         
     @Autowired
-    public InvoiceController(BillingService billingService, CustomerService customerService, InvoiceService invoiceService){
+    public InvoiceController(BillingService billingService, CustomerService customerService, InvoiceService invoiceService, TreatmentService treatmentService){
         this.billingService = billingService;
         this.customerService = customerService;
         this.invoiceService = invoiceService;
+        this.treatmentService = treatmentService;
     }
   
-//    @RequestMapping(value="/invoice/create/{id}", method = RequestMethod.POST)
-//    public String validateAndSaveInvoice(@ModelAttribute("user") User user, final ModelMap model, @PathVariable int id) {
-//        if (!user.isAuthenticated()) {
-//            return "redirect:/login";
-//        }
-//        
-//        //billingService.findBillingById(id)
-//        // Maak de invoice aan via de invoiceservice
-//        Invoice newInvoice = invoiceService.create(invoice);
-//        if (newInvoice != null) {
-//            model.addAttribute("info", "Invoice is toegevoegd.");
-//        } else {
-//            logger.error("Klant kon niet gemaakt worden.");
-//            model.addAttribute("info", "Klant kon niet gemaakt worden.");
-//        }
-//
-//        // We gaan de lijst met invoices tonen, met een bericht dat de nieuwe invoice toegevoegd is.
-//        // Zet de opgevraagde invoices in het model
-//        model.addAttribute("billings", billingService.findAllBillings());
-//        model.addAttribute("invoices", invoiceService.findAllInvoices());
-//        // Open de juiste view template als resultaat.
-//        return "views/billing/list";
-//    }
+    @RequestMapping(value="/invoice/create/{id}", method = RequestMethod.GET)
+    public String validateAndSaveInvoice(@ModelAttribute("user") User user, final ModelMap model, @PathVariable int id) {
+        if (!user.isAuthenticated()) {
+            return "redirect:/login";
+        }
+        
+        Billing bill = billingService.findBillingById(id);
+        Customer customer = customerService.findCustomerById(bill.getCustomerID());
+        Treatment treatment = treatmentService.findTreatmentById(bill.getTreatmentID()+"");
+        
+        // Maak de invoice aan via de invoiceservice
+        Invoice newInvoice = invoiceService.create(bill, customer, treatment);
+        
+        if (newInvoice != null) {
+            model.addAttribute("info", "Invoice is toegevoegd.");
+        } else {
+            logger.error("Klant kon niet gemaakt worden.");
+            model.addAttribute("info", "Klant kon niet gemaakt worden.");
+        }
+
+        // We gaan de lijst met invoices tonen, met een bericht dat de nieuwe invoice toegevoegd is.
+        // Zet de opgevraagde invoices in het model
+        model.addAttribute("billings", billingService.findAllBillings());
+        model.addAttribute("invoices", invoiceService.findAllInvoices());
+        // Open de juiste view template als resultaat.
+        return "views/billing/list";
+    }
     
     @ExceptionHandler(value = SQLException.class)
     public ModelAndView handleError(HttpServletRequest req, SQLException ex) {
