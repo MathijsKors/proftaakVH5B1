@@ -1,18 +1,110 @@
 <!DOCTYPE html>
-<!--
-To change this license header, choose License Headers in Project Properties.
-To change this template file, choose Tools | Templates
-and open the template in the editor.
--->
 <html>
-    <head>
-        <title>TODO supply a title</title>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    </head>
-    <body>
-        <div>TODO Als je op de voeg verzekering toe knop klikt na de het zoeken op klant kom je op deze pagina terecht.
+<head th:replace="fragments/head :: head"></head>
+<body>
+         <!--   TODO Als je op de voeg verzekering toe knop klikt na de het zoeken op klant kom je op deze pagina terecht.
         Deze pagina is hetzelfde als de read van customer maar dan met onderaan een dropdown menu waarmee je een verzekering aan een
-        klant kan koppelen. (dit is hetzelfde als bij de book pagina van de bibliotheek casus waarbij je een book aan een member koppelt.</div>
-    </body>
+        klant kan koppelen. (dit is hetzelfde als bij de book pagina van de bibliotheek casus waarbij je een book aan een member koppelt. -->
+
+<!-- Header -->
+<div th:replace="fragments/header :: header"></div>
+
+    <!--/* Content of this page will be decorated by the elements of layout.html (student/layout) */-->
+    <div class="container" layout:fragment="summary">
+
+        <div class="page-header">
+            <h1><i class="fa fa-user" aria-hidden="true"></i>&nbsp;Informatie klant</h1>
+        </div>
+        <p>Hieronder ziet u de geselecteerde klant.</p>
+            <!--<p th:if="${repository.empty}"> No customers found.</p>-->
+
+        <div class="row">
+            <div class="col-sm-6">
+                <div class="panel panel-default">
+                    <div class="panel-body">
+                        <h2 th:text="${customer.firstName} + ' ' + ${customer.lastName}">Naam ...</h2>
+                        <div class="row">
+                            <div class="col-xs-4"><i class="fa fa-map-marker" aria-hidden="true"></i> Adres</div>
+                            <div class="col-xs-8">
+                                <p>
+                                    <span th:text="${customer.street} + ' ' + ${customer.houseNumber}">Adres</span><br/>
+                                    <span th:text="${customer.city}">Street</span>
+                                </p>
+                            </div>
+                            <div class="col-xs-4"><i class="fa fa-envelope-o" aria-hidden="true"></i> Email</div>
+                                <div class="col-xs-8"><p th:text="${customer.emailAddress}">Email ...</p>
+                            </div>
+                            <div class="col-xs-4"><i class="fa fa-phone" aria-hidden="true"></i> Telefoon</div>
+                                <div class="col-xs-8"><p th:text="${customer.phoneNumber}">Tele ...</p>
+                            </div>
+                            <div class="col-xs-4"><i class="fa fa-server" aria-hidden="true"></i> Verzekering</div>
+                                <div class="col-xs-8"><p th:text="${customer.insurance}">Verz ...</p>
+                            </div>
+                            
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-sm-3">
+                <a href="/searchpage" class="btn btn-primary" role="button">Terug naar de zoekpagina</a>
+                <!-- Button trigger modal -->
+                
+            </div>
+            <div class="col-sm-3">
+                <a class="btn btn-warning" th:href="@{/customer/{id}/editinsurance (id=${customer.customerID})}"><i class="fa fa-pencil fa-fw"></i>&nbsp;Verzekering koppelen</a>
+                <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#myModal"><i class="fa fa-trash-o fa-fw" ></i>&nbsp;Verwijderen</button>
+            </div>
+        </div>
+
+        <!-- Modal -->
+        <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                        <h4 class="modal-title" id="myModalLabel">Klant verwijderen</h4>
+                    </div>
+                    <div class="modal-body">
+                        <p>Weet je zeker dat je <span th:text="${customer.firstName} + ' ' + ${customer.lastName}">deze customer</span> wilt verwijderen?</p>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Nee, annuleer</button>
+                        <button type="button" class="btn btn-danger" th:onclick="'javascript:sendAjaxDeleteRequest(\'' + ${customer.customerID} + '\');'"><i class="fa fa-trash-o fa-fw" ></i>&nbsp;Ja, verwijder</button>
+
+                        <!--  -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer class="footer">
+        <div th:replace="fragments/footer :: footer">&copy; 2016 Facturatie Systeem</div>
+    </footer>
+    
+    <script>
+        function sendAjaxDeleteRequest(id) {
+            $.ajax({
+                url: '/customer/' + id,
+                type: 'DELETE',
+                success: function(result) {
+                    // Go to the list of customer
+                    location.href = "/customers"
+                },
+                error: function(result) {
+                    alert('Error: kon deze persoon niet verwijderen.');
+                }
+            });
+         }
+    </script>
+    
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+
+</body>
 </html>

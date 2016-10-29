@@ -60,7 +60,7 @@
                                             <span class="fa fa-caret-down" title="Toggle dropdown menu"></span>
                                         </a>
                                         <ul class="dropdown-menu">
-                                            <li><a th:href="@{/customer/{id}/edit (id=${customer.customerID})}"><i class="fa fa-pencil fa-fw"></i> Aanpassen</a></li>
+                                            <li><a th:href="@{/customer/{id}/editinsurance (id=${customer.customerID})}"><i class="fa fa-pencil fa-fw"></i> Aanpassen</a></li>
                                             <li><a href="#" data-toggle="modal" th:attr="data-target='#popup-' + ${customer.customerID}"><i class="fa fa-trash-o fa-fw"></i> Verwijderen</a></li>
                                         </ul>
                                     </div>

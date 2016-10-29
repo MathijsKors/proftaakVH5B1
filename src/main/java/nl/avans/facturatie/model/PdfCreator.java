@@ -1,9 +1,5 @@
 package nl.avans.facturatie.model;
 
-import java.io.File;
-import java.io.IOException;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import com.itextpdf.kernel.pdf.PdfDocument;
@@ -13,6 +9,7 @@ import com.itextpdf.layout.element.List;
 import com.itextpdf.layout.element.ListItem;
 import com.itextpdf.layout.element.Paragraph;
 import java.io.FileNotFoundException;
+
 
 
 
@@ -33,11 +30,12 @@ public class PdfCreator {
     public void createPdf(Invoice invoice, String DEST) throws FileNotFoundException {
         //Initialize PDF writer
         PdfWriter writer = new PdfWriter(DEST);
+
  
         //Initialize PDF document
         PdfDocument pdf = new PdfDocument(writer);
  
-        // Initialize document
+        //Initialize document
         Document document = new Document(pdf);
         
         //Add paragraph to the document
@@ -56,6 +54,7 @@ public class PdfCreator {
         list.add(new ListItem("Naam: " + invoice.getCustomerName()));
         list.add(new ListItem("Adres: " + invoice.getAdress()));
         list.add(new ListItem("-------------------------"));
+
         
         document.add(list);
         
@@ -76,5 +75,6 @@ public class PdfCreator {
         //Close document
         
         document.close();
+
     }
 }
