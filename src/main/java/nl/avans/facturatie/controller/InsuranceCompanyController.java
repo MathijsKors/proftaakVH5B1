@@ -36,7 +36,7 @@ public class InsuranceCompanyController {
 
     @ModelAttribute("page")
     public String module() {
-        return "insurancecompanies";
+        return "settings";
     }
 
     // Zet een 'flag' om in Bootstrap header nav het actieve menu item te vinden.
@@ -48,7 +48,7 @@ public class InsuranceCompanyController {
      * @param model
      * @return
      */
-    @RequestMapping(value = "/insurancecompanies", method = RequestMethod.GET)
+    @RequestMapping(value = "/settings", method = RequestMethod.GET)
     public String listInsuranceCompanies(@ModelAttribute("user") User user, Model model) {
         if (!user.isAuthenticated()) {
             return "redirect:/login";
@@ -56,7 +56,7 @@ public class InsuranceCompanyController {
         
         logger.debug("listInsuranceCompanies");
         // Zet de opgevraagde customers in het model
-        model.addAttribute("insurancecompanies", insuranceCompanyService.findAllInsuranceCompanies());
+        model.addAttribute("settings", insuranceCompanyService.findAllInsuranceCompanies());
         // Open de juiste view template als resultaat.
         return "views/insurancecompany/list";
     }
@@ -104,7 +104,7 @@ public class InsuranceCompanyController {
         }
         // We gaan de lijst met customers tonen, met een bericht dat de nieuwe customer toegevoegd is.
         // Zet de opgevraagde customers in het model
-        model.addAttribute("insurancecompanies", insuranceCompanyService.findAllInsuranceCompanies());
+        model.addAttribute("settings", insuranceCompanyService.findAllInsuranceCompanies());
         // Open de juiste view template als resultaat.
         return "views/insurancecompany/list";
     }
@@ -121,7 +121,7 @@ public class InsuranceCompanyController {
         insuranceCompanyService.delete(Integer.parseInt(id));
         // We gaan de lijst met customers tonen, met een bericht dat de nieuwe customer toegevoegd is.
         // Zet de opgevraagde customers in het model
-        model.addAttribute("insurancecompanies", insuranceCompanyService.findAllInsuranceCompanies());
+        model.addAttribute("settings", insuranceCompanyService.findAllInsuranceCompanies());
         model.addAttribute("info", "InsuranceCompany is verwijderd.");
         // Open de juiste view template als resultaat.
         return "views/insurancecompany/list";

@@ -12,30 +12,25 @@ import com.itextpdf.layout.Document;
 import com.itextpdf.layout.element.List;
 import com.itextpdf.layout.element.ListItem;
 import com.itextpdf.layout.element.Paragraph;
+import java.io.FileNotFoundException;
 
 
 
 /**
  * Simple pdf example.
  */
-public class pdfCreate {
+public class PdfCreator {
  
 	// Generating random String to save pdf	
 	/**private static String FILE = "results/Factuur.pdf";
 	DateFormat df = new SimpleDateFormat("yyyyMMddhhmmss"); 
 	String filename = FILE.split(".")[0] + df.format(new Date()) + FILE.split(".")[1];
 	*/
-    public static final String DEST = "results/Factuur.pdf";
+    
  
-    public static void main(String args[]) throws IOException {
-        File file = new File(DEST);
-        file.getParentFile().mkdirs();
-        new pdfCreate().createPdf(DEST);
-    }
- 
-    public void createPdf(String dest) throws IOException {
+    public void createPdf(Invoice invoice, String DEST) throws FileNotFoundException {
         //Initialize PDF writer
-        PdfWriter writer = new PdfWriter(dest);
+        PdfWriter writer = new PdfWriter(DEST);
  
         //Initialize PDF document
         PdfDocument pdf = new PdfDocument(writer);
@@ -56,10 +51,7 @@ public class pdfCreate {
         document.add(new Paragraph("Klantgegevens"));
         List list = new List();
         list.setListSymbol("");
-        list.add(new ListItem("Naam: "));
-        list.add(new ListItem("Adres: "));
-        list.add(new ListItem("Woonplaats: "));
-        list.add(new ListItem("Tel: "));
+        list.add(new ListItem("Adres: " + invoice.getAdress()));
         list.add(new ListItem("-------------------------"));
         
         document.add(list);
@@ -68,15 +60,18 @@ public class pdfCreate {
         document.add(new Paragraph("Factuurgegevens"));
         List list2 = new List();
         list2.setListSymbol("");
-        list2.add(new ListItem("Factuurnummer: "));
-        list2.add(new ListItem("Klantnummer: "));
-        list2.add(new ListItem("Factuurdatum: "));
-        list2.add(new ListItem("Verloopdatum: "));
-        list2.add(new ListItem("-------------------------"));
+        list2.add(new ListItem("Factuurnummer: " + invoice.getInvoiceID()));
+        list2.add(new ListItem("Factuurdatum: " + invoice.getInvoiceDate()));
+        list2.add(new ListItem("Verloopdatum: " + invoice.getDeadline()));
         
         document.add(list2);
- 
+        
+        
+        document.add(new Paragraph("---------------------------------------------------"));
+        document.add(new Paragraph("Totaalprijs:         " + invoice.getTotalPrice()));
+        
         //Close document
+        
         document.close();
     }
 }
