@@ -53,7 +53,6 @@ public class InvoiceController {
     private final CustomerService customerService;
     private final InvoiceService invoiceService;
     private final TreatmentService treatmentService;
-    private Billing billing;
         
     @Autowired
     public InvoiceController(BillingService billingService, CustomerService customerService, InvoiceService invoiceService, TreatmentService treatmentService){
@@ -75,6 +74,7 @@ public class InvoiceController {
         
         // Maak de invoice aan via de invoiceservice
         Invoice newInvoice = invoiceService.create(bill, customer, treatment);
+        billingService.delete(id);
         
         if (newInvoice != null) {
             model.addAttribute("info", "Invoice is toegevoegd.");

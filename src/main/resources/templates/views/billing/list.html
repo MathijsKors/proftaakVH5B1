@@ -129,7 +129,7 @@
                         <td th:text="${invoice.deadline}"> ...</td>
                         <td th:text="${invoice.totalPrice}"> ...</td>
                         <td>
-                            <a class="btn btn-success"><i class="fa fa-paper-plane-o" aria-hidden="true"></i>  Verzenden</a>
+                            <a class="btn btn-primary pull-right" role="button" th:href="@{/invoice/createpdf/{id} (id=${invoice.invoiceID})}" ><i class="fa fa-plus" aria-hidden="true"></i>&nbsp;Versturen</a>
                         </td>
                     </tr>
                 </tbody>

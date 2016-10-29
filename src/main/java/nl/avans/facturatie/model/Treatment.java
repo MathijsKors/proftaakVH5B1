@@ -18,9 +18,9 @@ public class Treatment {
     String treatmentName; 
     String price;
     int sessions;
-    String sessionTime;
+    int sessionTime;
 
-    public Treatment(String treatmentCode, String treatmentName, String price, int sessions, String sessionTime) {
+    public Treatment(String treatmentCode, String treatmentName, String price, int sessions, int sessionTime) {
         this.treatmentCode = treatmentCode;
         this.treatmentName = treatmentName;
         this.price = price;
@@ -68,11 +68,11 @@ public class Treatment {
     }
     
     @XmlElement(name = "sessieduur")
-    public void setSessionTime(String sessionTime) {
+    public void setSessionTime(int sessionTime) {
         this.sessionTime = sessionTime;
     }
     
-    public String getSessionTime() {
+    public int getSessionTime() {
         return sessionTime;
     }
     

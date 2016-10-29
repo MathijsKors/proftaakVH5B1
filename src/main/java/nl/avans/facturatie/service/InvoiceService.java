@@ -34,7 +34,7 @@ public class InvoiceService {
 
     public void delete(int id) {
         logger.info("delete - invoice = " + id);
-        this.invoiceRepository.findInvoiceById(id);
+        this.invoiceRepository.deleteInvoiceById(id);
     }
 
     public Invoice findInvoiceById(int id) {

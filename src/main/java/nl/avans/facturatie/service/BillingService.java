@@ -31,7 +31,7 @@ public class BillingService {
 
     public void delete(int id) {
         logger.info("delete - billing = " + id);
-        this.billingRepository.findBillingById(id);
+        this.billingRepository.deleteBillingById(id);
     }
 
     public Billing findBillingById(int id) {
