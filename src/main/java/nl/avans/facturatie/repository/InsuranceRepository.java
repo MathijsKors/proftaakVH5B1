@@ -95,12 +95,19 @@ public class InsuranceRepository
         logger.info(sql);
         return insurance;
     }
+    
+     /**
+     *
+     * @param insurance
+     * @param id
+     * @return
+     */
 
      public Insurance edit(final Insurance insurance, int id) {
 
         logger.info("edit repository = " + insurance.getType());
         
-        final String sql = "UPDATE `insurances` SET `Type` = ?, `Profile` = ?, `CostpMonth` = ?;";
+        final String sql = "UPDATE `insurances` SET `Type` = ?, `Profile` = ?, `CostpMonth` = ? WHERE `insurances`.`InsuranceID` = ?;";
            
         
                 //"UPDATE insurances set (`Type`, `Profile`, `CostpMonth`) WHERE InsuranceID=?";
@@ -116,7 +123,9 @@ public class InsuranceRepository
                 PreparedStatement ps = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
                 ps.setString(1, insurance.getType());
                 ps.setString(2, insurance.getProfile());
-                ps.setString(3, insurance.getCostpMonth());              
+                ps.setString(3, insurance.getCostpMonth());
+                ps.setInt(4, id);
+                
                 return ps;
             }
         }, holder);
@@ -124,10 +133,7 @@ public class InsuranceRepository
         } catch (DataIntegrityViolationException e) {
             System.out.println(e);
         }
-     
-        
-        
-        
+           
         return insurance;
      }
     
