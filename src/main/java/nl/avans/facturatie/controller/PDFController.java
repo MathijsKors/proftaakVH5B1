@@ -39,6 +39,7 @@ public class PDFController {
 
     private final Logger logger = LoggerFactory.getLogger(InvoiceService.class);;
     private final InvoiceService invoiceService;
+    public String DEST = "results/Factuur.pdf";
     
     @Autowired
     public PDFController(InvoiceService invoiceService) {
@@ -69,6 +70,7 @@ public class PDFController {
         
         Invoice invoice = invoiceService.findInvoiceById(id);
         logger.info(invoice.toString());
+        DEST = "results/Factuur" + invoice.getInvoiceID() + ".pdf";
         
         File file = new File(DEST);
         file.getParentFile().mkdirs();
@@ -83,6 +85,7 @@ public class PDFController {
         logger.info("Create pdf");
       
         // Open de juiste view template als resultaat.
+        return "views/home/index";
     }
 }
 

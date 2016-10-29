@@ -27,6 +27,8 @@ public class PdfCreator {
 	String filename = FILE.split(".")[0] + df.format(new Date()) + FILE.split(".")[1];
 	*/
     
+    public final String DEST = "results/Factuur.pdf";
+    
  
     public void createPdf(Invoice invoice, String DEST) throws FileNotFoundException {
         //Initialize PDF writer
@@ -51,6 +53,7 @@ public class PdfCreator {
         document.add(new Paragraph("Klantgegevens"));
         List list = new List();
         list.setListSymbol("");
+        list.add(new ListItem("Naam: " + invoice.getCustomerName()));
         list.add(new ListItem("Adres: " + invoice.getAdress()));
         list.add(new ListItem("-------------------------"));
         
