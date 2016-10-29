@@ -20,6 +20,7 @@ import javax.servlet.http.HttpServletResponse;
 import nl.avans.facturatie.model.Customer;
 import nl.avans.facturatie.model.User;
 import nl.avans.facturatie.service.CustomerService;
+import nl.avans.facturatie.service.InsuranceService;
 import org.springframework.beans.propertyeditors.CustomDateEditor;
 import org.springframework.web.bind.WebDataBinder;
 
@@ -53,11 +54,13 @@ public class CustomerController {
     ;
     
     private final CustomerService customerService;
+    private final InsuranceService insuranceService;
     private Customer customer;
 
     @Autowired
-    public CustomerController(CustomerService customerService) {
+    public CustomerController(CustomerService customerService, InsuranceService insuranceService) {
         this.customerService = customerService;
+        this.insuranceService = insuranceService;
     }
 
     @ModelAttribute("page")
@@ -250,6 +253,45 @@ public class CustomerController {
 //        mav.setViewName("views/customer/create");
         return mav;
     }
+    
+    @RequestMapping(value="/customer/{id}/editinsurance", method = RequestMethod.GET)
+    public String showEditCustomerInsuranceForm(@ModelAttribute("user") User user, final Customer customer, final ModelMap model, @PathVariable int id) {
+        if (!user.isAuthenticated()) {
+            return "redirect:/login";
+        }
+        
+        logger.debug("showEditCustomerInsuranceForm");
+        model.addAttribute("customer", customerService.findCustomerById(id));
+        model.addAttribute("insurance", insuranceService.findAllInsurances());
+        return "views/customer/editinsurance";
+    }
+    
+    @RequestMapping(value="/customer/{id}/editinsurance", method = RequestMethod.POST)
+    public String validateAndSaveEditedCustomerwithInsurance(@ModelAttribute("user") User user, final ModelMap model, @Valid Customer customer, final BindingResult bindingResult, @PathVariable String id) {
+        if (!user.isAuthenticated()) {
+            return "redirect:/login";
+        }
+        
+        logger.info("validateAndSaveEditedCustomer - edited customer = " + customer.getFullName());
+
+        //error handeling met het aanpassen van een gebruiker gaat nog niet goed!
+        if (bindingResult.hasErrors()) {
+            // Als er velden in het formulier zijn die niet correct waren ingevuld vinden we die hier.
+            // We blijven dan op dezelfde pagina. De foutmeldingen worden daar getoond
+            // (zie het create.html bestand.
+            logger.info("validateAndSaveCustomer - not added, bindingResult.hasErrors");
+            return "views/customer/editinsurance";
+        }
+
+        customerService.edit(customer, Integer.parseInt(id));
+
+        // We gaan de lijst met customers tonen, met een bericht dat de nieuwe customer toegevoegd is.
+        // Zet de opgevraagde customers in het model
+        model.addAttribute("customers", customerService.findAllCustomers());
+        // Open de juiste view template als resultaat.
+        return "views/customerinsurance/list";
+    }
+
 
     /**
      * Retourneer alle customers. Wordt gebruikt bij het uitlenen van een boek,

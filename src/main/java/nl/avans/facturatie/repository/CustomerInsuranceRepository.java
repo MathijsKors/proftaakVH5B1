@@ -62,7 +62,7 @@ public class CustomerInsuranceRepository
     public Customer findCustomerById(int id) {
         logger.info("findCustomerById");
         return jdbcTemplate.queryForObject(
-                "SELECT * FROM customers WHERE CustomerID=?",
+                "SELECT * FROM insurances WHERE InsuranceID=?",
                 new Object[]{id}, new CustomerRowMapper());
     }
 

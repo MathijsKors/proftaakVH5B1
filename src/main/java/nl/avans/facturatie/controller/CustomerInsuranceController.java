@@ -39,11 +39,13 @@ public class CustomerInsuranceController {
     
     
     private final CustomerInsuranceService customerInsuranceService;
+    private final CustomerService customerService;
     private Customer customer;
 
     @Autowired
-    public CustomerInsuranceController(CustomerInsuranceService customerInsuranceService) {
+    public CustomerInsuranceController(CustomerInsuranceService customerInsuranceService, CustomerService customerService) {
         this.customerInsuranceService = customerInsuranceService;
+        this.customerService = customerService;
     }
 
     @ModelAttribute("page")
@@ -78,42 +80,6 @@ public class CustomerInsuranceController {
     }
 
     
-    @RequestMapping(value="/customer/{id}/editinsurance", method = RequestMethod.GET)
-    public String showEditCustomerInsuranceForm(@ModelAttribute("user") User user, final Customer customer, final ModelMap model, @PathVariable int id) {
-        if (!user.isAuthenticated()) {
-            return "redirect:/login";
-        }
-        
-        logger.debug("showEditCustomerInsuranceForm");
-        model.addAttribute("customer", customerInsuranceService.findCustomerById(id));
-        return "views/customer/editinsurance";
-    }
-    
-    @RequestMapping(value="/customer/{id}/editinsurance", method = RequestMethod.POST)
-    public String validateAndSaveEditedCustomer(@ModelAttribute("user") User user, final ModelMap model, @Valid Customer customer, final BindingResult bindingResult, @PathVariable String id) {
-        if (!user.isAuthenticated()) {
-            return "redirect:/login";
-        }
-        
-        logger.info("validateAndSaveEditedCustomer - edited customer = " + customer.getFullName());
-
-        //error handeling met het aanpassen van een gebruiker gaat nog niet goed!
-        if (bindingResult.hasErrors()) {
-            // Als er velden in het formulier zijn die niet correct waren ingevuld vinden we die hier.
-            // We blijven dan op dezelfde pagina. De foutmeldingen worden daar getoond
-            // (zie het create.html bestand.
-            logger.info("validateAndSaveCustomer - not added, bindingResult.hasErrors");
-            return "views/customer/editinsurance";
-        }
-
-        customerInsuranceService.edit(customer, Integer.parseInt(id));
-
-        // We gaan de lijst met customers tonen, met een bericht dat de nieuwe customer toegevoegd is.
-        // Zet de opgevraagde customers in het model
-        model.addAttribute("customers", customerInsuranceService.findAllCustomers());
-        // Open de juiste view template als resultaat.
-        return "views/customerinsurance/list";
-    }
 
 
 

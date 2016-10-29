@@ -15,8 +15,7 @@
         <p>Hieronder kunt u een verzekering kiezen om toe te voegen aan de klant.</p>
         
             <!-- Form om een nieuwe repository te maken. Het object 'repository' is het object waarin de
-            waarden uit het formulier worden ingevuld. Het is afkomstig uit de CustomerInsuranceController. -->
-        <form id="editCustomerInsuranceForm" action="#" th:action="@{'/customer/' + ${customer.customerID} + '/editinsurance'}" th:object="${customer}" method="post">
+            waarden uit het formulier worden ingevuld. Het is afkomstig uit de CustomerInsuranceController. "-->
             
              <div class="row">
                 <div class="col-sm-4">
@@ -29,13 +28,21 @@
                         <p th:if="${#fields.hasErrors('insurance')}" th:errors="*{insurance}">Insurance Error</p>
                     </div>
                         
-                  
-                                <!--   <select class="selectpicker" th:field="*{insurance}"
-                                        <option>Basispakket</option>
-                                        <option>Basis-plus pakket</option>
-                                        <option>Plus pakket</option>
-                                    </select> -->
                    
+                    <select field="sdfsdf" id="tagList" class="selectpicker  show-tick show-menu-arrow" name="selectId" >
+                        <option th:each="insurance : ${insurance}" th:value="${insurance.insuranceID}" th:text="${insurance.type}">Wireframe</option>
+                    </select>
+                    
+                    
+                    <!--
+                    <select class="selectpicker" >
+                        
+                        <option >Basispakket</option>
+                        <option >Basispakket</option>
+                        <option >Basispakket</option>
+                        
+                    </select>
+                   -->
                 
                  </div>
                  </div>
