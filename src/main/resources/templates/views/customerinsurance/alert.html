@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html layout:decorator="customer/layout">
+<body>
+<th:block layout:fragment="alert">
+    <div class="alert alert-dismissable" th:classappend="'alert-' + ${type}">
+        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+        <h4 th:text="${header}">Alert header</h4>
+        <!--/* 'layout:fragment' attribute defines a replaceable content section */-->
+        <th:block layout:fragment="alert-content">
+            <p>Controleer de/het volgende veld(en):</p>
+            <ul th:if="${#fields.hasErrors('*')}" class="errorlist">
+                <li th:each="err : ${#fields.errors('*')}" th:text="${err}">Input is incorrect</li>
+            </ul>
+        </th:block>
+    </div>
+</th:block>
+</body>
+</html>

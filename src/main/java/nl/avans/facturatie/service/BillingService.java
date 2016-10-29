@@ -12,9 +12,9 @@ import nl.avans.facturatie.repository.BillingRepository;
 @Service
 public class BillingService {
 
-    private final Logger logger = LoggerFactory.getLogger(CustomerService.class);;
+    private final Logger logger = LoggerFactory.getLogger(BillingService.class);;
 
-    private BillingRepository billingRepository;
+    private final BillingRepository billingRepository;
 
     @Autowired
     public BillingService(BillingRepository billingRepository) {
