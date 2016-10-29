@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+<head th:replace="fragments/head :: head"></head>
+<body>
+         <!--   TODO Als je op de voeg verzekering toe knop klikt na de het zoeken op klant kom je op deze pagina terecht.
+        Deze pagina is hetzelfde als de read van customer maar dan met onderaan een dropdown menu waarmee je een verzekering aan een
+        klant kan koppelen. (dit is hetzelfde als bij de book pagina van de bibliotheek casus waarbij je een book aan een member koppelt. -->
+
+<!-- Header -->
+<div th:replace="fragments/header :: header"></div>
+
+    <!--/* Content of this page will be decorated by the elements of layout.html (student/layout) */-->
+    <div class="container" layout:fragment="summary">
+
+        <div class="page-header">
+            <h1><i class="fa fa-user" aria-hidden="true"></i>&nbsp;Verzekering toevoegen</h1>
+        </div>
+        <p>Hieronder kunt u een verzekering kiezen om toe te voegen aan de klant.</p>
+        
+            <!-- Form om een nieuwe repository te maken. Het object 'repository' is het object waarin de
+            waarden uit het formulier worden ingevuld. Het is afkomstig uit de CustomerInsuranceController. -->
+        <form id="editCustomerInsuranceForm" action="#" th:action="@{'/customer/' + ${customer.customerID} + '/editinsurance'}" th:object="${customer}" method="post">
+            
+             <div class="row">
+                <div class="col-sm-4">
+                    <div class="form-group">
+                        <label for="type">Type verzekering:</label>
+                        
+                             <!-- Deze selectbox zet de MemberID waarde in het exception object. Na verzenden van het
+                             formulier via de knop wordt het exception object meegestuurd naar de controller die de
+                             action van dit formulier afhandelt.
+
+                             Deze selectbox maakt gebruik van bootstrap-select. Zie de included css en js.
+                             Zie ook https://silviomoreto.github.io/bootstrap-select
+                             -->                      
+                              <select th:field="${insurance.insuranceID}" id="tagList" class="selectpicker  show-tick show-menu-arrow" name="selectId"
+                              th:attr="disabled=${copy.LoanDate != null and copy.ReturnedDate == null ? 'disabled' : null}">
+                                 <option th:each="insurance : ${insurances}"
+                                         th:value="${insurance.insuranceID}"
+                                         th:text="${insurance.type}"
+                                 />
+                              </select>
+                    </div>
+                </div>
+                 
+                <button type="submit" class="btn btn-primary" name="save">Pas aan</button>       
+            </div>
+        </form>
+
+    </body>
+</html>
+                                        
