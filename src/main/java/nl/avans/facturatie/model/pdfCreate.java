@@ -3,10 +3,10 @@ package nl.avans.facturatie.model;
 import java.io.File;
 import java.io.IOException;
 
-import com.itextpdf.kernel.pdf.PdfDocument;
-import com.itextpdf.kernel.pdf.PdfWriter;
-import com.itextpdf.layout.Document;
-import com.itextpdf.layout.element.Paragraph;
+//import com.itextpdf.kernel.pdf.PdfDocument;
+//import com.itextpdf.kernel.pdf.PdfWriter;
+//import com.itextpdf.layout.Document;
+//import com.itextpdf.layout.element.Paragraph;
 
 
  
@@ -25,18 +25,18 @@ public class pdfCreate {
  
     public void createPdf(String dest) throws IOException {
         //Initialize PDF writer
-        PdfWriter writer = new PdfWriter(dest);
+        //PdfWriter writer = new PdfWriter(dest);
  
         //Initialize PDF document
-        PdfDocument pdf = new PdfDocument(writer);
+        //PdfDocument pdf = new PdfDocument(writer);
  
         // Initialize document
-        Document document = new Document(pdf);
+        //Document document = new Document(pdf);
  
         //Add paragraph to the document
-        document.add(new Paragraph("Hello World!"));
+        //document.add(new Paragraph("Hello World!"));
  
         //Close document
-        document.close();
+        //document.close();
     }
 }
