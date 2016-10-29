@@ -22,10 +22,12 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
 import nl.avans.facturatie.model.Billing;
+import nl.avans.facturatie.model.Invoice;
 import nl.avans.facturatie.model.User;
 import nl.avans.facturatie.service.BillingService;
 import nl.avans.facturatie.service.CustomerService;
 import nl.avans.facturatie.service.InvoiceService;
+import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.SessionAttributes;
 
 /**
@@ -35,7 +37,7 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 
 @Controller
 @SessionAttributes (value = "user", types = {User.class} )
-public class BillingController {
+public class InvoiceController {
     
     @ModelAttribute("user")
     public User getUser() {
@@ -45,53 +47,40 @@ public class BillingController {
     private final Logger logger = LoggerFactory.getLogger(BillingService.class);;
 
     private final BillingService billingService;
-    private CustomerService customerService;
-    private InvoiceService invoiceService;
+    private final CustomerService customerService;
+    private final InvoiceService invoiceService;
     private Billing billing;
         
     @Autowired
-    public BillingController(BillingService billingService, CustomerService customerService, InvoiceService invoiceService){
+    public InvoiceController(BillingService billingService, CustomerService customerService, InvoiceService invoiceService){
         this.billingService = billingService;
         this.customerService = customerService;
         this.invoiceService = invoiceService;
     }
-   
-    
-    /**
-     * Haal een lijst van Billings en toon deze in een view.
-     * @param model
-     * @return
-     */
-    @RequestMapping(value = "/billing", method = RequestMethod.GET)
-    public String listBillings(Model model) {
-        logger.info("listBillings");
-        // Zet de opgevraagde billings in het model
-        model.addAttribute("billings", billingService.findAllBillings());
-        model.addAttribute("invoices", invoiceService.findAllInvoices());
-        // Open de juiste view template als resultaat.
-        return "views/billing/list";
-    }
-
-    /**
-     * Haal de billing met gegeven ID uit de database en toon deze in een view.
-     * @param model
-     * @param id
-     * @return
-     */
-     @RequestMapping(value = "/billing/{id}", method = RequestMethod.GET)
-    public String listOneBilling(@ModelAttribute("user") User user, Model model, @PathVariable int id) {
-        if (!user.isAuthenticated()) {
-            return "redirect:/login";
-        }        
-
-        // Zet de opgevraagde waarden in het model
-        Billing bill = billingService.findBillingById(id);
-        model.addAttribute("billing", bill);
-        logger.info(bill.getCustomerID() + "");
-        int customerID = bill.getCustomerID();
-        model.addAttribute("customer", customerService.findCustomerById(customerID));
-        return "views/billing/read";
-    }
+  
+//    @RequestMapping(value="/invoice/create/{id}", method = RequestMethod.POST)
+//    public String validateAndSaveInvoice(@ModelAttribute("user") User user, final ModelMap model, @PathVariable int id) {
+//        if (!user.isAuthenticated()) {
+//            return "redirect:/login";
+//        }
+//        
+//        //billingService.findBillingById(id)
+//        // Maak de invoice aan via de invoiceservice
+//        Invoice newInvoice = invoiceService.create(invoice);
+//        if (newInvoice != null) {
+//            model.addAttribute("info", "Invoice is toegevoegd.");
+//        } else {
+//            logger.error("Klant kon niet gemaakt worden.");
+//            model.addAttribute("info", "Klant kon niet gemaakt worden.");
+//        }
+//
+//        // We gaan de lijst met invoices tonen, met een bericht dat de nieuwe invoice toegevoegd is.
+//        // Zet de opgevraagde invoices in het model
+//        model.addAttribute("billings", billingService.findAllBillings());
+//        model.addAttribute("invoices", invoiceService.findAllInvoices());
+//        // Open de juiste view template als resultaat.
+//        return "views/billing/list";
+//    }
     
     @ExceptionHandler(value = SQLException.class)
     public ModelAndView handleError(HttpServletRequest req, SQLException ex) {
@@ -113,6 +102,6 @@ public class BillingController {
      *
      * @return
      */
-    public List<Billing> findAllBillings() { return billingService.findAllBillings(); }
+    public List<Invoice> findAllInvoices() { return invoiceService.findAllInvoices(); }
     
 }

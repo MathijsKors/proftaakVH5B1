@@ -13,6 +13,7 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 import javax.annotation.Resource;
 import javax.sql.DataSource;
 import nl.avans.facturatie.repository.BillingRepository;
+import nl.avans.facturatie.repository.InvoiceRepository;
 
 /**
  * @author Petri Kainulainen
@@ -59,6 +60,13 @@ public class PersistenceContext {
     @Primary
     public BillingRepository getBillingRepository() {
         return new BillingRepository(this.dataSource());
+    }
+    
+    @Bean
+    @Qualifier("PersistenceContext")
+    @Primary
+    public InvoiceRepository getInvoiceRepository() {
+        return new InvoiceRepository(this.dataSource());
     }
 
 }
