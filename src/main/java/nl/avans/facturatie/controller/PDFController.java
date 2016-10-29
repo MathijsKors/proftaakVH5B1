@@ -7,6 +7,7 @@ package nl.avans.facturatie.controller;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.logging.Level;
@@ -83,9 +84,14 @@ public class PDFController {
         
         
         logger.info("Create pdf");
-      
+        try {
+            Runtime.getRuntime().exec("explorer.exe /open," + "results\\factuur"+invoice.getInvoiceID()+".pdf");
+        } catch (IOException ex) {
+            java.util.logging.Logger.getLogger(PDFController.class.getName()).log(Level.SEVERE, null, ex);
+        }
         // Open de juiste view template als resultaat.
         return "views/home/index";
+        
     }
 }
 
