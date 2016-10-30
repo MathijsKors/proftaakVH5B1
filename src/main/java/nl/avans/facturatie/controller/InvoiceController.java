@@ -11,6 +11,7 @@ import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 import nl.avans.facturatie.model.Appointment;
+import nl.avans.facturatie.model.Customer;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -26,6 +27,8 @@ import nl.avans.facturatie.model.User;
 import nl.avans.facturatie.service.AppointmentService;
 import nl.avans.facturatie.service.CustomerService;
 import nl.avans.facturatie.service.InvoiceService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.SessionAttributes;
@@ -58,7 +61,8 @@ public class InvoiceController {
         this.appointmentService = appointmentService;
     }
   
-    
+        private final Logger logger = LoggerFactory.getLogger(CustomerService.class);
+
     
      /**
      * Haal een lijst van Appointments en toon deze in een view.
@@ -85,7 +89,7 @@ public class InvoiceController {
         
         Appointment appointment = appointmentService.findAppointmentById(id);
         model.addAttribute("appointment", appointment);
-        //logger.info(appointment.getCustomerID() + "");
+        logger.info(appointment.getAppointmentId() + "");
         
         return "views/invoice/editandcreate";
     }
@@ -102,36 +106,42 @@ public class InvoiceController {
             // We blijven dan op dezelfde pagina. De foutmeldingen worden daar getoond
             // (zie het create.html bestand.
             //logger.info("validateAndSaveCustomer - not added, bindingResult.hasErrors");
-            return "views/invoice/list";
+            return "views/invoice/editandcreate";
+        }
+        Appointment appointment = appointmentService.findAppointmentById(id);
+        Customer customer = customerService.findCustomerById(appointment.getPatientId());
+
+        // Maak de customer aan via de customer
+        Invoice newInvoice = invoiceService.create(invoice, customer);
+        if (newInvoice != null) {
+            model.addAttribute("info", "Invoice  is toegevoegd.");
+        } else {
+            
+            model.addAttribute("info", "Invoice kon niet gemaakt worden.");
         }
         
-        //appointmentService.edit(appointment, Integer.parseInt(id));
-
-        // We gaan de lijst met customers tonen, met een bericht dat de nieuwe customer toegevoegd is.
-        // Zet de opgevraagde customers in het model
         
-        model.addAttribute("appointment", appointmentService.findAppointmentById(id));
-        // Open de juiste view template als resultaat.
+        model.addAttribute("appointmentObj", new Appointment());
+        model.addAttribute("appointments", appointmentService.getAllAppointments());
+        model.addAttribute("invoices", invoiceService.findAllInvoices());
+        
+        
+     
         return "views/invoice/list";
     }
     
     
-    @RequestMapping(value="/invoice/{id}/create", method = RequestMethod.POST)
-    public String createdAppointment(@ModelAttribute("user") User user, final ModelMap model, @Valid Appointment appointment, final BindingResult bindingResult, @PathVariable String id) {
+    @RequestMapping(value="/invoice/create/{id}", method = RequestMethod.GET)
+    public String createdAppointment(@ModelAttribute("user") User user, final ModelMap model, @Valid Invoice invoice, final BindingResult bindingResult, @PathVariable String id) {
         if (!user.isAuthenticated()) {
             return "redirect:/login";
         }
         
-        //error handeling met het aanpassen van een gebruiker gaat nog niet goed!
-        if (bindingResult.hasErrors()) {
-            // Als er velden in het formulier zijn die niet correct waren ingevuld vinden we die hier.
-            // We blijven dan op dezelfde pagina. De foutmeldingen worden daar getoond
-            // (zie het create.html bestand.
-            //logger.info("validateAndSaveCustomer - not added, bindingResult.hasErrors");
-            return "views/appointment/list";
-        }
+        Appointment appointment = appointmentService.findAppointmentById(id);
+        Customer customer = customerService.findCustomerById(appointment.getPatientId());
 
-        //appointmentService.edit(appointment, Integer.parseInt(id));
+        // Maak de customer aan via de customer
+        Invoice newInvoice = invoiceService.create(invoice, customer);
 
         // We gaan de lijst met customers tonen, met een bericht dat de nieuwe customer toegevoegd is.
         // Zet de opgevraagde customers in het model

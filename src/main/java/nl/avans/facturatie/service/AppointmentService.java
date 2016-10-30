@@ -28,7 +28,7 @@ public class AppointmentService {
         Appointment appointment = new Appointment();
 
         for (Appointment p : this.getAllAppointments()) {
-            if (p.getAppointmentId() == Integer.parseInt(id)) {
+            if (Integer.parseInt(p.getAppointmentId()) == Integer.parseInt(id)) {
                 appointment = p;
             }
         }

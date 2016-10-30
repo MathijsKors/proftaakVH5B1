@@ -10,14 +10,14 @@
     <div class="container" layout:fragment="summary">
 
         <div class="page-header">
-            <h1><i class="fa fa-plus" aria-hidden="true"></i>&nbsp;Nieuwe klant</h1>
+            <h1><i class="fa fa-plus" aria-hidden="true"></i>&nbsp;Aanpassen en accepteren</h1>
         </div>
-        <p>Hier kunt je een nieuwe klant toevoegen.</p>
+        <p></p>
 
         
         <!-- Form om een nieuwe repository te maken. Het object 'repository' is het object waarin de
             waarden uit het formulier worden ingevuld. Het is afkomstig uit de InvoiceController. -->
-       <form id="createInvoiceForm" action="#" th:action="@{'/invoice/' + ${appointment.appointmentId} + '/editandsend'}" th:object="${invoice}" method="post">
+       <form id="createInvoiceForm" action="#" th:action="@{'/invoice/' + ${appointment.appointmentId} + '/editandcreate'}" th:object="${invoice}" method="post">
 
             <!-- Het formulier wordt na verzenden gevalideerd in de InvoiceController.
                 Als er fouten waren kun je hier een lijst met foutmeldingen tonen.
@@ -31,7 +31,6 @@
                     <!--/* Implements alert summary fragment with full-blown HTML summary */-->
                     <th:block layout:fragment="alert-summary">
                         <p>Niet alle velden in het formulier zijn correct ingevuld. Corrigeer deze en verzend opnieuw.</p>
-                        
                     </th:block>
                 </div>
             </div>
@@ -50,39 +49,39 @@
             <div class="row">
                 <div class="col-sm-4">
                     <div class="form-group">
-                        <label for="invoiceID">ID</label>
+                        <label for="appointmentId">Afspaaknummer</label>
                         <!-- th:field="*{name}" is de koppeling naar het attribuut 'name' van het object 'repository'-->
-                        <input type="text" class="form-control" th:value="${appointment.appointmentId}" id="invoiceID" name="invoiceID"/>
-                        <p th:if="${#fields.hasErrors('invoiceID')}" th:errors="*{invoiceID}">Name Error</p>
+                        <input type="text" class="form-control" th:field="*{appointmentId}" id="appointmentId" name="appointmentId"/>
+                        <p th:if="${#fields.hasErrors('appointmentId')}" th:errors="*{appointmentId}">Name Error</p>
                     </div>
                 </div>
                 <div class="col-sm-8">
                     <div class="form-group">
-                        <label for="price">Achternaam</label>
+                        <label for="price">Kosten</label>
                         <!-- th:field="*{name}" is de koppeling naar het attribuut 'name' van het object 'repository'-->
-                        <input type="text" class="form-control" id="lastname" th:field="*{price}"/>
+                        <input type="text" class="form-control" th:field="*{price}" id="price" name="price"/>
                         <p th:if="${#fields.hasErrors('price')}" th:errors="*{price}">Name Error</p>
                     </div>
                  </div>
             </div>
             <div class="row">
                     <div class="form-group col-sm-4">
-                        <label for="customerName">Geboortedatum</label>
+                        <label for="customerName">Naam klant</label>
                         <!-- th:field="*{name}" is de koppeling naar het attribuut 'name' van het object 'repository'-->
-                        <input type="text"  class="form-control" id="birthDate" th:field="*{customerName}"/>
+                        <input type="text"  class="form-control" th:field="*{customerName}" id="customerName" name="customerName"/>
                         <p th:if="${#fields.hasErrors('customerName')}" th:errors="*{customerName}">Name Error</p>
                     </div>
                     <div class="form-group col-sm-4">
-                        <label for="treatmentName">Straat</label>
+                        <label for="treatmentName">Naam behandeling</label>
                         <!-- th:field="*{name}" is de koppeling naar het attribuut 'name' van het object 'repository'-->
-                        <input type="text" class="form-control" id="street" th:field="*{treatmentName}"/>
+                        <input type="text" class="form-control" th:field="*{treatmentName}" id="treatmentName"  name="treatmentName"/>
                         <p th:if="${#fields.hasErrors('treatmentName')}" th:errors="*{treatmentName}">Name Error</p>
                     </div>
                 <div class="col-sm-4">
                     <div class="form-group">
-                        <label for="duration">Huisnummer</label>
+                        <label for="duration">Duur behandeling</label>
                         <!-- th:field="*{name}" is de koppeling naar het attribuut 'name' van het object 'repository'-->
-                        <input type="text" class="form-control" id="housenumber" th:field="*{duration}"/>
+                        <input type="text" class="form-control" th:field="*{duration}" id="duration" name="duration" />
                         <p th:if="${#fields.hasErrors('duration')}" th:errors="*{duration}">Name Error</p>
                     </div>
                 </div>
@@ -90,22 +89,22 @@
             <div class="row">
                 <div class="col-sm-4">
                     <div class="form-group">
-                        <label for="deadline">Stad</label>
-                        <input type="text" class="form-control" id="city" th:field="*{deadline}"/>
+                        <label for="deadline">Uiterlijke betaaldatum</label>
+                        <input type="date" class="form-control" id="deadline" name="deadline" th:field="*{deadline}"/>
                         <p th:if="${#fields.hasErrors('deadline')}" th:errors="*{deadline}">Name Error</p>
                     </div>
                  </div>
                 <div class="col-sm-4">
                     <div class="form-group">
-                        <label for="adress">Email</label>
-                        <input type="text" class="form-control" id="email" th:field="*{Adress}"/>
-                        <p th:if="${#fields.hasErrors('Adress')}" th:errors="*{Adress}">Name Error</p>
+                        <label for="adress">Adres</label>
+                        <input type="text" class="form-control" id="adress" name="adress" th:field="*{adress}"/>
+                        <p th:if="${#fields.hasErrors('adress')}" th:errors="*{adress}">Name Error</p>
                     </div>
                 </div>
                 <div class="col-sm-4">
                     <div class="form-group">
-                        <label for="invoiceDate">Telefoon</label>
-                        <input type="text" class="form-control" id="phone" th:field="*{invoiceDate}"/>
+                        <label for="invoiceDate">Factuur datum</label>
+                        <input type="date" class="form-control" id="invoiceDate" name="invoiceDate" th:field="*{invoiceDate}"/>
                         <p th:if="${#fields.hasErrors('invoiceDate')}" th:errors="*{invoiceDate}">Name Error</p>
                     </div>
                 </div>
@@ -113,7 +112,7 @@
             <!-- De button die voor verzenden van het formulier zorgt.
                 De name 'save' is een parameter waarmee in de InvoiceController de juiste
                 save-actie wordt gestart. -->
-            <button type="submit" class="btn btn-primary" name="save">Maak aan</button>
+            <button type="submit" class="btn btn-success" name="save">Pas aan en accepteer</button>
 
         </form>
     </div>

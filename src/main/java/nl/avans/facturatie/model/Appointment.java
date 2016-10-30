@@ -5,29 +5,52 @@
  */
 package nl.avans.facturatie.model;
 
-import java.util.Date;
+
+import javax.validation.constraints.Size;
 
 /**
  *
  * @author Dorian
  */
 public class Appointment {
-
+    
+    @Size(min = 1, max = 32, message = "Te kort of te lang.")
     private String date;
-    private int appointmentId;
+    
+    
+    private String appointmentId;
+    
+    @Size(min = 1, max = 32, message = "Te kort of te lang.")
     private String fysiotherapistName;
+    
+    @Size(min = 1, max = 32, message = "Te kort of te lang.")
     private String status;
+    
+    @Size(min = 1, max = 32, message = "Te kort of te lang.")
     private String patientName;
+    
+    @Size(min = 1, max = 32, message = "Te kort of te lang.")
     private String treatmentCode;
+    
+    @Size(min = 1, max = 32, message = "Te kort of te lang.")
     private int treatmentTime;
+    
+    @Size(min = 1, max = 32, message = "Te kort of te lang.")
     private int patientId;
+    
+    @Size(min = 1, max = 32, message = "Te kort of te lang.")
     private String treatmentName;
+    
+    @Size(min = 1, max = 32, message = "Te kort of te lang.")
+    private String treatmentPrice;
+    
+    
 
     
     public Appointment(){
     }
     
-    public Appointment(String date, int appointmentId, String fysiotherapistName, String status, String patientName, String treatmentCode, int treatmentTime, int patientId, String treatmentName) {
+    public Appointment(String date, String appointmentId, String fysiotherapistName, String status, String patientName, String treatmentCode, int treatmentTime, int patientId, String treatmentName, String treatmentPrice) {
         this.date = date;
         this.appointmentId = appointmentId;
         this.fysiotherapistName = fysiotherapistName;
@@ -37,13 +60,26 @@ public class Appointment {
         this.treatmentTime = treatmentTime;
         this.patientId = patientId;
         this.treatmentName = treatmentName;
+        this.treatmentPrice = treatmentPrice;
+    }
+
+    public void setFysiotherapistName(String fysiotherapistName) {
+        this.fysiotherapistName = fysiotherapistName;
+    }
+
+    public void setTreatmentPrice(String treatmentPrice) {
+        this.treatmentPrice = treatmentPrice;
+    }
+
+    public String getTreatmentPrice() {
+        return treatmentPrice;
     }
 
     public String getDate() {
         return date;
     }
 
-    public int getAppointmentId() {
+    public String getAppointmentId() {
         return appointmentId;
     }
 
@@ -79,7 +115,7 @@ public class Appointment {
         this.date = date;
     }
 
-    public void setAppointmentId(int appointmentId) {
+    public void setAppointmentId(String appointmentId) {
         this.appointmentId = appointmentId;
     }
 
