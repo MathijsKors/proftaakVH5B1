@@ -284,7 +284,8 @@ public class CustomerController {
             logger.info("validateAndSaveCustomer - not added, bindingResult.hasErrors");
             return "views/customer/editinsurance";
         }
-
+        
+        customerInsuranceService.editOwnRisk(customer, Integer.parseInt(id));
         customerService.editInsurance(customer, Integer.parseInt(id));
 
         // We gaan de lijst met customers tonen, met een bericht dat de nieuwe verzekering toegevoegd is.

@@ -45,7 +45,15 @@ public class CustomerInsuranceService {
         Customer editedcustomer = customerInsuranceRepository.edit(customer, id);
         return editedcustomer;
     }
+    
+    
+    public Customer editOwnRisk(Customer customer, int id) {
+        logger.info("edit - customer = " + customer.getFullName());
 
+        // Maak de customer aan via de repository
+        Customer editedcustomer = customerInsuranceRepository.editOwnRisk(customer, id);
+        return editedcustomer;
+    }
    
 
     /**

@@ -58,10 +58,19 @@
                                 </div>
                             </select>
 
-                        </div>                                 
+                        </div>   
+                        <button type="submit" class="btn btn-primary" name="save">Wijzigingen opslaan</button>  
+                    </div>
+                    <div class="col-sm-4">
+                        <div class="form-group">
+                            <label for="ownrisk">Eigen risico:</label>
+                            <!-- th:field="*{name}" is de koppeling naar het attribuut 'name' van het object 'repository' th:value="{costumer.}"-->
+                            <input type="text" class="form-control" id="firstname" th:value="${customer.ownRisk}" th:field="*{ownRisk}"/>
+                            <p th:if="${#fields.hasErrors('ownRisk')}" th:errors="*{ownRisk}">Name Error</p>
+                        </div>    
                     </div>
                 </div>
-                <button type="submit" class="btn btn-primary" name="save">Pas aan</button>       
+
 
 
             </form>

@@ -25,27 +25,29 @@ import org.springframework.dao.DataIntegrityViolationException;
  * Created by Robin Schellius on 31-8-2016.
  */
 @Repository
-public class CustomerInsuranceRepository
-{
-    private final Logger logger = LoggerFactory.getLogger(CustomerService.class);;
+public class CustomerInsuranceRepository {
+
+    private final Logger logger = LoggerFactory.getLogger(CustomerService.class);
+    ;
 
     @SuppressWarnings("SpringJavaAutowiringInspection")
     @Autowired
     private final JdbcTemplate jdbcTemplate;
 
     // Deze constructor wordt aangeroepen vanuit de config/PersistenceContext class.
-
     /**
      *
      * @param dataSource
      */
-    public CustomerInsuranceRepository(DataSource dataSource) { this.jdbcTemplate = new JdbcTemplate(dataSource); }
+    public CustomerInsuranceRepository(DataSource dataSource) {
+        this.jdbcTemplate = new JdbcTemplate(dataSource);
+    }
 
     /**
      *
      * @return
      */
-    @Transactional(readOnly=true)
+    @Transactional(readOnly = true)
     public List<Customer> findAll() {
         logger.info("findAll");
         List<Customer> result = jdbcTemplate.query("SELECT * FROM customers", new CustomerRowMapper());
@@ -58,7 +60,7 @@ public class CustomerInsuranceRepository
      * @param id
      * @return
      */
-    @Transactional(readOnly=true)
+    @Transactional(readOnly = true)
     public Customer findCustomerById(int id) {
         logger.info("findCustomerById");
         return jdbcTemplate.queryForObject(
@@ -75,13 +77,11 @@ public class CustomerInsuranceRepository
     public Customer edit(final Customer customer, int id) {
 
         logger.info("edit repository = " + customer.getFullName());
-        
-        
+
         final String sql = "UPDATE `customers` SET `Insurance` = ? WHERE `customers`.`CustomerID` = ?;";
 
         // KeyHolder gaat de auto increment key uit de database bevatten.
         KeyHolder holder = new GeneratedKeyHolder();
-        
 
         jdbcTemplate.update(new PreparedStatementCreator() {
 
@@ -90,7 +90,31 @@ public class CustomerInsuranceRepository
                 PreparedStatement ps = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
                 ps.setString(1, customer.getInsurance());
                 ps.setInt(2, id);
-                
+
+                return ps;
+            }
+        }, holder);
+
+        return customer;
+    }
+
+    public Customer editOwnRisk(final Customer customer, int id) {
+
+        logger.info("edit repository = " + customer.getFullName());
+
+        final String sql = "UPDATE `customers` SET `ownRisk` = ? WHERE `customers`.`CustomerID` = ?;";
+
+        // KeyHolder gaat de auto increment key uit de database bevatten.
+        KeyHolder holder = new GeneratedKeyHolder();
+
+        jdbcTemplate.update(new PreparedStatementCreator() {
+
+            @Override
+            public PreparedStatement createPreparedStatement(Connection connection) throws SQLException {
+                PreparedStatement ps = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
+                ps.setDouble(1, customer.getOwnRisk());
+                ps.setInt(2, id);
+
                 return ps;
             }
         }, holder);
