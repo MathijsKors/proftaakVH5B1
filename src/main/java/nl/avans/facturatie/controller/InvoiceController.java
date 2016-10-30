@@ -55,15 +55,15 @@ public class InvoiceController {
     private final CustomerService customerService;
     private final InvoiceService invoiceService;
     private final TreatmentService treatmentService;
-    private final AppointmentService appointmentService;
+    
         
     @Autowired
-    public InvoiceController(BillingService billingService, CustomerService customerService, InvoiceService invoiceService, TreatmentService treatmentService, AppointmentService appointmentService){
+    public InvoiceController(BillingService billingService, CustomerService customerService, InvoiceService invoiceService, TreatmentService treatmentService ){
         this.billingService = billingService;
         this.customerService = customerService;
         this.invoiceService = invoiceService;
         this.treatmentService = treatmentService;
-        this.appointmentService = appointmentService;
+        //this.appointmentService = appointmentService;AppointmentService appointmentServicefinal AppointmentService appointmentService;
     }
   
     @RequestMapping(value="/invoice/create/{id}", method = RequestMethod.GET)
