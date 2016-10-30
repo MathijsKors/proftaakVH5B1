@@ -9,6 +9,7 @@ import java.sql.SQLException;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
+import nl.avans.facturatie.model.Appointment;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,6 +27,7 @@ import nl.avans.facturatie.model.Customer;
 import nl.avans.facturatie.model.Invoice;
 import nl.avans.facturatie.model.Treatment;
 import nl.avans.facturatie.model.User;
+import nl.avans.facturatie.service.AppointmentService;
 import nl.avans.facturatie.service.BillingService;
 import nl.avans.facturatie.service.CustomerService;
 import nl.avans.facturatie.service.InvoiceService;
@@ -53,13 +55,15 @@ public class InvoiceController {
     private final CustomerService customerService;
     private final InvoiceService invoiceService;
     private final TreatmentService treatmentService;
+    private final AppointmentService appointmentService;
         
     @Autowired
-    public InvoiceController(BillingService billingService, CustomerService customerService, InvoiceService invoiceService, TreatmentService treatmentService){
+    public InvoiceController(BillingService billingService, CustomerService customerService, InvoiceService invoiceService, TreatmentService treatmentService, AppointmentService appointmentService){
         this.billingService = billingService;
         this.customerService = customerService;
         this.invoiceService = invoiceService;
         this.treatmentService = treatmentService;
+        this.appointmentService = appointmentService;
     }
   
     @RequestMapping(value="/invoice/create/{id}", method = RequestMethod.GET)
@@ -71,6 +75,7 @@ public class InvoiceController {
         Billing bill = billingService.findBillingById(id);
         Customer customer = customerService.findCustomerById(bill.getCustomerID());
         Treatment treatment = treatmentService.findTreatmentById(bill.getTreatmentID()+"");
+        //Appointment appointment = appointmentService.findAppointmentById(id)ById(bill.getTreatmentID()+"");
         
         // Maak de invoice aan via de invoiceservice
         Invoice newInvoice = invoiceService.create(bill, customer, treatment);
