@@ -62,7 +62,7 @@ public class CustomerInsuranceRepository
     public Customer findCustomerById(int id) {
         logger.info("findCustomerById");
         return jdbcTemplate.queryForObject(
-                "SELECT * FROM insurances WHERE InsuranceID=?",
+                "SELECT * FROM customers WHERE CustomerID=?",
                 new Object[]{id}, new CustomerRowMapper());
     }
 
@@ -77,13 +77,7 @@ public class CustomerInsuranceRepository
         logger.info("edit repository = " + customer.getFullName());
         
         
-        
-        //Geboortedatum aanpassen naar SQL formaat
-        java.util.Date utilBirthDate = customer.getBirthDate();
-        logger.info(""+ utilBirthDate);
-        java.sql.Date sqlBirthDate = new java.sql.Date(utilBirthDate.getTime());
-        logger.info(""+ sqlBirthDate);
-        final String sql = "UPDATE `customers` SET `Insurance` = ?";
+        final String sql = "UPDATE `customers` SET `Insurance` = ? WHERE `customers`.`CustomerID` = ?;";
 
         // KeyHolder gaat de auto increment key uit de database bevatten.
         KeyHolder holder = new GeneratedKeyHolder();
@@ -95,20 +89,12 @@ public class CustomerInsuranceRepository
             public PreparedStatement createPreparedStatement(Connection connection) throws SQLException {
                 PreparedStatement ps = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
                 ps.setString(1, customer.getInsurance());
+                ps.setInt(2, id);
                 
                 return ps;
             }
         }, holder);
 
         return customer;
-    }
-
-    /**
-     *
-     * @param id
-     */
-    public void deleteCustomerById(int id) {
-        logger.debug("deleteCustomerById");
-        jdbcTemplate.update("DELETE insurance FROM customers WHERE CustomerID=?", new Object[]{id});
     }
 }

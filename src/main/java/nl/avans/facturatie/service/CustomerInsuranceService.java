@@ -47,14 +47,6 @@ public class CustomerInsuranceService {
         return editedcustomer;
     }
 
-    /**
-     *
-     * @param id
-     */
-    public void delete(int id) {
-        logger.info("delete - customer = " + id);
-        this.customerInsuranceRepository.deleteCustomerById(id);
-    }
 
     /**
      *

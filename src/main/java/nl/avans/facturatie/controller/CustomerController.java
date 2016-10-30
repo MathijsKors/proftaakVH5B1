@@ -285,7 +285,7 @@ public class CustomerController {
 
         customerService.edit(customer, Integer.parseInt(id));
 
-        // We gaan de lijst met customers tonen, met een bericht dat de nieuwe customer toegevoegd is.
+        // We gaan de lijst met customers tonen, met een bericht dat de nieuwe verzekering toegevoegd is.
         // Zet de opgevraagde customers in het model
         model.addAttribute("customers", customerService.findAllCustomers());
         // Open de juiste view template als resultaat.

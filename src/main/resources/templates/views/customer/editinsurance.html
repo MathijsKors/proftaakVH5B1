@@ -12,44 +12,55 @@
         <div class="page-header">
             <h1><i class="fa fa-user" aria-hidden="true"></i>&nbsp;Verzekering toevoegen</h1>
         </div>
-        <p>Hieronder kunt u een verzekering kiezen om toe te voegen aan de klant.</p>
+        <p>Hier kunt u een verzekering kiezen om toe te voegen aan de klant.</p>
         
             <!-- Form om een nieuwe repository te maken. Het object 'repository' is het object waarin de
             waarden uit het formulier worden ingevuld. Het is afkomstig uit de CustomerInsuranceController. "-->
+        <form id="editCustomerForm" action="#" th:action="@{'/customer/' + ${customer.customerID} + '/editinsurance'}" th:object="${customer}" method="post">
+            
+            <!-- Het formulier wordt na verzenden gevalideerd in de CustomerController.
+                Als er fouten waren kun je hier een lijst met foutmeldingen tonen.
+                Je kunt ook de melding bij het inputveld tonen (zie code hieronder) en evt. de CSS class
+                van het inputveld veranderen. -->
+            <!--<ul th:if="${#fields.hasErrors('*')}" class="errorlist">-->
+                <!--<li th:each="err : ${#fields.errors('*')}" th:text="${err}">Input is incorrect</li>-->
+            <!--</ul>-->
+
+            <div th:if="${#fields.hasErrors('*')}">
+                <div layout:include="views/customer/alert :: alert" th:with="type='danger', header='Fouten in het formulier'" th:remove="tag">
+                    <!--/* Implements alert summary fragment with full-blown HTML summary */-->
+                    <th:block layout:fragment="alert-summary">
+                        <p>Niet alle velden in het formulier zijn correct ingevuld. Corrigeer deze en verzend opnieuw.</p>
+                        
+                    </th:block>
+                </div>
+            </div>
+            <div th:if="${exception}">
+                <div layout:include="views/customer/alert :: alert" th:with="type='danger', header='Fouten in het formulier'" th:remove="tag">
+                    <!--/* Implements alert summary fragment with full-blown HTML summary */-->
+                    <th:block layout:fragment="alert-summary">
+                        <p th:text="${exception}">Exception message</p>
+                        <ul th:if="${#fields.hasErrors('*')}" class="errorlist">
+                            <li th:each="err : ${#fields.errors('*')}" th:text="${err}">Input is incorrect</li>
+                        </ul>
+                    </th:block>
+                </div>
+            </div>
             
              <div class="row">
                 <div class="col-sm-4">
                     <div class="form-group">
                         <label for="type">Type verzekering:</label>
-                        
-
-                        <!-- th:field="*{name}" is de koppeling naar het attribuut 'name' van het object 'repository'-->
-                        <input type="text"  class="form-control" id="insurance" th:field="*{insurance}"/>
-                        <p th:if="${#fields.hasErrors('insurance')}" th:errors="*{insurance}">Insurance Error</p>
-                    </div>
-                        
-                   
-                    <select field="sdfsdf" id="tagList" class="selectpicker  show-tick show-menu-arrow" name="selectId" >
-                        <option th:each="insurance : ${insurance}" th:value="${insurance.insuranceID}" th:text="${insurance.type}">Wireframe</option>
-                    </select>
-                    
-                    
-                    <!--
-                    <select class="selectpicker" >
-                        
-                        <option >Basispakket</option>
-                        <option >Basispakket</option>
-                        <option >Basispakket</option>
-                        
-                    </select>
-                   -->
-                
-                 </div>
-                 </div>
-                <button type="submit" class="btn btn-primary" name="save">Pas aan</button>       
+                              
+                            <select field="sdfsdf" id="tagList" class="selectpicker  show-tick show-menu-arrow" name="selectId" >
+                                <option th:each="insurance : ${insurance}" th:value="${insurance.insuranceID}" th:text="${insurance.type}">Wireframe</option>
+                            </select>
+                    </div>                                 
+                </div>
+             </div>
+             <button type="submit" class="btn btn-primary" name="save">Pas aan</button>       
             
-        
-    
+
         </form>
     </div>
     
