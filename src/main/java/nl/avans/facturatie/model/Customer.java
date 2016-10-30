@@ -5,77 +5,65 @@
  */
 package nl.avans.facturatie.model;
 
-import java.sql.Date;
 import javax.validation.constraints.DecimalMin;
-import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
-import nl.avans.facturatie.annotation.UniqueBSN; //import is voor de UniqueBSN
 import org.springframework.format.annotation.DateTimeFormat;
-
 
 /**
  *
  * @author game
  */
 public class Customer {
-    
+
     private int customerID;
-    
-    @NotNull
+
     @Size(min = 9, max = 10, message = "BSN moet 9 tot 10 cijfers bevatten.")
     //@UniqueBSN(message = "BSN is al in gebruik!")
     private String bsnNumber;
 
-    @NotNull
     @Size(min = 1, max = 32, message = "Naam is te kort of te lang.")
     private String firstName;
 
-    @NotNull
     @Size(min = 1, max = 32, message = "Achternaam is te kort of te lang.")
     private String lastName;
-    
-    @NotNull
+
     @Size(min = 1, max = 32, message = "Straatnaam is te kort of te lang.")
     private String street;
 
-    @NotNull
     @DecimalMin(value = "1", message = "Huisnummer mag alleen 1 of meerdere cijfers zijn.")
     private String houseNumber;
 
-    @NotNull
     @Size(min = 1, max = 32, message = "Stad is te kort of te lang.")
     private String city;
 
-    @NotNull
     @Size(min = 1, max = 32, message = "Telefoonummer is te kort of te lang.")
     //@Pattern(regexp = "/\\(?([0-9]{3})\\)?([ .-]?)([0-9]{3})\\2([0-9]{4})/", message = "Telefoon nummer is in een niet goed formaat")
     private String phoneNumber;
-    
-    @NotNull(message = "Geboortedatum mag niet leeg zijn.")
+
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     //@Pattern(regexp = "[0-9]{2}-[0-9]{2}-[0-9]{4}", message = "Gebruik het volgende formaat: 'dd-mm-jjjj'")
     private java.util.Date birthDate;
-    
-    @NotNull
+
     @Size(min = 1, max = 32, message = "Emailadres is te kort of te lang.")
-    @Pattern(regexp="[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\\."
-            +"[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@"
-            +"(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?",
-            message="Emailadres niet juist formaat")
+    @Pattern(regexp = "[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\\."
+            + "[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@"
+            + "(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?",
+            message = "Emailadres niet juist formaat")
     private String emailAddress;
-    
-    @NotNull
-    @Size(min = 1, max = 32, message = "De invoer is te kort of the lang.")
+
+    @Size(min = 1, max = 32, message = "De invoer is te kort of te lang.")
     private String insurance;
 
+    private double ownRisk;
+
     private java.util.Date lastUpdated;
-    
 
     /**
      *
      */
-    public Customer() {  }
+    public Customer() {
+    }
 
     /**
      *
@@ -90,7 +78,7 @@ public class Customer {
      * @param emailAddress
      * @param insurance
      */
-    public Customer(String bsnNumber, String firstName, String lastName, java.util.Date birthDate, String street, String houseNumber, String city, String phoneNumber, String emailAddress, String insurance) {
+    public Customer(String bsnNumber, String firstName, String lastName, java.util.Date birthDate, String street, String houseNumber, String city, String phoneNumber, String emailAddress, String insurance, double ownRisk) {
         this.bsnNumber = bsnNumber;
         this.firstName = firstName;
         this.lastName = lastName;
@@ -101,7 +89,8 @@ public class Customer {
         this.phoneNumber = phoneNumber;
         this.emailAddress = emailAddress;
         this.insurance = insurance;
-        
+        this.ownRisk = ownRisk;
+
         // ID is de auto increment waarde uit de database.
         // wordt hier ingevuld wanneer een Customer aangemaakt wordt in de dtb.
         this.customerID = 0;
@@ -114,7 +103,7 @@ public class Customer {
     public String getBsnNumber() {
         return bsnNumber;
     }
-    
+
     /**
      *
      * @param bsnNumber
@@ -122,7 +111,7 @@ public class Customer {
     public void setBsnNumber(String bsnNumber) {
         this.bsnNumber = bsnNumber;
     }
-    
+
     /**
      *
      * @return
@@ -154,7 +143,7 @@ public class Customer {
     public void setLastName(String lastName) {
         this.lastName = lastName;
     }
-    
+
     /**
      *
      * @return BirthDate
@@ -175,7 +164,9 @@ public class Customer {
      *
      * @return
      */
-    public String getFullName() { return this.firstName + " " + this.lastName; }
+    public String getFullName() {
+        return this.firstName + " " + this.lastName;
+    }
 
     /**
      *
@@ -256,7 +247,7 @@ public class Customer {
     public void setEmailAddress(String emailAddress) {
         this.emailAddress = emailAddress;
     }
-    
+
     /**
      *
      * @return
@@ -264,8 +255,8 @@ public class Customer {
     public String getInsurance() {
         return insurance;
     }
-    
-     /**
+
+    /**
      *
      * @param insurance
      */
@@ -289,6 +280,18 @@ public class Customer {
         return customerID;
     }
 
+    public void setOwnRisk(double ownRisk) {
+         if(ownRisk < 0 || ownRisk > 500){
+            throw new IllegalArgumentException("Own Risk must be between 0 and 500, inclusive");
+        }else{
+            this.ownRisk = ownRisk;
+        }
+    }
+
+    public double getOwnRisk() {
+        return ownRisk;
+    }
+
     /**
      *
      * @return
@@ -296,7 +299,7 @@ public class Customer {
     public java.util.Date getLastUpdated() {
         return lastUpdated;
     }
-    
+
     private boolean isValidBSN(int candidate) {
         if (candidate <= 9999999 || candidate > 999999999) {
             return false;
@@ -311,19 +314,19 @@ public class Customer {
         return sum != 0 && sum % 11 == 0;
     }
 
-
-    
     //Costumers vergelijken om de juiste te krijgen kan worden gebruikt voor UniqueBSN
-    
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (!(o instanceof Customer)) return false;
+        if (this == o) {
+            return true;
+        }
+        if (!(o instanceof Customer)) {
+            return false;
+        }
 
         Customer customer = (Customer) o;
 
-        return getBsnNumber()== customer.getBsnNumber();
+        return getBsnNumber() == customer.getBsnNumber();
     }
-
 
 }

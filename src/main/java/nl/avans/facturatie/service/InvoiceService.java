@@ -24,14 +24,7 @@ public class InvoiceService {
         this.invoiceRepository = invoiceRepository;
     }
 
-    public Invoice create(Billing bill, Customer customer, Treatment treatment) {
-        logger.info("create - new invoice = " + bill.getBillingID());
-
-        // Maak de invoice aan via de repository
-        Invoice newInvoice = invoiceRepository.create(bill, customer, treatment);
-        return newInvoice;
-    }
-
+    
     public void delete(int id) {
         logger.info("delete - invoice = " + id);
         this.invoiceRepository.deleteInvoiceById(id);
@@ -47,4 +40,17 @@ public class InvoiceService {
         logger.info("findAllInvoices");
         return invoiceRepository.findAll();
     }
+
+    public Invoice create(Invoice invoice, Customer customer) {
+        logger.info("create - new customer = " + invoice.getInvoiceID());
+
+        // Maak de customer aan via de repository
+        Invoice newInvoice = invoiceRepository.create(invoice, customer);
+        return newInvoice;
+    }
+
+    public Invoice accept(Invoice invoice, Customer customer) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+       
 }

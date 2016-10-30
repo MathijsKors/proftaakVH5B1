@@ -14,6 +14,7 @@ import java.util.Calendar;
 import java.util.List;
 
 import javax.sql.DataSource;
+import nl.avans.facturatie.model.Appointment;
 import nl.avans.facturatie.model.Billing;
 import nl.avans.facturatie.model.Customer;
 
@@ -28,6 +29,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import nl.avans.facturatie.model.Invoice;
 import nl.avans.facturatie.model.Treatment;
+import nl.avans.facturatie.service.AppointmentService;
 import nl.avans.facturatie.service.CustomerService;
 
 /**
@@ -78,15 +80,9 @@ public class InvoiceRepository {
      * @param invoice
      * @return
      */
-    public Invoice create(Billing bill, Customer customer, Treatment treatment) {
+    public Invoice create(Invoice invoice, Customer customer) {
 
-        logger.debug("create repository = " + bill.getBillingID());
-
-        Invoice invoice = new Invoice();
-            
-        
-        
-        // 
+           
         // Calendar vraagt huidige datum op, dit wordt omgezet naar sql formaat date 
         //
         java.sql.Date invoiceDate = new java.sql.Date(Calendar.getInstance().getTime().getTime());
@@ -98,8 +94,8 @@ public class InvoiceRepository {
         deadlineCalendar.add(Calendar.MONTH, 1);
         java.sql.Date deadlineDate = new java.sql.Date(deadlineCalendar.getInstance().getTime().getTime());
 
-        final String sql = "INSERT INTO invoices(`Price`, `CustomerName`, `TreatmentName`, `Duration`, `Deadline`, `Adress`, `InvoiceDate`, `TotalPrice`, `InsuranceType`) "
-                + "VALUES(?,?,?,?,?,?,?,?,?)";
+        final String sql = "INSERT INTO invoices(`Price`, `CustomerName`, `TreatmentName`, `Duration`, `Deadline`, `Adress`, `InvoiceDate`, `TotalPrice`, `InsuranceType`, `appointmentId`) "
+                + "VALUES(?,?,?,?,?,?,?,?,?,?)";
 
         // KeyHolder gaat de auto increment key uit de database bevatten.
         KeyHolder holder = new GeneratedKeyHolder();
@@ -109,15 +105,16 @@ public class InvoiceRepository {
             @Override
             public PreparedStatement createPreparedStatement(Connection connection) throws SQLException {
                 PreparedStatement ps = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
-                ps.setString(1, "10");
-                ps.setString(2, "Dorian");
-                ps.setString(3, "Gebroken been");
-                ps.setInt(4, 10);
-                ps.setDate(5, invoiceDate);
-                ps.setString(6, (customer.getStreet() + customer.getHouseNumber() + customer.getCity()));
-                ps.setDate(7, deadlineDate);
-                ps.setDouble(8, 12.2); //moet nog berekend worden.
-                ps.setString(9, "Premium");
+                ps.setDouble(1, invoice.getPrice());
+                ps.setString(2, invoice.getCustomerName());
+                ps.setString(3, invoice.getTreatmentName());
+                ps.setInt(4, invoice.getDuration());
+                ps.setDate(5, deadlineDate);
+                ps.setString(6, invoice.getAdress());
+                ps.setDate(7, invoiceDate);
+                ps.setDouble(8, (invoice.getPrice() + invoice.getDuration()) );
+                ps.setString(9, customer.getInsurance());
+                ps.setString(10, invoice.getAppointmentId());
                 return ps;
             }
         }, holder);

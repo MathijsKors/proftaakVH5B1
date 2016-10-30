@@ -9,9 +9,9 @@ import java.sql.SQLException;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.validation.Valid;
 import nl.avans.facturatie.model.Appointment;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import nl.avans.facturatie.model.Customer;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -22,17 +22,15 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
-import nl.avans.facturatie.model.Billing;
-import nl.avans.facturatie.model.Customer;
 import nl.avans.facturatie.model.Invoice;
-import nl.avans.facturatie.model.Treatment;
 import nl.avans.facturatie.model.User;
 import nl.avans.facturatie.service.AppointmentService;
-import nl.avans.facturatie.service.BillingService;
 import nl.avans.facturatie.service.CustomerService;
 import nl.avans.facturatie.service.InvoiceService;
-import nl.avans.facturatie.service.TreatmentService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.ui.ModelMap;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.SessionAttributes;
 
 /**
@@ -49,52 +47,111 @@ public class InvoiceController {
         return new User();
     } 
 	
-    private final Logger logger = LoggerFactory.getLogger(BillingService.class);;
+//    private final Logger logger = LoggerFactory.getLogger(BillingService.class);;
 
-    private final BillingService billingService;
     private final CustomerService customerService;
     private final InvoiceService invoiceService;
-    private final TreatmentService treatmentService;
+    private final AppointmentService appointmentService;
     
         
     @Autowired
-    public InvoiceController(BillingService billingService, CustomerService customerService, InvoiceService invoiceService, TreatmentService treatmentService ){
-        this.billingService = billingService;
+    public InvoiceController(CustomerService customerService, InvoiceService invoiceService, AppointmentService appointmentService){
         this.customerService = customerService;
         this.invoiceService = invoiceService;
-        this.treatmentService = treatmentService;
-        //this.appointmentService = appointmentService;AppointmentService appointmentServicefinal AppointmentService appointmentService;
+        this.appointmentService = appointmentService;
     }
   
-    @RequestMapping(value="/invoice/create/{id}", method = RequestMethod.GET)
-    public String validateAndSaveInvoice(@ModelAttribute("user") User user, final ModelMap model, @PathVariable int id) {
+        private final Logger logger = LoggerFactory.getLogger(CustomerService.class);
+
+    
+     /**
+     * Haal een lijst van Appointments en toon deze in een view.
+     * @param model
+     * @return
+     */
+    @RequestMapping(value = "/invoices", method = RequestMethod.GET)
+    public String listAppointments(Model model) {
+        //logger.info("listAppointments");
+        // Zet de opgevraagde appointments in het model
+        model.addAttribute("appointmentObj", new Appointment());
+        model.addAttribute("appointments", appointmentService.getAllAppointments());
+        model.addAttribute("invoices", invoiceService.findAllInvoices());
+        // Open de juiste view template als resultaat.
+        return "views/invoice/list";
+    }
+    
+    
+    @RequestMapping(value="/invoice/{id}/editandcreate", method = RequestMethod.GET)
+    public String showEditAppointmentForm(@ModelAttribute("user") User user, final Invoice invoice, final ModelMap model, @PathVariable String id) {
         if (!user.isAuthenticated()) {
             return "redirect:/login";
         }
         
-        Billing bill = billingService.findBillingById(id);
-        Customer customer = customerService.findCustomerById(bill.getCustomerID());
-        Treatment treatment = treatmentService.findTreatmentById(bill.getTreatmentID()+"");
-        //Appointment appointment = appointmentService.findAppointmentById(id)ById(bill.getTreatmentID()+"");
+        Appointment appointment = appointmentService.findAppointmentById(id);
+        model.addAttribute("appointment", appointment);
+        logger.info(appointment.getAppointmentId() + "");
         
-        // Maak de invoice aan via de invoiceservice
-        Invoice newInvoice = invoiceService.create(bill, customer, treatment);
-        billingService.delete(id);
-        
-        if (newInvoice != null) {
-            model.addAttribute("info", "Invoice is toegevoegd.");
-        } else {
-            logger.error("Klant kon niet gemaakt worden.");
-            model.addAttribute("info", "Klant kon niet gemaakt worden.");
+        return "views/invoice/editandcreate";
+    }
+    
+    @RequestMapping(value="/invoice/{id}/editandcreate", method = RequestMethod.POST)
+    public String validateAndSaveEditedAppointment(@ModelAttribute("user") User user, final ModelMap model, @Valid Invoice invoice, final BindingResult bindingResult, @PathVariable String id) {
+        if (!user.isAuthenticated()) {
+            return "redirect:/login";
         }
+      
+        //error handeling met het aanpassen van een gebruiker gaat nog niet goed!
+        if (bindingResult.hasErrors()) {
+            // Als er velden in het formulier zijn die niet correct waren ingevuld vinden we die hier.
+            // We blijven dan op dezelfde pagina. De foutmeldingen worden daar getoond
+            // (zie het create.html bestand.
+            //logger.info("validateAndSaveCustomer - not added, bindingResult.hasErrors");
+            return "views/invoice/editandcreate";
+        }
+        Appointment appointment = appointmentService.findAppointmentById(id);
+        Customer customer = customerService.findCustomerById(appointment.getPatientId());
 
-        // We gaan de lijst met invoices tonen, met een bericht dat de nieuwe invoice toegevoegd is.
-        // Zet de opgevraagde invoices in het model
-        model.addAttribute("billings", billingService.findAllBillings());
+        // Maak de customer aan via de customer
+        Invoice newInvoice = invoiceService.create(invoice, customer);
+        if (newInvoice != null) {
+            model.addAttribute("info", "Invoice  is toegevoegd.");
+        } else {
+            
+            model.addAttribute("info", "Invoice kon niet gemaakt worden.");
+        }
+        
+        
+        model.addAttribute("appointmentObj", new Appointment());
+        model.addAttribute("appointments", appointmentService.getAllAppointments());
+        model.addAttribute("invoices", invoiceService.findAllInvoices());
+        
+        
+     
+        return "views/invoice/list";
+    }
+    
+    
+    @RequestMapping(value="/invoice/create/{id}", method = RequestMethod.GET)
+    public String createdAppointment(@ModelAttribute("user") User user, final ModelMap model, @Valid Invoice invoice, final BindingResult bindingResult, @PathVariable String id) {
+        if (!user.isAuthenticated()) {
+            return "redirect:/login";
+        }
+        
+        Appointment appointment = appointmentService.findAppointmentById(id);
+        Customer customer = customerService.findCustomerById(appointment.getPatientId());
+
+        // Maak de customer aan via de customer
+        Invoice newInvoice = invoiceService.create(invoice, customer);
+
+        // We gaan de lijst met customers tonen, met een bericht dat de nieuwe customer toegevoegd is.
+        // Zet de opgevraagde customers in het model
+        //model.addAttribute("appointments", appointmentService.findAllAppointments());
         model.addAttribute("invoices", invoiceService.findAllInvoices());
         // Open de juiste view template als resultaat.
-        return "views/billing/list";
+        return "views/invoice/list";
     }
+    
+    
     
     @ExceptionHandler(value = SQLException.class)
     public ModelAndView handleError(HttpServletRequest req, SQLException ex) {

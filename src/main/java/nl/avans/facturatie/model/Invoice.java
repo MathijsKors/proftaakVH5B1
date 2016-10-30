@@ -14,13 +14,13 @@ import java.sql.Date;
 public class Invoice {
 	
     private int invoiceID, duration;
-    private String customerName, treatmentName, insuranceType, adress;
+    private String customerName, treatmentName, insuranceType, adress, appointmentId;
     private double price, totalPrice;
     private Date deadline, invoiceDate;
 
     public Invoice() {  }
         
-    public Invoice(int invoiceID, int duration, String customerName, String treatmentName, String insuranceType, String adress, double price, double totalPrice, Date deadline, Date invoiceDate) {
+    public Invoice(int invoiceID, int duration, String customerName, String treatmentName, String insuranceType, String adress, double price, double totalPrice, Date deadline, Date invoiceDate, String appointmentId) {
         this.invoiceID = invoiceID;
         this.duration = duration;
         this.customerName = customerName;
@@ -31,6 +31,15 @@ public class Invoice {
         this.totalPrice = totalPrice;
         this.deadline = deadline;
         this.invoiceDate = invoiceDate;
+        this.appointmentId = appointmentId;
+    }
+
+    public void setAppointmentId(String appointmentId) {
+        this.appointmentId = appointmentId;
+    }
+
+    public String getAppointmentId() {
+        return appointmentId;
     }
 
     public int getInvoiceID() {

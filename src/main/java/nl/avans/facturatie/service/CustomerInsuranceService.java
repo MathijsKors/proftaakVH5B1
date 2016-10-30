@@ -1,6 +1,5 @@
 package nl.avans.facturatie.service;
 
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,7 +17,8 @@ import nl.avans.facturatie.repository.CustomerInsuranceRepository;
 @Service
 public class CustomerInsuranceService {
 
-    private final Logger logger = LoggerFactory.getLogger(CustomerInsuranceService.class);;
+    private final Logger logger = LoggerFactory.getLogger(CustomerInsuranceService.class);
+    ;
 
     private final CustomerInsuranceRepository customerInsuranceRepository;
     private Customer customer;
@@ -32,7 +32,6 @@ public class CustomerInsuranceService {
         this.customerInsuranceRepository = customerInsuranceRepository;
     }
 
-    
     /**
      *
      * @param customer
@@ -43,18 +42,19 @@ public class CustomerInsuranceService {
         logger.info("edit - customer = " + customer.getFullName());
 
         // Maak de customer aan via de repository
-        Customer editedcustomer = customerInsuranceRepository.edit(customer,id);
+        Customer editedcustomer = customerInsuranceRepository.edit(customer, id);
         return editedcustomer;
     }
+    
+    
+    public Customer editOwnRisk(Customer customer, int id) {
+        logger.info("edit - customer = " + customer.getFullName());
 
-    /**
-     *
-     * @param id
-     */
-    public void delete(int id) {
-        logger.info("delete - customer = " + id);
-        this.customerInsuranceRepository.deleteCustomerById(id);
+        // Maak de customer aan via de repository
+        Customer editedcustomer = customerInsuranceRepository.editOwnRisk(customer, id);
+        return editedcustomer;
     }
+   
 
     /**
      *
@@ -66,7 +66,6 @@ public class CustomerInsuranceService {
         Customer result = customerInsuranceRepository.findCustomerById(id);
         return result;
     }
-    
 
     /**
      *

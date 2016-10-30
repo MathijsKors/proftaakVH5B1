@@ -12,7 +12,6 @@ class InvoiceRowMapper implements RowMapper<Invoice>
     @Override
     public Invoice mapRow(ResultSet rs, int rowNum) throws SQLException {
         Invoice invoice = new Invoice();
-        invoice.setInvoiceID(rs.getInt("InvoiceID"));
         invoice.setPrice(rs.getDouble("Price"));
         invoice.setCustomerName(rs.getString("CustomerName"));
         invoice.setTreatmentName(rs.getString("TreatmentName"));
@@ -22,6 +21,7 @@ class InvoiceRowMapper implements RowMapper<Invoice>
         invoice.setInvoiceDate(rs.getDate("InvoiceDate"));
         invoice.setTotalPrice(rs.getDouble("TotalPrice"));
         invoice.setInsuranceType(rs.getString("InsuranceType"));
+        invoice.setInsuranceType(rs.getString("AppointmentId"));
         return invoice;
     }
 }

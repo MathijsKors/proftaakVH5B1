@@ -10,46 +10,57 @@
     <div class="container" layout:fragment="summary">
 
         <div class="page-header">
-            <h1><i class="fa fa-users" aria-hidden="true"></i>&nbsp;Openstaande rekeningen</h1>
+            <h1><i class="fa fa-credit-card-alt" aria-hidden="true"></i>&nbsp;Factureren</h1>
         </div>
         
         <div class="tekst-btn-margin">
-            <p>Openstaande rekeningen</p>
+            <h2>Openstaande rekeningen</h2>
         </div>  
         
+        <div class="tekst-btn-margin">
+            <p>Hieronder staan de openstaande rekeningen. Druk op de vink-knop, om de rekening te accepteren.</p>
+        </div> 
+ 
         <div class="table-responsive">
             <table class="table table-striped table-hover table-condensed">
                 <thead class="thead-default">
                     <tr>
-                        <th>RekeningID</th>
-                        <th>KlantID</th>
-                        <th>Rekening datum</th>
-                        <th>Verloop datum</th>
-                        <th>BehandelingID</th>
-                        <th>Behandelde uren</th>
+                        <th>Afspraaknr</th>
+                        <th>Fysiotherapist</th>
+                        <th>Klantnaam</th>
+                        <th>Behand.ID</th>
+                        <th>Behand.duur</th>
+                        <th>Klantennr.</th>
+                        <th>Naam behand.</th>
+                        <th>Datum behand.</th>
+                        <th></th>
                         <th></th>
                     </tr>
                 </thead>
                 <tbody>
-                    <tr th:if="${invoices.empty}">
+                    <tr th:if="${appointments.empty}">
                         <td colspan="4">Geen rekeningen</td>
                     </tr>
-                    <tr th:each="invoice : ${invoices}">
-                        <td th:text="${invoice.invoiceID}">1</td>
-                        <td th:text="${invoice.customerID}">1</td>
-                        <td th:text="${invoice.invoiceDate}">Factuurdatum ...</td>
-                        <td th:text="${invoice.expirationDate}">Verloopdatum ...</td>
-                        <td th:text="${invoice.treatmentID}">BehandelingID ...</td>
-                        <td th:text="${invoice.duration}">Duration ...</td>
+                    <tr th:each="appointment : ${appointments}">
+                        <td th:text="${appointment.appointmentId}">1</td>
+                        <td th:text="${appointment.fysiotherapistName}">1</td>
+                        <td th:text="${appointment.patientName}">Verloopdatum ...</td>
+                        <td th:text="${appointment.treatmentCode}">BehandelingID ...</td>
+                        <td th:text="${appointment.treatmentTime} + ' uur'">Duration ...</td>
+                        <td th:text="${appointment.patientId}">Duration ...</td>
+                        <td th:text="${appointment.treatmentName}">Duration ...</td>
+                        <td th:text="${appointment.date}">Duration ...</td>
+                        <td</td>
                         <td class="dropdownCell">
                             <div class="btn-group btn-bekijk">
-                                <a class="btn btn-primary" th:href="@{/invoice/{id}(id=${invoice.invoiceID})}"><i class="fa fa-user fa-fw"></i>Bekijken</a>
+                                <a class="btn btn-success" th:href="@{/invoice/create/{id}(id=${appointment.appointmentId})}" ><i class="fa fa-check" aria-hidden="true"></i> </a>
+                                <a class="btn btn-primary" th:href="@{/appointment/{id}(id=${appointment.appointmentId})}"><i class="fa fa-user fa-fw"></i>Bekijken</a>
                                 <a class="btn btn-primary dropdown-toggle" data-toggle="dropdown" href="#">
                                   <span class="fa fa-caret-down" title="Toggle dropdown menu"></span>
                                 </a>
                                 <ul class="dropdown-menu">
-                                  <li><a th:href="@{/invoice/{id}/edit (id=${invoice.invoiceID})}"><i class="fa fa-pencil fa-fw"></i> Aanpassen</a></li>
-                                  <li><a href="#" data-toggle="modal" th:attr="data-target='#popup-' + ${invoice.invoiceID}"><i class="fa fa-trash-o fa-fw"></i> Verwijderen</a></li>
+                                  <li><a th:href="@{/invoice/{id}/editandcreate (id=${appointment.appointmentId})}"><i class="fa fa-pencil fa-fw"></i> Aanpassen en accepteren</a></li>
+                                  <li><a href="#" data-toggle="modal" th:attr="data-target='#popup-' + ${appointment.appointmentId}"><i class="fa fa-trash-o fa-fw"></i> Verwijderen</a></li>
                                 </ul>
                             </div>
                         </td>
@@ -60,29 +71,77 @@
         
         
         
-        <div th:each="invoice : ${invoices}">
+        <div th:each="appointment : ${appointments}">
             
-                <!-- Popup verwijderen -->
-            <div class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" th:id="'popup-' + ${invoice.invoiceID}">
+                <!-- Popup verwijderen --> 
+            <div class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" th:id="'popup-' + ${appointment.appointmentId}">
                 <div class="modal-dialog" role="document">
                     <div class="modal-content">
                         <div class="modal-header">
                             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                 <span aria-hidden="true">&times;</span>
                             </button>
-                            <h4 class="modal-title" id="myModalLabel">Klant verwijderen</h4>
+                            <h4 class="modal-title" id="myModalLabel">Rekening verwijderen</h4>
                         </div>
                         <div class="modal-body">
-                            <p>Weet je zeker dat je deze customer</span> wilt verwijderen?</p>
+                            <p>Weet je zeker dat je deze rekening wilt verwijderen?</p>
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-dismiss="modal">Nee, annuleer</button>
-                            <button type="button" class="btn btn-danger" th:onclick="'javascript:sendAjaxDeleteRequest(\'' + ${invoice.invoiceID} + '\');'"><i class="fa fa-trash-o fa-fw"></i>&nbsp;Ja, verwijder</button>
+                            <button type="button" class="btn btn-danger" th:onclick="'javascript:sendAjaxDeleteRequest(\'' + ${appointment.appointmentId} + '\');'"><i class="fa fa-trash-o fa-fw"></i>&nbsp;Ja, verwijder</button>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
+       
+        
+        <div class="clearfix"></div>
+        
+        <div class="tekst-btn-margin">
+            <h2>Geaccodeerde facturen</h2>
+        </div>  
+        
+        <div class="tekst-btn-margin">
+            <p>Hieronder staan de facturen die klaar zijn om te verzenden. Deze kunnen niet meer worden aangepast. Wel kunnen deze worden geannuleerd.</p>
+        </div> 
+        
+        <div class="table-responsive">
+            <table class="table table-striped table-hover table-condensed">
+                <thead class="thead-default">
+                    <tr>
+                        <th>Factuurnummer</th>
+                        <th>Prijs</th>
+                        <th>Klant</th>
+                        <th>Behandeling</th>
+                        <th>Duur</th>
+                        <th>Uiterlijke betaal datum</th>
+                        <th>Totale prijs</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr th:if="${invoices.empty}">
+                        <td colspan="4">Geen rekeningen</td>
+                    </tr>
+                    <tr th:each="invoice : ${invoices}">
+                        <td th:text="${invoice.invoiceID}">1</td>
+                        <td th:text="${invoice.price}">1</td>
+                        <td th:text="${invoice.customerName}"> ...</td>
+                        <td th:text="${invoice.treatmentName}"> ...</td>
+                        <td th:text="${invoice.duration} + ' uur'"> ...</td>
+                        <td th:text="${invoice.deadline}"> ...</td>
+                        <td th:text="${invoice.totalPrice}"> ...</td>
+                        <td>
+                            <a class="btn btn-success pull-right" role="button" th:href="@{/invoice/createpdf/{id} (id=${invoice.invoiceID})}" ><i class="fa fa-paper-plane" aria-hidden="true"></i>&nbsp;Versturen</a>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        
+        
+        
        
     </div>
     

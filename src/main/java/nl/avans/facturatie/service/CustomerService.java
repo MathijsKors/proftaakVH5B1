@@ -1,6 +1,5 @@
 package nl.avans.facturatie.service;
 
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,7 +16,8 @@ import nl.avans.facturatie.model.Customer;
 @Service
 public class CustomerService {
 
-    private final Logger logger = LoggerFactory.getLogger(CustomerService.class);;
+    private final Logger logger = LoggerFactory.getLogger(CustomerService.class);
+    ;
 
     private final CustomerRepository customerRepository;
     private Customer customer;
@@ -43,7 +43,7 @@ public class CustomerService {
         Customer newCustomer = customerRepository.create(customer);
         return newCustomer;
     }
-    
+
     /**
      *
      * @param customer
@@ -54,7 +54,15 @@ public class CustomerService {
         logger.info("edit - customer = " + customer.getFullName());
 
         // Maak de customer aan via de repository
-        Customer editedcustomer = customerRepository.edit(customer,id);
+        Customer editedcustomer = customerRepository.edit(customer, id);
+        return editedcustomer;
+    }
+
+    public Customer editInsurance(Customer customer, int id) {
+        logger.info("edit - customer = " + customer.getFullName());
+
+        // Maak de customer aan via de repository
+        Customer editedcustomer = customerRepository.editInsurance(customer, id);
         return editedcustomer;
     }
 
@@ -77,13 +85,13 @@ public class CustomerService {
         Customer result = customerRepository.findCustomerById(id);
         return result;
     }
-    
+
     /**
      *
      * @param bsnNumber
      * @return
      */
-    public int findCustomerByBSN(String bsnNumber){
+    public int findCustomerByBSN(String bsnNumber) {
         logger.info("findCustomerByBSN - BSN = " + bsnNumber);
         int result = customerRepository.findcustomerByBSN(bsnNumber);
         return result;

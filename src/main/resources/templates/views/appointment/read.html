@@ -10,10 +10,10 @@
     <div class="container" layout:fragment="summary">
 
         <div class="page-header">
-            <h1><i class="fa fa-user" aria-hidden="true"></i>&nbsp;Rekening</h1>
+            <h1><i class="fa fa-credit-card-alt" aria-hidden="true"></i>&nbsp;Rekening</h1>
         </div>
         <p>Hieronder de informatie over de rekening</p>
-            <!--<p th:if="${repository.empty}"> No billings found.</p>-->
+            <!--<p th:if="${repository.empty}"> No appointments found.</p>-->
 
             
             
@@ -21,22 +21,22 @@
             <div class="col-sm-5">
                 <div class="panel panel-default">
                     <div class="panel-body">
-                        <h2 th:text="${billing.billingID}">Naam ...</h2>
+                        <h2 th:text="'Behand.nr ' + ${appointment.appointmentId}">Naam ...</h2>
                         <div class="row">
-                            <div class="col-xs-4"><i class="fa fa-map-marker" aria-hidden="true"></i> Datum</div>
+                            <div class="col-xs-4"><i class="fa fa-calendar-o" aria-hidden="true"></i> Datum</div>
                             <div class="col-xs-8">
                                 <p>
-                                    <span th:text="${billing.invoiceDate}">Datum</span><br/>
+                                    <span th:text="${appointment.date}">Datum</span><br/>
                                 </p>
                             </div>
-                            <div class="col-xs-4"><i class="fa fa-envelope-o" aria-hidden="true"></i> Verloopdatum</div>
-                                <div class="col-xs-8"><p th:text="${billing.expirationDate}">Email ...</p>
+                            <div class="col-xs-4"><i class="fa fa-calendar" aria-hidden="true"></i> Verloopdatum</div>
+                                <div class="col-xs-7"><p th:text="${appointment.date}">Email ...</p>
                             </div>
-                            <div class="col-xs-4"><i class="fa fa-phone" aria-hidden="true"></i> BehandelingsID</div>
-                                <div class="col-xs-8"><p th:text="${billing.treatmentID}">Tele ...</p>
+                            <div class="col-xs-4"><i class="fa fa-id-badge" aria-hidden="true"></i> BehandelingID</div>
+                                <div class="col-xs-7"><p th:text="${appointment.treatmentName}">Tele ...</p>
                             </div>
-                            <div class="col-xs-4"><i class="fa fa-address-card" aria-hidden="true"></i> Duur</div>
-                                <div class="col-xs-8"><p th:text="${billing.duration}">BSN ...</p>
+                            <div class="col-xs-4"><i class="fa fa-clock-o" aria-hidden="true"></i> Duur</div>
+                                <div class="col-xs-7"><p th:text="${appointment.treatmentTime}">BSN ...</p>
                             </div>
                             
                         </div>
@@ -77,11 +77,12 @@
             
                 <div class="row">
                     <div class="col-sm-3">
-                        <a href="/billing" class="btn btn-primary" role="button">Terug naar het overzicht</a>
+                        <a href="/invoices" class="btn btn-primary" role="button">Terug naar het overzicht</a>
                         <!-- Button trigger modal -->
                     </div>
-                    <div class="col-sm-3">
-                        <a class="btn btn-succes" th:href="@{/billing/{id}/edit (id=${billing.billingID})}"><i class="fa fa-pencil fa-fw"></i>&nbsp;Accepteren</a>
+                    <div class="col-sm-9 float-md-right">
+                       <a class="btn btn-success" th:href="@{/invoice/{id}/create(id=${appointment.appointmentId})}" ><i class="fa fa-check" aria-hidden="true"></i>&nbsp;Accepteren</a>
+                       <a class="btn btn-warning" th:href="@{/invoice/{id}/editandcreate(id=${appointment.appointmentId})}" ><i class="fa fa-check" aria-hidden="true"></i>&nbsp;Aanpassen en accepteren</a>
                         <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#myModal"><i class="fa fa-trash-o fa-fw" ></i>&nbsp;Verwijderen</button>
                     </div>
                 </div>
@@ -99,14 +100,14 @@
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                         </button>
-                        <h4 class="modal-title" id="myModalLabel">Klant verwijderen</h4>
+                        <h4 class="modal-title" id="myModalLabel">Rekening verwijderen</h4>
                     </div>
                     <div class="modal-body">
-                        <p>Weet je zeker dat je wilt verwijderen?</p>
+                        <p>Weet je zeker dat je deze rekening wilt verwijderen?</p>
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Nee, annuleer</button>
-                        <button type="button" class="btn btn-danger" th:onclick="'javascript:sendAjaxDeleteRequest(\'' + ${billing.billingID} + '\');'"><i class="fa fa-trash-o fa-fw" ></i>&nbsp;Ja, verwijder</button>
+                        <button type="button" class="btn btn-danger" th:onclick="'javascript:sendAjaxDeleteRequest(\'' + ${appointment.appointmentId} + '\');'"><i class="fa fa-trash-o fa-fw" ></i>&nbsp;Ja, verwijder</button>
 
                         <!--  -->
                     </div>
@@ -114,6 +115,7 @@
             </div>
         </div>
     </div>
+</div>
 
     <footer class="footer">
         <div th:replace="fragments/footer :: footer">&copy; 2016 Facturatie Systeem</div>
@@ -122,11 +124,11 @@
     <script>
         function sendAjaxDeleteRequest(id) {
             $.ajax({
-                url: '/billing/' + id,
+                url: '/appointment/' + id,
                 type: 'DELETE',
                 success: function(result) {
-                    // Go to the list of billing
-                    location.href = "/billings"
+                    // Go to the list of appointment
+                    location.href = "/appointments"
                 },
                 error: function(result) {
                     alert('Error: kon deze persoon niet verwijderen.');
