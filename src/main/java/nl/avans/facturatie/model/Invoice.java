@@ -5,7 +5,7 @@
  */
 package nl.avans.facturatie.model;
 
-import java.util.Date;
+import java.sql.Date;
 
 /**
  *

@@ -87,14 +87,16 @@ public class InvoiceRepository {
         
         
         // 
-        // Calendar gebruik je om huidige tijd en tijd + 1maand te krijgen, daarna weer converten naar Date (lukt niet)
+        // Calendar vraagt huidige datum op, dit wordt omgezet naar sql formaat date 
         //
-        //Calendar invoiceCalendar = Calendar.getInstance();
-        //Date invoiceDate = invoiceCalendar.getTime();
+        java.sql.Date invoiceDate = new java.sql.Date(Calendar.getInstance().getTime().getTime());
 
-        //Calendar deadline = Calendar.getInstance();
-        //deadline.add(Calendar.MONTH, 1);
-        //java.sql.Date deadlineDate = new java.sql.Date(deadline.getTime());
+        //
+        // Calendar vraagt huidige datum op en voegt hier 1 maan aan toe, zet het daarna om naar sql formaat date
+        //
+        Calendar deadlineCalendar = Calendar.getInstance();
+        deadlineCalendar.add(Calendar.MONTH, 1);
+        java.sql.Date deadlineDate = new java.sql.Date(deadlineCalendar.getInstance().getTime().getTime());
 
         final String sql = "INSERT INTO invoices(`Price`, `CustomerName`, `TreatmentName`, `Duration`, `Deadline`, `Adress`, `InvoiceDate`, `TotalPrice`, `InsuranceType`) "
                 + "VALUES(?,?,?,?,?,?,?,?,?)";
@@ -111,9 +113,9 @@ public class InvoiceRepository {
                 ps.setString(2, "Dorian");
                 ps.setString(3, "Gebroken been");
                 ps.setInt(4, 10);
-                //ps.setDate(5, invoiceDate);
+                ps.setDate(5, invoiceDate);
                 ps.setString(6, (customer.getStreet() + customer.getHouseNumber() + customer.getCity()));
-                //ps.setDate(7, deadlineDate);
+                ps.setDate(7, deadlineDate);
                 ps.setDouble(8, 12.2); //moet nog berekend worden.
                 ps.setString(9, "Premium");
                 return ps;
