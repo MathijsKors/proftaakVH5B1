@@ -13,13 +13,13 @@ import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 import java.sql.SQLException;
 import java.text.SimpleDateFormat;
-import java.util.Collection;
 import java.util.Date;
 import java.util.List;
 import javax.servlet.http.HttpServletResponse;
 import nl.avans.facturatie.model.Customer;
 import nl.avans.facturatie.model.User;
 import nl.avans.facturatie.service.CustomerService;
+import nl.avans.facturatie.service.CustomerInsuranceService;
 import nl.avans.facturatie.service.InsuranceService;
 import org.springframework.beans.propertyeditors.CustomDateEditor;
 import org.springframework.web.bind.WebDataBinder;
@@ -55,12 +55,14 @@ public class CustomerController {
     
     private final CustomerService customerService;
     private final InsuranceService insuranceService;
+    private final CustomerInsuranceService customerInsuranceService;
     private Customer customer;
 
     @Autowired
-    public CustomerController(CustomerService customerService, InsuranceService insuranceService) {
+    public CustomerController(CustomerService customerService, InsuranceService insuranceService, CustomerInsuranceService customerInsuranceService) {
         this.customerService = customerService;
         this.insuranceService = insuranceService;
+        this.customerInsuranceService = customerInsuranceService;
     }
 
     @ModelAttribute("page")
@@ -283,11 +285,12 @@ public class CustomerController {
             return "views/customer/editinsurance";
         }
 
-        customerService.edit(customer, Integer.parseInt(id));
+        customerService.editInsurance(customer, Integer.parseInt(id));
 
         // We gaan de lijst met customers tonen, met een bericht dat de nieuwe verzekering toegevoegd is.
         // Zet de opgevraagde customers in het model
-        model.addAttribute("customers", customerService.findAllCustomers());
+        model.addAttribute("customers", customerService.findAllCustomers());    
+        model.addAttribute("insurance", insuranceService.findAllInsurances());
         // Open de juiste view template als resultaat.
         return "views/customerinsurance/list";
     }

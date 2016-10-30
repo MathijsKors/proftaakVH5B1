@@ -14,7 +14,6 @@ import java.util.logging.Level;
 import nl.avans.facturatie.model.Invoice;
 import nl.avans.facturatie.model.PdfCreator;
 import nl.avans.facturatie.model.User;
-import nl.avans.facturatie.service.CustomerService;
 import nl.avans.facturatie.service.InvoiceService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

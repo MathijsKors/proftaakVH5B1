@@ -5,23 +5,14 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.ui.ModelMap;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 import javax.servlet.http.HttpServletRequest;
-import javax.validation.Valid;
 import java.sql.SQLException;
-import java.text.SimpleDateFormat;
-import java.util.Collection;
-import java.util.Date;
 import java.util.List;
-import javax.servlet.http.HttpServletResponse;
 import nl.avans.facturatie.model.Customer;
 import nl.avans.facturatie.model.User;
 import nl.avans.facturatie.service.CustomerService;
-import org.springframework.beans.propertyeditors.CustomDateEditor;
-import org.springframework.web.bind.WebDataBinder;
 import nl.avans.facturatie.service.CustomerInsuranceService;
 
 @Controller
@@ -40,6 +31,7 @@ public class CustomerInsuranceController {
     
     private final CustomerInsuranceService customerInsuranceService;
     private final CustomerService customerService;
+    
     private Customer customer;
 
     @Autowired

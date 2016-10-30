@@ -162,6 +162,33 @@ public class CustomerRepository
                 ps.setString(9, customer.getBsnNumber());
                 ps.setInt(10, id);
                 
+                
+                return ps;
+            }
+        }, holder);
+
+        return customer;
+    }
+    
+    public Customer editInsurance(final Customer customer, int id) {
+
+        logger.info("edit repository = " + customer.getFullName());
+       
+        final String sql = "UPDATE `customers` SET `Insurance` = ? WHERE `customers`.`CustomerID` = ?;";
+
+        // KeyHolder gaat de auto increment key uit de database bevatten.
+        KeyHolder holder = new GeneratedKeyHolder();
+        
+
+        jdbcTemplate.update(new PreparedStatementCreator() {
+
+            @Override
+            public PreparedStatement createPreparedStatement(Connection connection) throws SQLException {
+                PreparedStatement ps = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);               
+                ps.setString(1, customer.getInsurance());
+                ps.setInt(2, id);
+                
+                
                 return ps;
             }
         }, holder);

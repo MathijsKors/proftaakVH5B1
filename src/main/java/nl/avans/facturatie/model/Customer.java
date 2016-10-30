@@ -22,42 +22,42 @@ public class Customer {
     
     private int customerID;
     
-    @NotNull
+    
     @Size(min = 9, max = 10, message = "BSN moet 9 tot 10 cijfers bevatten.")
     //@UniqueBSN(message = "BSN is al in gebruik!")
     private String bsnNumber;
 
-    @NotNull
+    
     @Size(min = 1, max = 32, message = "Naam is te kort of te lang.")
     private String firstName;
 
-    @NotNull
+    
     @Size(min = 1, max = 32, message = "Achternaam is te kort of te lang.")
     private String lastName;
     
-    @NotNull
+    
     @Size(min = 1, max = 32, message = "Straatnaam is te kort of te lang.")
     private String street;
 
-    @NotNull
+    
     @DecimalMin(value = "1", message = "Huisnummer mag alleen 1 of meerdere cijfers zijn.")
     private String houseNumber;
 
-    @NotNull
+    
     @Size(min = 1, max = 32, message = "Stad is te kort of te lang.")
     private String city;
 
-    @NotNull
+    
     @Size(min = 1, max = 32, message = "Telefoonummer is te kort of te lang.")
     //@Pattern(regexp = "/\\(?([0-9]{3})\\)?([ .-]?)([0-9]{3})\\2([0-9]{4})/", message = "Telefoon nummer is in een niet goed formaat")
     private String phoneNumber;
     
-    @NotNull(message = "Geboortedatum mag niet leeg zijn.")
+    
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     //@Pattern(regexp = "[0-9]{2}-[0-9]{2}-[0-9]{4}", message = "Gebruik het volgende formaat: 'dd-mm-jjjj'")
     private java.util.Date birthDate;
     
-    @NotNull
+    
     @Size(min = 1, max = 32, message = "Emailadres is te kort of te lang.")
     @Pattern(regexp="[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\\."
             +"[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@"
@@ -65,7 +65,7 @@ public class Customer {
             message="Emailadres niet juist formaat")
     private String emailAddress;
     
-    @NotNull
+    
     @Size(min = 1, max = 32, message = "De invoer is te kort of the lang.")
     private String insurance;
 
