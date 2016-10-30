@@ -78,7 +78,7 @@ public class InvoiceController {
     
     
     @RequestMapping(value="/invoice/{id}/editandcreate", method = RequestMethod.GET)
-    public String showEditAppointmentForm(@ModelAttribute("user") User user, final ModelMap model, @PathVariable String id) {
+    public String showEditAppointmentForm(@ModelAttribute("user") User user, final Invoice invoice, final ModelMap model, @PathVariable String id) {
         if (!user.isAuthenticated()) {
             return "redirect:/login";
         }
@@ -91,7 +91,7 @@ public class InvoiceController {
     }
     
     @RequestMapping(value="/invoice/{id}/editandcreate", method = RequestMethod.POST)
-    public String validateAndSaveEditedAppointment(@ModelAttribute("user") User user, final ModelMap model, @Valid Appointment appointment, final BindingResult bindingResult, @PathVariable String id) {
+    public String validateAndSaveEditedAppointment(@ModelAttribute("user") User user, final ModelMap model, @Valid Invoice invoice, final BindingResult bindingResult, @PathVariable String id) {
         if (!user.isAuthenticated()) {
             return "redirect:/login";
         }
