@@ -31,10 +31,10 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr th:if="${insurancecompanies.empty}">
+                    <tr th:if="${settings.empty}">
                         <td colspan="4">Geen verzekeringsbedrijf</td>
                     </tr>
-                    <tr th:each="insurancecompany : ${insurancecompanies}">
+                    <tr th:each="insurancecompany : ${settings}">
                         <td th:text="${insurancecompany.InsuranceCompanyID}">1</td>
                         <td th:text="${insurancecompany.Name}">Naam ...</td>
                         <td th:text="${insurancecompany.Telnumber}">Telefoonnummer ...</td>
@@ -56,7 +56,7 @@
             </table>
         </div>
         
-        <div th:each="insurancecompany : ${insurancecompanies}">
+        <div th:each="insurancecompany : ${settings}">
             
                 <!-- Popup verwijderen -->
             <div class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" th:id="'popup-' + ${insurancecompany.InsuranceCompanyID}">
@@ -95,7 +95,7 @@
                 type: 'DELETE',
                 success: function(result) {
                     // Go to the list of customer
-                    location.href = "/insurancecompanies"
+                    location.href = "/settings"
                 },
                 error: function(result) {
                     alert('Error: kon deze verzekeringsmaatschappij niet verwijderen.');

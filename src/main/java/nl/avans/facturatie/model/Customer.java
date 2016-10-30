@@ -14,7 +14,6 @@ import nl.avans.facturatie.annotation.UniqueBSN; //import is voor de UniqueBSN
 import org.springframework.format.annotation.DateTimeFormat;
 
 
-
 /**
  *
  * @author game
@@ -65,6 +64,10 @@ public class Customer {
             +"(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?",
             message="Emailadres niet juist formaat")
     private String emailAddress;
+    
+    @NotNull
+    @Size(min = 1, max = 32, message = "De invoer is te kort of the lang.")
+    private String insurance;
 
     private java.util.Date lastUpdated;
     
@@ -85,8 +88,9 @@ public class Customer {
      * @param city
      * @param phoneNumber
      * @param emailAddress
+     * @param insurance
      */
-    public Customer(String bsnNumber, String firstName, String lastName, java.util.Date birthDate, String street, String houseNumber, String city, String phoneNumber, String emailAddress) {
+    public Customer(String bsnNumber, String firstName, String lastName, java.util.Date birthDate, String street, String houseNumber, String city, String phoneNumber, String emailAddress, String insurance) {
         this.bsnNumber = bsnNumber;
         this.firstName = firstName;
         this.lastName = lastName;
@@ -96,6 +100,7 @@ public class Customer {
         this.city = city;
         this.phoneNumber = phoneNumber;
         this.emailAddress = emailAddress;
+        this.insurance = insurance;
         
         // ID is de auto increment waarde uit de database.
         // wordt hier ingevuld wanneer een Customer aangemaakt wordt in de dtb.
@@ -250,6 +255,22 @@ public class Customer {
      */
     public void setEmailAddress(String emailAddress) {
         this.emailAddress = emailAddress;
+    }
+    
+    /**
+     *
+     * @return
+     */
+    public String getInsurance() {
+        return insurance;
+    }
+    
+     /**
+     *
+     * @param insurance
+     */
+    public void setInsurance(String insurance) {
+        this.insurance = insurance;
     }
 
     /**

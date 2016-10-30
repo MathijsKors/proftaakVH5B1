@@ -11,21 +11,109 @@ import java.sql.Date;
  *
  * @author Tom Maljaars
  */
-public class Invoice extends Billing{
+public class Invoice {
+	
+    private int invoiceID, duration;
+    private String customerName, treatmentName, insuranceType, adress;
+    private double price, totalPrice;
+    private Date deadline, invoiceDate;
 
-    public Invoice(String customerName, String address, String zipCode, String city, String treatment, Date invoiceDate, Date expirationDate, int prize, int ownRisk, int toBePaid) {
-        super(customerName, address, zipCode, city, treatment, invoiceDate, expirationDate, prize, ownRisk, toBePaid);
-    }
-    
-    public void printDigital(Billing billing) {
+    public Invoice() {  }
         
+    public Invoice(int invoiceID, int duration, String customerName, String treatmentName, String insuranceType, String adress, double price, double totalPrice, Date deadline, Date invoiceDate) {
+        this.invoiceID = invoiceID;
+        this.duration = duration;
+        this.customerName = customerName;
+        this.treatmentName = treatmentName;
+        this.insuranceType = insuranceType;
+        this.adress = adress;
+        this.price = price;
+        this.totalPrice = totalPrice;
+        this.deadline = deadline;
+        this.invoiceDate = invoiceDate;
     }
+
+    public int getInvoiceID() {
+        return invoiceID;
+    }
+
+    public int getDuration() {
+        return duration;
+    }
+
+    public String getCustomerName() {
+        return customerName;
+    }
+
+    public String getTreatmentName() {
+        return treatmentName;
+    }
+
+    public String getInsuranceType() {
+        return insuranceType;
+    }
+
+    public String getAdress() {
+        return adress;
+    }
+
+    public double getPrice() {
+        return price;
+    }
+
+    public double getTotalPrice() {
+        return totalPrice;
+    }
+
+    public Date getDeadline() {
+        return deadline;
+    }
+
+    public Date getInvoiceDate() {
+        return invoiceDate;
+    }
+
+    public void setInvoiceID(int invoiceID) {
+        this.invoiceID = invoiceID;
+    }
+
+    public void setDuration(int duration) {
+        this.duration = duration;
+    }
+
+    public void setCustomerName(String customerName) {
+        this.customerName = customerName;
+    }
+
+    public void setTreatmentName(String treatmentName) {
+        this.treatmentName = treatmentName;
+    }
+
+    public void setInsuranceType(String insuranceType) {
+        this.insuranceType = insuranceType;
+    }
+
+    public void setAdress(String adress) {
+        this.adress = adress;
+    }
+
+    public void setPrice(double price) {
+        this.price = price;
+    }
+
+    public void setTotalPrice(double totalPrice) {
+        this.totalPrice = totalPrice;
+    }
+
+    public void setDeadline(Date deadline) {
+        this.deadline = deadline;
+    }
+
+    public void setInvoiceDate(Date invoiceDate) {
+        this.invoiceDate = invoiceDate;
+    }
+
     
-    public void printPhysical(Billing billing) {
-        
-    }
     
-    public void mailCustomer(Customer c) {
-        
-    }
+	
 }

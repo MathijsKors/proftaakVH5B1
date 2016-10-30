@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+    <head th:replace="fragments/head :: head"></head>
+<body>
+   
+<!-- Header -->
+<div th:replace="fragments/header :: header"></div>
+
+    <!--/* Content of this page will be decorated by the elements of layout.html (student/layout) */-->
+    <div class="container" layout:fragment="summary">
+
+        <div class="page-header">
+            <h1><i class="fa fa-user" aria-hidden="true"></i>&nbsp;Verzekering toevoegen</h1>
+        </div>
+        <p>Hieronder kunt u een verzekering kiezen om toe te voegen aan de klant.</p>
+        
+            <!-- Form om een nieuwe repository te maken. Het object 'repository' is het object waarin de
+            waarden uit het formulier worden ingevuld. Het is afkomstig uit de CustomerInsuranceController. "-->
+            
+             <div class="row">
+                <div class="col-sm-4">
+                    <div class="form-group">
+                        <label for="type">Type verzekering:</label>
+                        
+
+                        <!-- th:field="*{name}" is de koppeling naar het attribuut 'name' van het object 'repository'-->
+                        <input type="text"  class="form-control" id="insurance" th:field="*{insurance}"/>
+                        <p th:if="${#fields.hasErrors('insurance')}" th:errors="*{insurance}">Insurance Error</p>
+                    </div>
+                        
+                   
+                    <select field="sdfsdf" id="tagList" class="selectpicker  show-tick show-menu-arrow" name="selectId" >
+                        <option th:each="insurance : ${insurance}" th:value="${insurance.insuranceID}" th:text="${insurance.type}">Wireframe</option>
+                    </select>
+                    
+                    
+                    <!--
+                    <select class="selectpicker" >
+                        
+                        <option >Basispakket</option>
+                        <option >Basispakket</option>
+                        <option >Basispakket</option>
+                        
+                    </select>
+                   -->
+                
+                 </div>
+                 </div>
+                <button type="submit" class="btn btn-primary" name="save">Pas aan</button>       
+            
+        
+    
+        </form>
+    </div>
+    
+    <footer class="footer">
+        <div th:replace="fragments/footer :: footer">&copy; 2016 Facturatie Systeem</div>
+    </footer>
+    
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.11.2/js/bootstrap-select.min.js"></script>
+
+    </body>
+</html>
+                                        

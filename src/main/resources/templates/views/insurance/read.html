@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+
+<html>
+<head th:replace="fragments/head :: head"></head>
+<body>
+
+<!-- Header -->
+<div th:replace="fragments/header :: header"></div>
+
+    <!--/* Content of this page will be decorated by the elements of layout.html (insurance/layout) */-->
+    <div class="container" layout:fragment="summary">
+
+        <div class="page-header">
+            <h1><i class="fa fa-server" aria-hidden="true"></i>&nbsp;Informatie verzekering</h1>
+        </div>
+        <p>Hieronder ziet u de geselecteerde verzekering.</p>
+            <!--<p th:if="${repository.empty}"> No insurances found.</p>-->
+
+        <div class="row">
+            <div class="col-sm-5">
+                <div class="panel panel-default">
+                    <div class="panel-body">
+                        <div class="row">
+                            <div class="col-xs-4"><i class="fa fa-info" aria-hidden="true"></i> Type</div>
+                                <div class="col-xs-8"><p th:text="${insurance.type}">Type ...</p>
+                            </div>
+                            <div class="col-xs-4"><i class="fa fa-info" aria-hidden="true"></i> Profiel</div>
+                                <div class="col-xs-8"><p th:text="${insurance.profile}">Profiel ...</p>
+                            </div>
+                            <div class="col-xs-4"><i class="fa fa-eur" aria-hidden="true"></i> Kosten per maand</div>
+                                <div class="col-xs-8"><p th:text="${insurance.costpMonth}">KostpMaand ...</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-sm-4 col-xs-12">
+                <a href="/insurances" class="btn btn-primary" role="button">Terug naar het overzicht</a>
+                <!-- Button trigger modal -->
+                <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#myModal"><i class="fa fa-trash-o fa-fw" ></i>&nbsp;Verwijderen</button>
+            </div>
+        </div>
+
+        <!-- Modal -->
+        <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                        <h4 class="modal-title" id="myModalLabel">Verzekering verwijderen</h4>
+                    </div>
+                    <div class="modal-body">
+                        <p>Weet je zeker dat je <span th:text="${insurance.type}">deze verzekering</span> wilt verwijderen?</p>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Nee, annuleer</button>
+                        <button type="button" class="btn btn-danger" th:onclick="'javascript:sendAjaxDeleteRequest(\'' + ${insurance.insuranceID} + '\');'"><i class="fa fa-trash-o fa-fw" ></i>&nbsp;Ja, verwijder</button>
+
+                        <!--  -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer class="footer">
+        <div th:replace="fragments/footer :: footer">&copy; 2016 Facturatie Systeem</div>
+    </footer>
+    
+    <script>
+        function sendAjaxDeleteRequest(id) {
+            $.ajax({
+                url: '/insurance/' + id,
+                type: 'DELETE',
+                success: function(result) {
+                    // Go to the list of insurances
+                    location.href = "/insurances"
+                },
+                error: function(result) {
+                    alert('Error: kon deze verzekering niet verwijderen.');
+                }
+            });
+         }
+    </script>
+    
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+
+</body>
+</html>

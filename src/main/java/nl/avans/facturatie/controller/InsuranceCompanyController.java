@@ -13,11 +13,18 @@ import javax.validation.Valid;
 import java.sql.SQLException;
 import java.util.List;
 import nl.avans.facturatie.model.InsuranceCompany;
+import nl.avans.facturatie.model.User;
 import nl.avans.facturatie.service.InsuranceCompanyService;
 
 @Controller
+@SessionAttributes (value = "user", types = {User.class} )
 public class InsuranceCompanyController {
 
+    @ModelAttribute("user")
+    public User getUser() {
+        return new User();
+    }    
+    
     private final Logger logger = LoggerFactory.getLogger(InsuranceCompanyController.class);;
 
     private InsuranceCompanyService insuranceCompanyService;
@@ -29,7 +36,7 @@ public class InsuranceCompanyController {
 
     @ModelAttribute("page")
     public String module() {
-        return "insurancecompanies";
+        return "settings";
     }
 
     // Zet een 'flag' om in Bootstrap header nav het actieve menu item te vinden.
@@ -41,11 +48,15 @@ public class InsuranceCompanyController {
      * @param model
      * @return
      */
-    @RequestMapping(value = "/insurancecompanies", method = RequestMethod.GET)
-    public String listInsuranceCompanies(Model model) {
+    @RequestMapping(value = "/settings", method = RequestMethod.GET)
+    public String listInsuranceCompanies(@ModelAttribute("user") User user, Model model) {
+        if (!user.isAuthenticated()) {
+            return "redirect:/login";
+        }        
+        
         logger.debug("listInsuranceCompanies");
         // Zet de opgevraagde customers in het model
-        model.addAttribute("insurancecompanies", insuranceCompanyService.findAllInsuranceCompanies());
+        model.addAttribute("settings", insuranceCompanyService.findAllInsuranceCompanies());
         // Open de juiste view template als resultaat.
         return "views/insurancecompany/list";
     }
@@ -58,14 +69,22 @@ public class InsuranceCompanyController {
      * @return
      */
     @RequestMapping(value="/insurancecompany/create", method = RequestMethod.GET)
-    public String showCreateInsuranceCompanyForm(final InsuranceCompany insuranceCompany, final ModelMap model) {
+    public String showCreateInsuranceCompanyForm(@ModelAttribute("user") User user, final InsuranceCompany insuranceCompany, final ModelMap model) {
+        if (!user.isAuthenticated()) {
+            return "redirect:/login";
+        }        
+        
         logger.debug("showCreateInsuranceCompanyForm");
         return "views/insurancecompany/create";
     }
     
     
     @RequestMapping(value="/insurancecompany/create", method = RequestMethod.POST)
-    public String validateAndSaveInsuranceCompany(@Valid InsuranceCompany insuranceCompany, final BindingResult bindingResult, final ModelMap model) {
+    public String validateAndSaveInsuranceCompany(@ModelAttribute("user") User user, @Valid InsuranceCompany insuranceCompany, final BindingResult bindingResult, final ModelMap model) {
+        if (!user.isAuthenticated()) {
+            return "redirect:/login";
+        }        
+        
         logger.debug("validateAndSaveInsuranceCompany - adding insuranceCompany = " + insuranceCompany.getName());
 
         if (bindingResult.hasErrors()) {
@@ -85,27 +104,35 @@ public class InsuranceCompanyController {
         }
         // We gaan de lijst met customers tonen, met een bericht dat de nieuwe customer toegevoegd is.
         // Zet de opgevraagde customers in het model
-        model.addAttribute("insurancecompanies", insuranceCompanyService.findAllInsuranceCompanies());
+        model.addAttribute("settings", insuranceCompanyService.findAllInsuranceCompanies());
         // Open de juiste view template als resultaat.
         return "views/insurancecompany/list";
     }
 
     @RequestMapping(value = "/insurancecompany/{id}", method = RequestMethod.DELETE)
-    public String deleteInsuranceCompany(Model model, @PathVariable String id) {
+    public String deleteInsuranceCompany(@ModelAttribute("user") User user, Model model, @PathVariable String id) {
+        if (!user.isAuthenticated()) {
+            return "redirect:/login";
+        }        
+        
         logger.debug("deleteInsuranceCompany, id = " + id);
 
         // Delete de customer
         insuranceCompanyService.delete(Integer.parseInt(id));
         // We gaan de lijst met customers tonen, met een bericht dat de nieuwe customer toegevoegd is.
         // Zet de opgevraagde customers in het model
-        model.addAttribute("insurancecompanies", insuranceCompanyService.findAllInsuranceCompanies());
+        model.addAttribute("settings", insuranceCompanyService.findAllInsuranceCompanies());
         model.addAttribute("info", "InsuranceCompany is verwijderd.");
         // Open de juiste view template als resultaat.
         return "views/insurancecompany/list";
     }
     
     @RequestMapping(value = "/insurancecompany/{id}", method = RequestMethod.GET)
-    public String listOneInsuranceCompany(Model model, @PathVariable int id) {
+    public String listOneInsuranceCompany(@ModelAttribute("user") User user, Model model, @PathVariable int id) {
+        if (!user.isAuthenticated()) {
+            return "redirect:/login";
+        }        
+
         // Zet de opgevraagde waarden in het model
         model.addAttribute("insurancecompany", insuranceCompanyService.findInsuranceCompanyById(id));
         return "views/insurancecompany/read";

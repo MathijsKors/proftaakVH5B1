@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<head th:replace="fragments/head :: head"></head>
+<body>
+
+<!-- Header -->
+<div th:replace="fragments/header :: header"></div>
+
+    <!--/* Content of this page will be decorated by the elements of layout.html (student/layout) */-->
+    <div class="container" layout:fragment="summary">
+
+    <!--<div class="container">-->
+        <div class="jumbotron">
+            <h1>Facturatie Systeem</h1>
+            <p>
+                Dit is het Facturatie systeem van B1.
+            </p>
+        </div>
+    </div>
+
+    <footer class="footer">
+        <div th:replace="fragments/footer :: footer">&copy; 2016 Facturatie Systeem</div>
+    </footer>
+    
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+
+</body>
+</html>

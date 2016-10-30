@@ -21,6 +21,12 @@ public class User {
     public User() {
         this.authenticated = false;
     } 
+    
+    public User(String username, String password, boolean authenticated) {
+        this.username = username;
+        this.password = password;
+        this.authenticated = authenticated;
+    }
 
     public String getUsername() {
         return username;

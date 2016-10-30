@@ -12,6 +12,10 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 import javax.annotation.Resource;
 import javax.sql.DataSource;
+import javax.xml.bind.JAXBException;
+import nl.avans.facturatie.repository.BillingRepository;
+import nl.avans.facturatie.repository.InvoiceRepository;
+import nl.avans.facturatie.service.TreatmentService;
 
 /**
  * @author Petri Kainulainen
@@ -51,6 +55,27 @@ public class PersistenceContext {
     @Primary
     public CustomerRepository getCustomerRepository() {
         return new CustomerRepository(this.dataSource());
+    }
+    
+    @Bean
+    @Qualifier("PersistenceContext")
+    @Primary
+    public BillingRepository getBillingRepository() {
+        return new BillingRepository(this.dataSource());
+    }
+    
+    @Bean
+    @Qualifier("PersistenceContext")
+    @Primary
+    public InvoiceRepository getInvoiceRepository() {
+        return new InvoiceRepository(this.dataSource());
+    }
+    
+    @Bean
+    @Qualifier("PersistenceContext")
+    @Primary
+    public TreatmentService getTreatmentRepository() throws JAXBException {
+        return new TreatmentService();
     }
 
 }
