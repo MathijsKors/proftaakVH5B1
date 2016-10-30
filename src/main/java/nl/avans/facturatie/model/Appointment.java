@@ -15,7 +15,7 @@ public class Appointment {
 
     private String date;
     private int appointmentId;
-    private String physiotherapistName;
+    private String fysiotherapistName;
     private String status;
     private String patientName;
     private String treatmentCode;
@@ -27,10 +27,10 @@ public class Appointment {
     public Appointment(){
     }
     
-    public Appointment(String date, int appointmentId, String physiotherapistName, String status, String patientName, String treatmentCode, int treatmentTime, int patientId, String treatmentName) {
+    public Appointment(String date, int appointmentId, String fysiotherapistName, String status, String patientName, String treatmentCode, int treatmentTime, int patientId, String treatmentName) {
         this.date = date;
         this.appointmentId = appointmentId;
-        this.physiotherapistName = physiotherapistName;
+        this.fysiotherapistName = fysiotherapistName;
         this.status = status;
         this.patientName = patientName;
         this.treatmentCode = treatmentCode;
@@ -47,8 +47,8 @@ public class Appointment {
         return appointmentId;
     }
 
-    public String getPhysiotherapistName() {
-        return physiotherapistName;
+    public String getFysiotherapistName() {
+        return fysiotherapistName;
     }
 
     public String getStatus() {
@@ -83,8 +83,8 @@ public class Appointment {
         this.appointmentId = appointmentId;
     }
 
-    public void setPhysiotherapist(String physiotherapistName) {
-        this.physiotherapistName = physiotherapistName;
+    public void setPhysiotherapist(String fysiotherapistName) {
+        this.fysiotherapistName = fysiotherapistName;
     }
 
     public void setStatus(String status) {

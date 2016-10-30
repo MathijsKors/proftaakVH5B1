@@ -9,6 +9,7 @@ import java.sql.SQLException;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.validation.Valid;
 import nl.avans.facturatie.model.Appointment;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -32,6 +33,7 @@ import nl.avans.facturatie.service.CustomerService;
 import nl.avans.facturatie.service.InvoiceService;
 import nl.avans.facturatie.service.TreatmentService;
 import org.springframework.ui.ModelMap;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.SessionAttributes;
 
 /**
@@ -52,15 +54,13 @@ public class InvoiceController {
 
     private final CustomerService customerService;
     private final InvoiceService invoiceService;
-    private final TreatmentService treatmentService;
     private final AppointmentService appointmentService;
     
         
     @Autowired
-    public InvoiceController(CustomerService customerService, InvoiceService invoiceService, TreatmentService treatmentService, AppointmentService appointmentService){
+    public InvoiceController(CustomerService customerService, InvoiceService invoiceService, AppointmentService appointmentService){
         this.customerService = customerService;
         this.invoiceService = invoiceService;
-        this.treatmentService = treatmentService;
         this.appointmentService = appointmentService;
     }
   
@@ -83,35 +83,71 @@ public class InvoiceController {
     }
     
     
-//    @RequestMapping(value="/invoice/create/{id}", method = RequestMethod.GET)
-//    public String validateAndSaveInvoice(@ModelAttribute("user") User user, final ModelMap model, @PathVariable int id) {
-//        if (!user.isAuthenticated()) {
-//            return "redirect:/login";
-//        }
-//        
-//        Billing bill = billingService.findBillingById(id);
-//        Customer customer = customerService.findCustomerById(bill.getCustomerID());
-//        Treatment treatment = treatmentService.findTreatmentById(bill.getTreatmentID()+"");
-//        //Appointment appointment = appointmentService.findAppointmentById(id)ById(bill.getTreatmentID()+"");
-//        
-//        // Maak de invoice aan via de invoiceservice
-//        Invoice newInvoice = invoiceService.create(bill, customer, treatment);
-//        //billingService.delete(id);
-//        
-//        if (newInvoice != null) {
-//            model.addAttribute("info", "Invoice is toegevoegd.");
-//        } else {
-//            logger.error("Klant kon niet gemaakt worden.");
-//            model.addAttribute("info", "Klant kon niet gemaakt worden.");
-//        }
-//
-//        // We gaan de lijst met invoices tonen, met een bericht dat de nieuwe invoice toegevoegd is.
-//        // Zet de opgevraagde invoices in het model
-//        model.addAttribute("billings", billingService.findAllBillings());
-//        model.addAttribute("invoices", invoiceService.findAllInvoices());
-//        // Open de juiste view template als resultaat.
-//        return "views/billing/list";
-//    }
+    @RequestMapping(value="/invoice/{id}/editandcreate", method = RequestMethod.GET)
+    public String showEditAppointmentForm(@ModelAttribute("user") User user, final ModelMap model, @PathVariable String id) {
+        if (!user.isAuthenticated()) {
+            return "redirect:/login";
+        }
+        
+        Appointment appointment = appointmentService.findAppointmentById(id);
+        model.addAttribute("appointment", appointment);
+        //logger.info(appointment.getCustomerID() + "");
+        
+        return "views/invoice/editandcreate";
+    }
+    
+    @RequestMapping(value="/invoice/{id}/editandcreate", method = RequestMethod.POST)
+    public String validateAndSaveEditedAppointment(@ModelAttribute("user") User user, final ModelMap model, @Valid Appointment appointment, final BindingResult bindingResult, @PathVariable String id) {
+        if (!user.isAuthenticated()) {
+            return "redirect:/login";
+        }
+      
+        //error handeling met het aanpassen van een gebruiker gaat nog niet goed!
+        if (bindingResult.hasErrors()) {
+            // Als er velden in het formulier zijn die niet correct waren ingevuld vinden we die hier.
+            // We blijven dan op dezelfde pagina. De foutmeldingen worden daar getoond
+            // (zie het create.html bestand.
+            //logger.info("validateAndSaveCustomer - not added, bindingResult.hasErrors");
+            return "views/invoice/list";
+        }
+        
+        //appointmentService.edit(appointment, Integer.parseInt(id));
+
+        // We gaan de lijst met customers tonen, met een bericht dat de nieuwe customer toegevoegd is.
+        // Zet de opgevraagde customers in het model
+        
+        model.addAttribute("appointment", appointmentService.findAppointmentById(id));
+        // Open de juiste view template als resultaat.
+        return "views/invoice/list";
+    }
+    
+    
+    @RequestMapping(value="/invoice/{id}/create", method = RequestMethod.POST)
+    public String createdAppointment(@ModelAttribute("user") User user, final ModelMap model, @Valid Appointment appointment, final BindingResult bindingResult, @PathVariable String id) {
+        if (!user.isAuthenticated()) {
+            return "redirect:/login";
+        }
+        
+        //error handeling met het aanpassen van een gebruiker gaat nog niet goed!
+        if (bindingResult.hasErrors()) {
+            // Als er velden in het formulier zijn die niet correct waren ingevuld vinden we die hier.
+            // We blijven dan op dezelfde pagina. De foutmeldingen worden daar getoond
+            // (zie het create.html bestand.
+            //logger.info("validateAndSaveCustomer - not added, bindingResult.hasErrors");
+            return "views/appointment/list";
+        }
+
+        //appointmentService.edit(appointment, Integer.parseInt(id));
+
+        // We gaan de lijst met customers tonen, met een bericht dat de nieuwe customer toegevoegd is.
+        // Zet de opgevraagde customers in het model
+        //model.addAttribute("appointments", appointmentService.findAllAppointments());
+        model.addAttribute("invoices", invoiceService.findAllInvoices());
+        // Open de juiste view template als resultaat.
+        return "views/invoice/list";
+    }
+    
+    
     
     @ExceptionHandler(value = SQLException.class)
     public ModelAndView handleError(HttpServletRequest req, SQLException ex) {

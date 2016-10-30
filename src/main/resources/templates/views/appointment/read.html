@@ -21,22 +21,22 @@
             <div class="col-sm-5">
                 <div class="panel panel-default">
                     <div class="panel-body">
-                        <h2 th:text="${appointment.appointmentId}">Naam ...</h2>
+                        <h2 th:text="'Behand.nr ' + ${appointment.appointmentId}">Naam ...</h2>
                         <div class="row">
                             <div class="col-xs-4"><i class="fa fa-calendar-o" aria-hidden="true"></i> Datum</div>
                             <div class="col-xs-8">
                                 <p>
-                                    <span th:text="${appointment.appointmentId}">Datum</span><br/>
+                                    <span th:text="${appointment.date}">Datum</span><br/>
                                 </p>
                             </div>
                             <div class="col-xs-4"><i class="fa fa-calendar" aria-hidden="true"></i> Verloopdatum</div>
-                                <div class="col-xs-7"><p th:text="${appointment.appointmentId}">Email ...</p>
+                                <div class="col-xs-7"><p th:text="${appointment.date}">Email ...</p>
                             </div>
                             <div class="col-xs-4"><i class="fa fa-id-badge" aria-hidden="true"></i> BehandelingID</div>
-                                <div class="col-xs-7"><p th:text="${appointment.appointmentId}">Tele ...</p>
+                                <div class="col-xs-7"><p th:text="${appointment.treatmentName}">Tele ...</p>
                             </div>
                             <div class="col-xs-4"><i class="fa fa-clock-o" aria-hidden="true"></i> Duur</div>
-                                <div class="col-xs-7"><p th:text="${appointment.appointmentId}">BSN ...</p>
+                                <div class="col-xs-7"><p th:text="${appointment.treatmentTime}">BSN ...</p>
                             </div>
                             
                         </div>
@@ -77,11 +77,12 @@
             
                 <div class="row">
                     <div class="col-sm-3">
-                        <a href="/appointment" class="btn btn-primary" role="button">Terug naar het overzicht</a>
+                        <a href="/invoices" class="btn btn-primary" role="button">Terug naar het overzicht</a>
                         <!-- Button trigger modal -->
                     </div>
-                    <div class="col-sm-3 float-md-right">
-                       <a class="btn btn-success" th:href="@{/invoice/create/{id}(id=${appointment.appointmentId})}" ><i class="fa fa-check" aria-hidden="true"></i>&nbsp;Accepteren</a>
+                    <div class="col-sm-9 float-md-right">
+                       <a class="btn btn-success" th:href="@{/invoice/{id}/create(id=${appointment.appointmentId})}" ><i class="fa fa-check" aria-hidden="true"></i>&nbsp;Accepteren</a>
+                       <a class="btn btn-warning" th:href="@{/invoice/{id}/editandcreate(id=${appointment.appointmentId})}" ><i class="fa fa-check" aria-hidden="true"></i>&nbsp;Aanpassen en accepteren</a>
                         <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#myModal"><i class="fa fa-trash-o fa-fw" ></i>&nbsp;Verwijderen</button>
                     </div>
                 </div>

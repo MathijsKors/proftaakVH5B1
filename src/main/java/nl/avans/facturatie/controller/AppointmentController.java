@@ -63,7 +63,7 @@ public class AppointmentController {
     
    
 
-    /**
+        /**
      * Haal de appointment met gegeven ID uit de database en toon deze in een view.
      * @param model
      * @param id
@@ -78,55 +78,11 @@ public class AppointmentController {
         // Zet de opgevraagde waarden in het model
         Appointment appointment = appointmentService.findAppointmentById(id);
         model.addAttribute("appointment", appointment);
-        
-        //logger.info(appointment.getCustomerID() + "");
-       
         int customerID = appointment.getPatientId();
         model.addAttribute("customer", customerService.findCustomerById(customerID));
         
        return "views/appointment/read";
     }
-    
-    
-    
-     @RequestMapping(value="/appointment/{id}/edit", method = RequestMethod.GET)
-    public String showEditAppointmentForm(@ModelAttribute("user") User user, final ModelMap model, @PathVariable int id) {
-        if (!user.isAuthenticated()) {
-            return "redirect:/login";
-        }
-        
-        //Appointment appointment = appointmentService.findAppointmentById(id);
-        model.addAttribute("appointment", appointment);
-        //logger.info(appointment.getCustomerID() + "");
-        
-        return "views/appointment/edit";
-    }
-    
-    @RequestMapping(value="/appointment/{id}/edit", method = RequestMethod.POST)
-    public String validateAndSaveEditedAppointment(@ModelAttribute("user") User user, final ModelMap model, @Valid Appointment appointment, final BindingResult bindingResult, @PathVariable String id) {
-        if (!user.isAuthenticated()) {
-            return "redirect:/login";
-        }
-        
-        //error handeling met het aanpassen van een gebruiker gaat nog niet goed!
-        if (bindingResult.hasErrors()) {
-            // Als er velden in het formulier zijn die niet correct waren ingevuld vinden we die hier.
-            // We blijven dan op dezelfde pagina. De foutmeldingen worden daar getoond
-            // (zie het create.html bestand.
-            logger.info("validateAndSaveCustomer - not added, bindingResult.hasErrors");
-            return "views/appointment/list";
-        }
-
-        //appointmentService.edit(appointment, Integer.parseInt(id));
-
-        // We gaan de lijst met customers tonen, met een bericht dat de nieuwe customer toegevoegd is.
-        // Zet de opgevraagde customers in het model
-        //model.addAttribute("appointments", appointmentService.findAllAppointments());
-        model.addAttribute("invoices", invoiceService.findAllInvoices());
-        // Open de juiste view template als resultaat.
-        return "views/appointment/list";
-    }
-    
     
    
     

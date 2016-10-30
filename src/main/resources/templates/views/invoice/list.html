@@ -42,7 +42,7 @@
                     </tr>
                     <tr th:each="appointment : ${appointments}">
                         <td th:text="${appointment.appointmentId}">1</td>
-                        <td th:text="${appointment.physiotherapistName}">1</td>
+                        <td th:text="${appointment.fysiotherapistName}">1</td>
                         <td th:text="${appointment.patientName}">Verloopdatum ...</td>
                         <td th:text="${appointment.treatmentCode}">BehandelingID ...</td>
                         <td th:text="${appointment.treatmentTime} + ' uur'">Duration ...</td>
@@ -58,7 +58,7 @@
                                   <span class="fa fa-caret-down" title="Toggle dropdown menu"></span>
                                 </a>
                                 <ul class="dropdown-menu">
-                                  <li><a th:href="@{/appointment/{id}/edit (id=${appointment.appointmentId})}"><i class="fa fa-pencil fa-fw"></i> Aanpassen</a></li>
+                                  <li><a th:href="@{/invoice/{id}/editandcreate (id=${appointment.appointmentId})}"><i class="fa fa-pencil fa-fw"></i> Aanpassen en accepteren</a></li>
                                   <li><a href="#" data-toggle="modal" th:attr="data-target='#popup-' + ${appointment.appointmentId}"><i class="fa fa-trash-o fa-fw"></i> Verwijderen</a></li>
                                 </ul>
                             </div>

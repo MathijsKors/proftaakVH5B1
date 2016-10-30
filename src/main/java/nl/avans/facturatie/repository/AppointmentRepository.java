@@ -87,7 +87,7 @@ public class AppointmentRepository {
             public PreparedStatement createPreparedStatement(Connection connection) throws SQLException {
                 PreparedStatement ps = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
                 ps.setInt(1, appointment.getAppointmentId());
-                ps.setString(2, appointment.getPhysiotherapistName());
+                ps.setString(2, appointment.getFysiotherapistName());
                 ps.setString(3, appointment.getStatus());
                 ps.setString(4, appointment.getPatientName());
                 ps.setString(5, appointment.getTreatmentCode());
@@ -123,7 +123,7 @@ public class AppointmentRepository {
             public PreparedStatement createPreparedStatement(Connection connection) throws SQLException {
                 PreparedStatement ps = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
                ps.setInt(1, appointment.getAppointmentId());
-                ps.setString(2, appointment.getPhysiotherapistName());
+                ps.setString(2, appointment.getFysiotherapistName());
                 ps.setString(3, appointment.getStatus());
                 ps.setString(4, appointment.getPatientName());
                 ps.setString(5, appointment.getTreatmentCode());
