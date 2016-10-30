@@ -16,7 +16,6 @@ import nl.avans.facturatie.model.PdfCreator;
 import nl.avans.facturatie.model.User;
 import nl.avans.facturatie.service.CustomerService;
 import nl.avans.facturatie.service.InvoiceService;
-import nl.avans.facturatie.service.BillingService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -41,13 +40,11 @@ public class PDFController {
 
     private final Logger logger = LoggerFactory.getLogger(InvoiceService.class);;
     private final InvoiceService invoiceService;
-    private final BillingService billingService;
     public String DEST = "results/Factuur.pdf";
     
     @Autowired
-    public PDFController(InvoiceService invoiceService, BillingService billingService) {
+    public PDFController(InvoiceService invoiceService) {
         this.invoiceService = invoiceService;
-        this.billingService = billingService;
     }
     
     @ModelAttribute("user")
@@ -95,7 +92,7 @@ public class PDFController {
         
         invoiceService.delete(id);
         
-        model.addAttribute("billings", billingService.findAllBillings());
+        //model.addAttribute("billings", billingService.findAllBillings());
         model.addAttribute("invoices", invoiceService.findAllInvoices());
         // Open de juiste view template als resultaat.
         return "views/billing/list";

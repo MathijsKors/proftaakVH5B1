@@ -4,7 +4,7 @@ public class FysioRest {
 
 	private String dateObject;
 	private String status;
-	private String physiotherapist;
+	private String physiotherapistName;
 	private String date;
 	private String patientId;
 	private String patientName;
@@ -32,11 +32,11 @@ public class FysioRest {
 	}
 
 	public String getPhysiotherapist() {
-		return physiotherapist;
+		return physiotherapistName;
 	}
 
-	public void setPhysiotherapist(String physiotherapist) {
-		this.physiotherapist = physiotherapist;
+	public void setPhysiotherapist(String physiotherapistName) {
+		this.physiotherapistName = physiotherapistName;
 	}
 
 	public String getDate() {
@@ -98,7 +98,7 @@ public class FysioRest {
 	@Override
 	public String toString() {
 		return "ClassFysioRest [dateObject = " + dateObject + ", status = " + status
-				+ ", physiotherapist = " + physiotherapist + ", date = " + date
+				+ ", physiotherapistName = " + physiotherapistName + ", date = " + date
 				+ ", patientId = " + patientId + ", patientName = " + patientName + ", treatmentName = " + treatmentName + ", appointmentId = "
 				+ appointmentId + ", treatmentCode = " + treatmentCode + ", treatmentTime = " + treatmentTime + "]";
 	}

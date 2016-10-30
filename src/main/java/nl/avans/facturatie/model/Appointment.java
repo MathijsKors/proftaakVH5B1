@@ -13,9 +13,9 @@ import java.util.Date;
  */
 public class Appointment {
 
-    private Date date;
+    private String date;
     private int appointmentId;
-    private String physiotherapist;
+    private String physiotherapistName;
     private String status;
     private String patientName;
     private String treatmentCode;
@@ -27,10 +27,10 @@ public class Appointment {
     public Appointment(){
     }
     
-    public Appointment(Date date, int appointmentId, String physiotherapist, String status, String patientName, String treatmentCode, int treatmentTime, int patientId, String treatmentName) {
+    public Appointment(String date, int appointmentId, String physiotherapistName, String status, String patientName, String treatmentCode, int treatmentTime, int patientId, String treatmentName) {
         this.date = date;
         this.appointmentId = appointmentId;
-        this.physiotherapist = physiotherapist;
+        this.physiotherapistName = physiotherapistName;
         this.status = status;
         this.patientName = patientName;
         this.treatmentCode = treatmentCode;
@@ -39,7 +39,7 @@ public class Appointment {
         this.treatmentName = treatmentName;
     }
 
-    public Date getDate() {
+    public String getDate() {
         return date;
     }
 
@@ -47,8 +47,8 @@ public class Appointment {
         return appointmentId;
     }
 
-    public String getPhysiotherapist() {
-        return physiotherapist;
+    public String getPhysiotherapistName() {
+        return physiotherapistName;
     }
 
     public String getStatus() {
@@ -75,7 +75,7 @@ public class Appointment {
         return treatmentName;
     }
 
-    public void setDate(Date date) {
+    public void setDate(String date) {
         this.date = date;
     }
 
@@ -83,8 +83,8 @@ public class Appointment {
         this.appointmentId = appointmentId;
     }
 
-    public void setPhysiotherapist(String physiotherapist) {
-        this.physiotherapist = physiotherapist;
+    public void setPhysiotherapist(String physiotherapistName) {
+        this.physiotherapistName = physiotherapistName;
     }
 
     public void setStatus(String status) {

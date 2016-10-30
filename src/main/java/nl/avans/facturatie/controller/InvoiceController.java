@@ -28,7 +28,6 @@ import nl.avans.facturatie.model.Invoice;
 import nl.avans.facturatie.model.Treatment;
 import nl.avans.facturatie.model.User;
 import nl.avans.facturatie.service.AppointmentService;
-import nl.avans.facturatie.service.BillingService;
 import nl.avans.facturatie.service.CustomerService;
 import nl.avans.facturatie.service.InvoiceService;
 import nl.avans.facturatie.service.TreatmentService;
@@ -49,52 +48,70 @@ public class InvoiceController {
         return new User();
     } 
 	
-    private final Logger logger = LoggerFactory.getLogger(BillingService.class);;
+//    private final Logger logger = LoggerFactory.getLogger(BillingService.class);;
 
-    private final BillingService billingService;
     private final CustomerService customerService;
     private final InvoiceService invoiceService;
     private final TreatmentService treatmentService;
+    private final AppointmentService appointmentService;
     
         
     @Autowired
-    public InvoiceController(BillingService billingService, CustomerService customerService, InvoiceService invoiceService, TreatmentService treatmentService ){
-        this.billingService = billingService;
+    public InvoiceController(CustomerService customerService, InvoiceService invoiceService, TreatmentService treatmentService, AppointmentService appointmentService){
         this.customerService = customerService;
         this.invoiceService = invoiceService;
         this.treatmentService = treatmentService;
-        //this.appointmentService = appointmentService;AppointmentService appointmentServicefinal AppointmentService appointmentService;
+        this.appointmentService = appointmentService;
     }
   
-    @RequestMapping(value="/invoice/create/{id}", method = RequestMethod.GET)
-    public String validateAndSaveInvoice(@ModelAttribute("user") User user, final ModelMap model, @PathVariable int id) {
-        if (!user.isAuthenticated()) {
-            return "redirect:/login";
-        }
-        
-        Billing bill = billingService.findBillingById(id);
-        Customer customer = customerService.findCustomerById(bill.getCustomerID());
-        Treatment treatment = treatmentService.findTreatmentById(bill.getTreatmentID()+"");
-        //Appointment appointment = appointmentService.findAppointmentById(id)ById(bill.getTreatmentID()+"");
-        
-        // Maak de invoice aan via de invoiceservice
-        Invoice newInvoice = invoiceService.create(bill, customer, treatment);
-        billingService.delete(id);
-        
-        if (newInvoice != null) {
-            model.addAttribute("info", "Invoice is toegevoegd.");
-        } else {
-            logger.error("Klant kon niet gemaakt worden.");
-            model.addAttribute("info", "Klant kon niet gemaakt worden.");
-        }
-
-        // We gaan de lijst met invoices tonen, met een bericht dat de nieuwe invoice toegevoegd is.
-        // Zet de opgevraagde invoices in het model
-        model.addAttribute("billings", billingService.findAllBillings());
+    
+    
+     /**
+     * Haal een lijst van Appointments en toon deze in een view.
+     * @param model
+     * @return
+     */
+    @RequestMapping(value = "/invoices", method = RequestMethod.GET)
+    public String listAppointments(Model model) {
+        //logger.info("listAppointments");
+        // Zet de opgevraagde appointments in het model
+        model.addAttribute("appointmentObj", new Appointment());
+        model.addAttribute("appointments", appointmentService.getAllAppointments());
         model.addAttribute("invoices", invoiceService.findAllInvoices());
         // Open de juiste view template als resultaat.
-        return "views/billing/list";
+        return "views/invoice/list";
     }
+    
+    
+//    @RequestMapping(value="/invoice/create/{id}", method = RequestMethod.GET)
+//    public String validateAndSaveInvoice(@ModelAttribute("user") User user, final ModelMap model, @PathVariable int id) {
+//        if (!user.isAuthenticated()) {
+//            return "redirect:/login";
+//        }
+//        
+//        Billing bill = billingService.findBillingById(id);
+//        Customer customer = customerService.findCustomerById(bill.getCustomerID());
+//        Treatment treatment = treatmentService.findTreatmentById(bill.getTreatmentID()+"");
+//        //Appointment appointment = appointmentService.findAppointmentById(id)ById(bill.getTreatmentID()+"");
+//        
+//        // Maak de invoice aan via de invoiceservice
+//        Invoice newInvoice = invoiceService.create(bill, customer, treatment);
+//        //billingService.delete(id);
+//        
+//        if (newInvoice != null) {
+//            model.addAttribute("info", "Invoice is toegevoegd.");
+//        } else {
+//            logger.error("Klant kon niet gemaakt worden.");
+//            model.addAttribute("info", "Klant kon niet gemaakt worden.");
+//        }
+//
+//        // We gaan de lijst met invoices tonen, met een bericht dat de nieuwe invoice toegevoegd is.
+//        // Zet de opgevraagde invoices in het model
+//        model.addAttribute("billings", billingService.findAllBillings());
+//        model.addAttribute("invoices", invoiceService.findAllInvoices());
+//        // Open de juiste view template als resultaat.
+//        return "views/billing/list";
+//    }
     
     @ExceptionHandler(value = SQLException.class)
     public ModelAndView handleError(HttpServletRequest req, SQLException ex) {
