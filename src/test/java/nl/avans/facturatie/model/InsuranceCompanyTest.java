@@ -16,13 +16,22 @@ import static org.junit.Assert.*;
  */
 public class InsuranceCompanyTest {
     
+    /**
+     *
+     */
     public InsuranceCompanyTest() {
     }
     
+    /**
+     *
+     */
     @BeforeClass
     public static void setUpClass() {
     }
     
+    /**
+     *
+     */
     @AfterClass
     public static void tearDownClass() {
     }

@@ -15,19 +15,29 @@ import java.text.SimpleDateFormat;
  */
 public class InvoiceTest {
     
+    /**
+     *
+     */
     public InvoiceTest() {
     }
     
+    /**
+     *
+     */
     @BeforeClass
     public static void setUpClass() {
     }
     
+    /**
+     *
+     */
     @AfterClass
     public static void tearDownClass() {
     }
       
     /**
      * Test of getInvoiceID method, of class Invoice.
+     * @throws java.text.ParseException
      */
     @Test
     public void testGetInvoiceID() throws ParseException {
