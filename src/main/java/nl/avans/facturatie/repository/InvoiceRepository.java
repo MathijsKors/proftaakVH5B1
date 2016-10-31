@@ -145,7 +145,7 @@ public class InvoiceRepository {
 //        logger.info(appointment.getTreatmentPrice());
 //        String priceString = appointment.getTreatmentPrice().replace(",",".");
 //        logger.info(priceString);
-//        double price = Double.parseDouble(priceString);
+        double price = Double.parseDouble(appointment.getTreatmentPrice().replace(",","."));
 //        logger.info(price+"");
         
         
@@ -169,7 +169,7 @@ public class InvoiceRepository {
             public PreparedStatement createPreparedStatement(Connection connection) throws SQLException {
                 PreparedStatement ps = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
                 ps.setInt(1, Integer.parseInt(appointment.getAppointmentId()));
-                ps.setDouble(2, 80.0);
+                ps.setDouble(2,  price);
                 ps.setString(3, customer.getFullName());
                 ps.setString(4, appointment.getTreatmentName());
                 ps.setInt(5, appointment.getTreatmentTime());

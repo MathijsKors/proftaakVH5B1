@@ -33,7 +33,10 @@ class HomeController {
     }
     
     @RequestMapping("/behandelingen")
-    String treatments(Model model) {
+    String treatments(@ModelAttribute("user") User user, Model model) {
+        if (!user.isAuthenticated() ) {
+            return "redirect:/login";
+        }
         model.addAttribute("treatments", treatmentService.getSettedTreatments());
         return "views/home/treatments";
 

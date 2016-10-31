@@ -14,10 +14,16 @@ import javax.validation.Valid;
 import java.sql.SQLException;
 import java.util.List;
 import nl.avans.facturatie.model.Insurance;
+import nl.avans.facturatie.model.User;
 import nl.avans.facturatie.service.InsuranceService;
 
 @Controller
 public class InsuranceController {
+    
+    @ModelAttribute("user")
+    public User getUser() {
+        return new User();
+    }    
 
     private final Logger logger = LoggerFactory.getLogger(InsuranceCompanyController.class);;
 
@@ -43,7 +49,11 @@ public class InsuranceController {
      * @return
      */
     @RequestMapping(value = "/insurances", method = RequestMethod.GET)
-    public String listInsurances(Model model) {
+    public String listInsurances(@ModelAttribute("user") User user, Model model) {
+        if (!user.isAuthenticated()) {
+            return "redirect:/login";
+        }   
+        
         logger.debug("listInsurances");
         // Zet de opgevraagde verzekeringen in het model
         model.addAttribute("insurances", insuranceService.findAllInsurances());
@@ -59,14 +69,22 @@ public class InsuranceController {
      * @return
      */
     @RequestMapping(value="/insurance/create", method = RequestMethod.GET)
-    public String showCreateInsuranceForm(final Insurance insurance, final ModelMap model) {
+    public String showCreateInsuranceForm(@ModelAttribute("user") User user,final Insurance insurance, final ModelMap model) {
+        if (!user.isAuthenticated()) {
+            return "redirect:/login";
+        }
+        
         logger.debug("showCreateInsuranceForm");
         return "views/insurance/create";
     }
     
     
     @RequestMapping(value="/insurance/create", method = RequestMethod.POST)
-    public String validateAndSaveInsurance(@Valid Insurance insurance, final BindingResult bindingResult, final ModelMap model) {
+    public String validateAndSaveInsurance(@ModelAttribute("user") User user, @Valid Insurance insurance, final BindingResult bindingResult, final ModelMap model) {
+       if (!user.isAuthenticated()) {
+            return "redirect:/login";
+        }
+        
         logger.debug("validateAndSaveInsurance - adding insurance = " + insurance.getType());
 
         if (bindingResult.hasErrors()) {
@@ -92,14 +110,23 @@ public class InsuranceController {
     }
     
     @RequestMapping(value="/insurance/{id}/edit", method = RequestMethod.GET)
-    public String showEditInsuranceForm(final Insurance insurance, final ModelMap model, @PathVariable int id) {
+    public String showEditInsuranceForm(@ModelAttribute("user") User user, final Insurance insurance, final ModelMap model, @PathVariable int id) {
+        if (!user.isAuthenticated()) {
+            return "redirect:/login";
+        }
+        
         logger.debug("showEditInsuranceForm");
         model.addAttribute("insurance", insuranceService.findInsuranceById(id));
         return "views/insurance/edit";
     }
     
     @RequestMapping(value="/insurance/{id}/edit", method = RequestMethod.POST)
-    public String validateAndSaveEditedInsurance(@Valid Insurance insurance, @PathVariable String id, final BindingResult bindingResult, final ModelMap model) {
+    public String validateAndSaveEditedInsurance(@ModelAttribute("user") User user, @Valid Insurance insurance, @PathVariable String id, final BindingResult bindingResult, final ModelMap model) {
+        if (!user.isAuthenticated()) {
+            return "redirect:/login";
+        }
+        
+        
         logger.debug("validateAndSaveEditedInsurance - edited insurance = " + insurance.getType());
 
         if (bindingResult.hasErrors()) {
@@ -121,7 +148,11 @@ public class InsuranceController {
     }
 
     @RequestMapping(value = "/insurance/{id}", method = RequestMethod.DELETE)
-    public String deleteInsurance(Model model, @PathVariable String id) {
+    public String deleteInsurance(@ModelAttribute("user") User user, Model model, @PathVariable String id) {
+        if (!user.isAuthenticated()) {
+            return "redirect:/login";
+        }
+        
         logger.debug("deleteInsurance, id = " + id);
 
         // Delete de verzekering
@@ -135,8 +166,12 @@ public class InsuranceController {
     }
     
     @RequestMapping(value = "/insurance/{id}", method = RequestMethod.GET)
-    public String listOneInsurance(Model model, @PathVariable int id) {
-        // Zet de opgevraagde waarden in het model
+    public String listOneInsurance(@ModelAttribute("user") User user, Model model, @PathVariable int id) {
+        if (!user.isAuthenticated()) {
+                    return "redirect:/login";
+                }        
+
+    // Zet de opgevraagde waarden in het model
         model.addAttribute("insurance", insuranceService.findInsuranceById(id));
         return "views/insurance/read";
     }

@@ -122,7 +122,7 @@
                 </thead>
                 <tbody>
                     <tr th:if="${invoices.empty}">
-                        <td colspan="4">Geen rekeningen</td>
+                        <td colspan="4">Geen geaccodeerde facturen</td>
                     </tr>
                     <tr th:each="invoice : ${invoices}">
                         <td th:text="${invoice.invoiceID}">1</td>
