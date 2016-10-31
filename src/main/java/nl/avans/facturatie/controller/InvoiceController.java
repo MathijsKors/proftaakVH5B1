@@ -5,6 +5,7 @@
  */
 package nl.avans.facturatie.controller;
 
+import java.io.IOException;
 import java.sql.SQLException;
 import java.util.List;
 
@@ -115,6 +116,7 @@ public class InvoiceController {
         Invoice newInvoice = invoiceService.create(invoice, customer);
         if (newInvoice != null) {
             model.addAttribute("info", "Invoice  is toegevoegd.");
+            
         } else {
             
             model.addAttribute("info", "Invoice kon niet gemaakt worden.");
@@ -132,25 +134,36 @@ public class InvoiceController {
     
     
     @RequestMapping(value="/invoice/create/{id}", method = RequestMethod.GET)
-    public String createdAppointment(@ModelAttribute("user") User user, final ModelMap model, @Valid Invoice invoice, final BindingResult bindingResult, @PathVariable String id) {
+    public String createdAppointment(@ModelAttribute("user") User user, final ModelMap model, @Valid Invoice invoice, final BindingResult bindingResult, @PathVariable String id) throws IOException {
         if (!user.isAuthenticated()) {
             return "redirect:/login";
         }
-        
+        logger.info("invoice aanmaken...");
+      
         Appointment appointment = appointmentService.findAppointmentById(id);
         Customer customer = customerService.findCustomerById(appointment.getPatientId());
 
-        // Maak de customer aan via de customer
-        Invoice newInvoice = invoiceService.create(invoice, customer);
-
-        // We gaan de lijst met customers tonen, met een bericht dat de nieuwe customer toegevoegd is.
-        // Zet de opgevraagde customers in het model
-        //model.addAttribute("appointments", appointmentService.findAllAppointments());
+        logger.info("new invoice");
+        
+        // Maak de invoice aan met appointment en customer
+        boolean newInvoice = invoiceService.accept(appointment, customer);
+        logger.info("Invoice moet nu aangemaakt zijn.");
+        if (newInvoice = true) {
+            logger.info("invoice is aangemaakt, apppointment verwijderen...");
+            appointmentService.delete(id);
+            logger.info("apppointment is verwijderd");
+            model.addAttribute("info", "Invoice  is toegevoegd.");
+        } else {
+            
+            model.addAttribute("info", "Invoice kon niet gemaakt worden.");
+        }
+        
+        model.addAttribute("appointmentObj", new Appointment());
+        model.addAttribute("appointments", appointmentService.getAllAppointments());
         model.addAttribute("invoices", invoiceService.findAllInvoices());
-        // Open de juiste view template als resultaat.
+        
         return "views/invoice/list";
     }
-    
     
     
     @ExceptionHandler(value = SQLException.class)

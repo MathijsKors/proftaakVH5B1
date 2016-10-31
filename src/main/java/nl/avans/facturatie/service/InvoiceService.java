@@ -1,6 +1,7 @@
 package nl.avans.facturatie.service;
 
 import java.util.List;
+import nl.avans.facturatie.model.Appointment;
 import nl.avans.facturatie.model.Billing;
 import nl.avans.facturatie.model.Customer;
 import org.slf4j.Logger;
@@ -42,15 +43,19 @@ public class InvoiceService {
     }
 
     public Invoice create(Invoice invoice, Customer customer) {
-        logger.info("create - new customer = " + invoice.getInvoiceID());
+        logger.info("create - invoice = " + invoice.getInvoiceID());
 
         // Maak de customer aan via de repository
         Invoice newInvoice = invoiceRepository.create(invoice, customer);
         return newInvoice;
     }
 
-    public Invoice accept(Invoice invoice, Customer customer) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public boolean accept(Appointment appointment, Customer customer) {
+        logger.info("create - invoice = " + appointment.getAppointmentId());
+
+        // Maak de customer aan via de repository
+        Boolean newInvoice = invoiceRepository.accept(appointment, customer);
+        return newInvoice;
     }
        
 }

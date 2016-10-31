@@ -12,6 +12,7 @@ class InvoiceRowMapper implements RowMapper<Invoice>
     @Override
     public Invoice mapRow(ResultSet rs, int rowNum) throws SQLException {
         Invoice invoice = new Invoice();
+        invoice.setInvoiceID(rs.getInt("InvoiceID"));
         invoice.setPrice(rs.getDouble("Price"));
         invoice.setCustomerName(rs.getString("CustomerName"));
         invoice.setTreatmentName(rs.getString("TreatmentName"));
