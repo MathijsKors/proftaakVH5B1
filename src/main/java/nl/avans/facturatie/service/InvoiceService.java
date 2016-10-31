@@ -11,6 +11,10 @@ import org.springframework.stereotype.Service;
 import nl.avans.facturatie.model.Invoice;
 import nl.avans.facturatie.repository.InvoiceRepository;
 
+/**
+ *
+ * @author Gebruiker
+ */
 @Service
 public class InvoiceService {
 
@@ -18,28 +22,50 @@ public class InvoiceService {
 
     private final InvoiceRepository invoiceRepository;
 
+    /**
+     *
+     * @param invoiceRepository
+     */
     @Autowired
     public InvoiceService(InvoiceRepository invoiceRepository) {
         this.invoiceRepository = invoiceRepository;
     }
 
-    
+    /**
+     *
+     * @param id
+     */
     public void delete(int id) {
         logger.info("delete - invoice = " + id);
         this.invoiceRepository.deleteInvoiceById(id);
     }
 
+    /**
+     *
+     * @param id
+     * @return
+     */
     public Invoice findInvoiceById(int id) {
         logger.info("findInvoiceById - invoice = " + id);
         Invoice result = invoiceRepository.findInvoiceById(id);
         return result;
     }
 
+    /**
+     *
+     * @return
+     */
     public List<Invoice> findAllInvoices() {
         logger.info("findAllInvoices");
         return invoiceRepository.findAll();
     }
 
+    /**
+     *
+     * @param invoice
+     * @param customer
+     * @return
+     */
     public Invoice create(Invoice invoice, Customer customer) {
         logger.info("create - invoice = " + invoice.getInvoiceID());
 
@@ -48,6 +74,12 @@ public class InvoiceService {
         return newInvoice;
     }
 
+    /**
+     *
+     * @param appointment
+     * @param customer
+     * @return
+     */
     public boolean accept(Appointment appointment, Customer customer) {
         logger.info("create - invoice = " + appointment.getAppointmentId());
 

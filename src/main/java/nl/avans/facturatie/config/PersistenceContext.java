@@ -29,9 +29,24 @@ import nl.avans.facturatie.service.TreatmentService;
 @EnableTransactionManagement
 public class PersistenceContext {
 
+    /**
+     *
+     */
     protected static final String PROPERTY_NAME_DATABASE_DRIVER = "com.mysql.jdbc.Driver";
+
+    /**
+     *
+     */
     protected static final String PROPERTY_NAME_DATABASE_PASSWORD = "Fac*turatie";
+
+    /**
+     *
+     */
     protected static final String PROPERTY_NAME_DATABASE_URL = "jdbc:mysql://145.48.6.147/facturatie";
+
+    /**
+     *
+     */
     protected static final String PROPERTY_NAME_DATABASE_USERNAME = "Facturatie";
 
     private static final String PROPERTY_PACKAGES_TO_SCAN = "nl.avans.facturatie.config";
@@ -39,6 +54,10 @@ public class PersistenceContext {
     @Resource
     private Environment environment;
 
+    /**
+     *
+     * @return
+     */
     @Bean
     public DataSource dataSource() {
         DriverManagerDataSource dataSource = new DriverManagerDataSource();
@@ -51,6 +70,10 @@ public class PersistenceContext {
         return dataSource;
     }
 
+    /**
+     *
+     * @return
+     */
     @Bean
     @Qualifier("PersistenceContext")
     @Primary
@@ -58,6 +81,10 @@ public class PersistenceContext {
         return new CustomerRepository(this.dataSource());
     }
     
+    /**
+     *
+     * @return
+     */
     @Bean
     @Qualifier("PersistenceContext")
     @Primary
@@ -65,6 +92,10 @@ public class PersistenceContext {
         return new AppointmentRepository(this.dataSource());
     }
     
+    /**
+     *
+     * @return
+     */
     @Bean
     @Qualifier("PersistenceContext")
     @Primary
@@ -72,6 +103,11 @@ public class PersistenceContext {
         return new InvoiceRepository(this.dataSource());
     }
     
+    /**
+     *
+     * @return
+     * @throws JAXBException
+     */
     @Bean
     @Qualifier("PersistenceContext")
     @Primary
@@ -79,6 +115,10 @@ public class PersistenceContext {
         return new TreatmentService();
     }
     
+    /**
+     *
+     * @return
+     */
     @Bean
     @Qualifier("PersistenceContext")
     @Primary
@@ -86,6 +126,10 @@ public class PersistenceContext {
         return new AppointmentRepository(this.dataSource());
     }
     
+    /**
+     *
+     * @return
+     */
     @Bean
     @Qualifier("PersistenceContext")
     @Primary

@@ -16,13 +16,22 @@ import static org.junit.Assert.*;
  */
 public class FysioRestTest {
 
+    /**
+     *
+     */
     public FysioRestTest() {
     }
 
+    /**
+     *
+     */
     @BeforeClass
     public static void setUpClass() {
     }
 
+    /**
+     *
+     */
     @AfterClass
     public static void tearDownClass() {
     }

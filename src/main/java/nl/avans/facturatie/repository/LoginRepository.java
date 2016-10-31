@@ -36,10 +36,20 @@ public class LoginRepository {
     private JdbcTemplate jdbcTemplate;
 
     // Deze constructor wordt aangeroepen vanuit de config/PersistenceContext class.
+
+    /**
+     *
+     * @param dataSource
+     */
     public LoginRepository(DataSource dataSource) {
         this.jdbcTemplate = new JdbcTemplate(dataSource); 
     }
     
+    /**
+     *
+     * @param username
+     * @param password
+     */
     public void saveAccount(String username, String password) {
         logger.info("saveAccount - login" + username + password);
         
@@ -59,7 +69,12 @@ public class LoginRepository {
         );    
     }
     
-    
+    /**
+     *
+     * @param username
+     * @param password
+     * @return
+     */
     public boolean checkPassword(String username, String password) {
     List<String> account = this.jdbcTemplate.queryForList(
         "select password from users where username = ?", String.class, username); 

@@ -41,16 +41,28 @@ public class ApplicationContext extends WebMvcConfigurerAdapter {
     private static final String VIEW_RESOLVER_MODE = "HTML5";
     private static final String VIEW_RESOLVER_ENCODING = "UTF-8";
 
+    /**
+     *
+     * @param registry
+     */
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
          registry.addResourceHandler("/static/**").addResourceLocations("static");
     }
 
+    /**
+     *
+     * @param configurer
+     */
     @Override
     public void configureDefaultServletHandling(DefaultServletHandlerConfigurer configurer) {
         configurer.enable();
     }
 
+    /**
+     *
+     * @return
+     */
     @Bean
     public MessageSource messageSource() {
         ResourceBundleMessageSource messageSource = new ResourceBundleMessageSource();
@@ -61,6 +73,10 @@ public class ApplicationContext extends WebMvcConfigurerAdapter {
         return messageSource;
     }
 
+    /**
+     *
+     * @return
+     */
     @Bean
     public SimpleMappingExceptionResolver exceptionResolver() {
         SimpleMappingExceptionResolver exceptionResolver = new SimpleMappingExceptionResolver();
@@ -83,6 +99,10 @@ public class ApplicationContext extends WebMvcConfigurerAdapter {
         return exceptionResolver;
     }
 
+    /**
+     *
+     * @return
+     */
     @Bean
     public ViewResolver viewResolver() {
         ClassLoaderTemplateResolver templateResolver = new ClassLoaderTemplateResolver();

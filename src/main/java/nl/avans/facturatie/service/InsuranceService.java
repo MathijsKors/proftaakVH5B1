@@ -24,11 +24,20 @@ public class InsuranceService {
     private InsuranceRepository insuranceRepository;
     private Insurance insurance;
         
+    /**
+     *
+     * @param insuranceRepository
+     */
     @Autowired
     public InsuranceService(InsuranceRepository insuranceRepository) {
         this.insuranceRepository = insuranceRepository;
     }
 
+    /**
+     *
+     * @param insurance
+     * @return
+     */
     public Insurance create(Insurance insurance) {
         logger.info("create - new insurance = " + insurance.getType());
 
@@ -37,6 +46,12 @@ public class InsuranceService {
         return newInsurance;
     }
     
+    /**
+     *
+     * @param insurance
+     * @param id
+     * @return
+     */
     public Insurance edit(Insurance insurance, int id) {
         logger.info("edit - insurance = " + insurance.getType());
 
@@ -45,18 +60,30 @@ public class InsuranceService {
         return editedinsurance;
     }
 
-
+    /**
+     *
+     * @param id
+     */
     public void delete(int id) {
         logger.info("delete - insurance = " + id);
        this.insuranceRepository.deleteInsuranceById(id);
     }
 
+    /**
+     *
+     * @param id
+     * @return
+     */
     public Insurance findInsuranceById(int id) {
         logger.info("findInsuranceById - insurance = " + id);
         Insurance result = insuranceRepository.findInsuranceById(id);
         return result;
     }
 
+    /**
+     *
+     * @return
+     */
     public List<Insurance> findAllInsurances() {
         logger.info("findAllInsurances");
         return insuranceRepository.findAll();

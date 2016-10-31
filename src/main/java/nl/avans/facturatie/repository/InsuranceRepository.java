@@ -35,6 +35,11 @@ public class InsuranceRepository
     private JdbcTemplate jdbcTemplate;
 
     // Deze constructor wordt aangeroepen vanuit de config/PersistenceContext class.
+
+    /**
+     *
+     * @param dataSource
+     */
     public InsuranceRepository(DataSource dataSource) { this.jdbcTemplate = new JdbcTemplate(dataSource); }
 
     /**
@@ -137,8 +142,10 @@ public class InsuranceRepository
         return insurance;
      }
     
-    
-    
+    /**
+     *
+     * @param id
+     */
     public void deleteInsuranceById(int id) {
         logger.debug("deleteInsuranceById");
         jdbcTemplate.update("DELETE FROM insurances WHERE InsuranceID=?", new Object[]{id});

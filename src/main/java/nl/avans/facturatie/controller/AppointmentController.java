@@ -42,6 +42,10 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 @SessionAttributes (value = "user", types = {User.class} )
 public class AppointmentController {
     
+    /**
+     *
+     * @return
+     */
     @ModelAttribute("user")
     public User getUser() {
         return new User();
@@ -54,6 +58,12 @@ public class AppointmentController {
     private InvoiceService invoiceService;
     private Appointment appointment;
         
+    /**
+     *
+     * @param appointmentService
+     * @param customerService
+     * @param invoiceService
+     */
     @Autowired
     public AppointmentController(AppointmentService appointmentService, CustomerService customerService, InvoiceService invoiceService){
         this.appointmentService = appointmentService;
@@ -66,6 +76,7 @@ public class AppointmentController {
 
         /**
      * Haal de appointment met gegeven ID uit de database en toon deze in een view.
+     * @param user
      * @param model
      * @param id
      * @return
@@ -89,9 +100,11 @@ public class AppointmentController {
     
         /**
      * Haal de appointment met gegeven ID uit de database en toon deze in een view.
+     * @param user
      * @param model
      * @param id
      * @return
+     * @throws java.io.IOException
      */
     @RequestMapping(value = "/appointment/paid/{id}", method = RequestMethod.DELETE)
     public String deleteAppointment(@ModelAttribute("user") User user, Model model, @PathVariable String id) throws IOException {
@@ -110,8 +123,12 @@ public class AppointmentController {
         return "views/invoice/list";
     }
     
-   
-    
+    /**
+     *
+     * @param req
+     * @param ex
+     * @return
+     */
     @ExceptionHandler(value = SQLException.class)
     public ModelAndView handleError(HttpServletRequest req, SQLException ex) {
         // logger.error("Request: " + req.getRequestURL() + " raised " + ex);

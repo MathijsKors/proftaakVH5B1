@@ -20,10 +20,20 @@ public class UniqueBSNValidator implements ConstraintValidator<UniqueBSN, String
     @Autowired
     private CustomerRepository customerRepository;
 
+    /**
+     *
+     * @param a
+     */
     @Override
     public void initialize(UniqueBSN a) {
     }
 
+    /**
+     *
+     * @param bsn
+     * @param cvc
+     * @return
+     */
     @Override
     public boolean isValid(String bsn, ConstraintValidatorContext cvc) {
         boolean valid;

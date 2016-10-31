@@ -26,7 +26,12 @@ public class PdfCreator {
     
     public final String DEST = "\\src\\main\\resources\\static\\pdf\\Factuur.pdf";
     
- 
+    /**
+     *
+     * @param invoice
+     * @param DEST
+     * @throws FileNotFoundException
+     */
     public void createPdf(Invoice invoice, String DEST) throws FileNotFoundException {
         //Initialize PDF writer
         PdfWriter writer = new PdfWriter(DEST);

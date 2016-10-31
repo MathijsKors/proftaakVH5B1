@@ -16,10 +16,18 @@ import nl.avans.facturatie.model.InsuranceCompany;
 import nl.avans.facturatie.model.User;
 import nl.avans.facturatie.service.InsuranceCompanyService;
 
+/**
+ *
+ * @author Gebruiker
+ */
 @Controller
 @SessionAttributes (value = "user", types = {User.class} )
 public class InsuranceCompanyController {
 
+    /**
+     *
+     * @return
+     */
     @ModelAttribute("user")
     public User getUser() {
         return new User();
@@ -29,22 +37,36 @@ public class InsuranceCompanyController {
 
     private InsuranceCompanyService insuranceCompanyService;
 
+    /**
+     *
+     * @param insuranceCompanyService
+     */
     @Autowired
     public InsuranceCompanyController(InsuranceCompanyService insuranceCompanyService){
         this.insuranceCompanyService = insuranceCompanyService;
     }
 
+    /**
+     *
+     * @return
+     */
     @ModelAttribute("page")
     public String module() {
         return "settings";
     }
 
     // Zet een 'flag' om in Bootstrap header nav het actieve menu item te vinden.
+
+    /**
+     *
+     * @return
+     */
     @ModelAttribute("classActiveInsuranceCompany")
     public String highlightNavMenuItem(){ return "active"; };
 
     /**
      * Haal een lijst van Customers en toon deze in een view.
+     * @param user
      * @param model
      * @return
      */
@@ -64,6 +86,8 @@ public class InsuranceCompanyController {
     /**
      * Hiermee open je de create view om een nieuwe customer aan te maken.
      *
+     * @param user
+     * @param insuranceCompany
      * @param customer Dit object wordt aan de view meegegeven. Het object wordt gevuld met de waarden uit het formulier.
      * @param model
      * @return
@@ -78,7 +102,14 @@ public class InsuranceCompanyController {
         return "views/insurancecompany/create";
     }
     
-    
+    /**
+     *
+     * @param user
+     * @param insuranceCompany
+     * @param bindingResult
+     * @param model
+     * @return
+     */
     @RequestMapping(value="/insurancecompany/create", method = RequestMethod.POST)
     public String validateAndSaveInsuranceCompany(@ModelAttribute("user") User user, @Valid InsuranceCompany insuranceCompany, final BindingResult bindingResult, final ModelMap model) {
         if (!user.isAuthenticated()) {
@@ -109,6 +140,13 @@ public class InsuranceCompanyController {
         return "views/insurancecompany/list";
     }
 
+    /**
+     *
+     * @param user
+     * @param model
+     * @param id
+     * @return
+     */
     @RequestMapping(value = "/insurancecompany/{id}", method = RequestMethod.DELETE)
     public String deleteInsuranceCompany(@ModelAttribute("user") User user, Model model, @PathVariable String id) {
         if (!user.isAuthenticated()) {
@@ -127,6 +165,13 @@ public class InsuranceCompanyController {
         return "views/insurancecompany/list";
     }
     
+    /**
+     *
+     * @param user
+     * @param model
+     * @param id
+     * @return
+     */
     @RequestMapping(value = "/insurancecompany/{id}", method = RequestMethod.GET)
     public String listOneInsuranceCompany(@ModelAttribute("user") User user, Model model, @PathVariable int id) {
         if (!user.isAuthenticated()) {
@@ -138,6 +183,12 @@ public class InsuranceCompanyController {
         return "views/insurancecompany/read";
     }
 
+    /**
+     *
+     * @param req
+     * @param ex
+     * @return
+     */
     @ExceptionHandler(value = SQLException.class)
     public ModelAndView handleError(HttpServletRequest req, SQLException ex) {
         // logger.error("Request: " + req.getRequestURL() + " raised " + ex);

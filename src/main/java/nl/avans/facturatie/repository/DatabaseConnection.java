@@ -23,6 +23,12 @@ public class DatabaseConnection {
     private final String name;
     private final String connectionString;
     
+    /**
+     *
+     * @param connectionString
+     * @param name
+     * @param pass
+     */
     public DatabaseConnection(String connectionString, String name, String pass)
     {
         this.connectionString = connectionString;
@@ -32,6 +38,10 @@ public class DatabaseConnection {
         statement = null;
     }
     
+    /**
+     *
+     * @return
+     */
     public boolean openConnection()
     {
         boolean result = false;
@@ -62,6 +72,10 @@ public class DatabaseConnection {
         return result;
     }
     
+    /**
+     *
+     * @return
+     */
     public boolean connectionIsOpen()
     {
         boolean open = false;
@@ -84,6 +98,9 @@ public class DatabaseConnection {
         return open;
     }
     
+    /**
+     *
+     */
     public void closeConnection()
     {
         try
@@ -99,6 +116,11 @@ public class DatabaseConnection {
         connection = null;
     }
     
+    /**
+     *
+     * @param query
+     * @return
+     */
     public ResultSet executeSQLSelectStatement(String query)
     {
         ResultSet resultset = null;
@@ -122,6 +144,12 @@ public class DatabaseConnection {
         return resultset;
     }
     
+    /**
+     *
+     * @param query
+     * @param query2
+     * @return
+     */
     public boolean executeSQLDeleteStatement(String query, String query2)
     {
         boolean result = false;

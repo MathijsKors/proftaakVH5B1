@@ -43,6 +43,10 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 @SessionAttributes (value = "user", types = {User.class} )
 public class InvoiceController {
     
+    /**
+     *
+     * @return
+     */
     @ModelAttribute("user")
     public User getUser() {
         return new User();
@@ -54,7 +58,12 @@ public class InvoiceController {
     private final InvoiceService invoiceService;
     private final AppointmentService appointmentService;
     
-        
+    /**
+     *
+     * @param customerService
+     * @param invoiceService
+     * @param appointmentService
+     */
     @Autowired
     public InvoiceController(CustomerService customerService, InvoiceService invoiceService, AppointmentService appointmentService){
         this.customerService = customerService;
@@ -67,6 +76,7 @@ public class InvoiceController {
     
      /**
      * Haal een lijst van Appointments en toon deze in een view.
+     * @param user
      * @param model
      * @return
      */
@@ -84,7 +94,14 @@ public class InvoiceController {
         return "views/invoice/list";
     }
     
-    
+    /**
+     *
+     * @param user
+     * @param invoice
+     * @param model
+     * @param id
+     * @return
+     */
     @RequestMapping(value="/invoice/{id}/editandcreate", method = RequestMethod.GET)
     public String showEditAppointmentForm(@ModelAttribute("user") User user, final Invoice invoice, final ModelMap model, @PathVariable String id) {
         if (!user.isAuthenticated()) {
@@ -98,6 +115,15 @@ public class InvoiceController {
         return "views/invoice/editandcreate";
     }
     
+    /**
+     *
+     * @param user
+     * @param model
+     * @param invoice
+     * @param bindingResult
+     * @param id
+     * @return
+     */
     @RequestMapping(value="/invoice/{id}/editandcreate", method = RequestMethod.POST)
     public String validateAndSaveEditedAppointment(@ModelAttribute("user") User user, final ModelMap model, @Valid Invoice invoice, final BindingResult bindingResult, @PathVariable String id) {
         if (!user.isAuthenticated()) {
@@ -135,7 +161,16 @@ public class InvoiceController {
         return "views/invoice/list";
     }
     
-    
+    /**
+     *
+     * @param user
+     * @param model
+     * @param invoice
+     * @param bindingResult
+     * @param id
+     * @return
+     * @throws IOException
+     */
     @RequestMapping(value="/invoice/create/{id}", method = RequestMethod.GET)
     public String createdAppointment(@ModelAttribute("user") User user, final ModelMap model, @Valid Invoice invoice, final BindingResult bindingResult, @PathVariable String id) throws IOException {
         if (!user.isAuthenticated()) {
@@ -168,7 +203,12 @@ public class InvoiceController {
         return "views/invoice/list";
     }
     
-    
+    /**
+     *
+     * @param req
+     * @param ex
+     * @return
+     */
     @ExceptionHandler(value = SQLException.class)
     public ModelAndView handleError(HttpServletRequest req, SQLException ex) {
         // logger.error("Request: " + req.getRequestURL() + " raised " + ex);

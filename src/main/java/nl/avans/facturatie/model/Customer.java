@@ -77,6 +77,7 @@ public class Customer {
      * @param phoneNumber
      * @param emailAddress
      * @param insurance
+     * @param ownRisk
      */
     public Customer(String bsnNumber, String firstName, String lastName, java.util.Date birthDate, String street, String houseNumber, String city, String phoneNumber, String emailAddress, String insurance, double ownRisk) {
         this.bsnNumber = bsnNumber;
@@ -280,6 +281,10 @@ public class Customer {
         return customerID;
     }
 
+    /**
+     *
+     * @param ownRisk
+     */
     public void setOwnRisk(double ownRisk) {
          if(ownRisk < 0 || ownRisk > 500){
             throw new IllegalArgumentException("Own Risk must be between 0 and 500, inclusive");
@@ -288,6 +293,10 @@ public class Customer {
         }
     }
 
+    /**
+     *
+     * @return
+     */
     public double getOwnRisk() {
         return ownRisk;
     }

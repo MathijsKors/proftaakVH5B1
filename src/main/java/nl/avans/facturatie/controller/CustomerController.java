@@ -24,17 +24,27 @@ import nl.avans.facturatie.service.InsuranceService;
 import org.springframework.beans.propertyeditors.CustomDateEditor;
 import org.springframework.web.bind.WebDataBinder;
 
+/**
+ *
+ * @author Gebruiker
+ */
 @Controller
 @SessionAttributes (value = "user", types = {User.class} )
 public class CustomerController {
 
-
-
+    /**
+     *
+     * @return
+     */
     @ModelAttribute("user")
     public User getUser() {
         return new User();
     }     
 
+    /**
+     *
+     * @param binder
+     */
     @InitBinder
     public void initBinder(WebDataBinder binder) {
         String format = "yyyy-MM-dd";
@@ -58,6 +68,12 @@ public class CustomerController {
     private final CustomerInsuranceService customerInsuranceService;
     private Customer customer;
 
+    /**
+     *
+     * @param customerService
+     * @param insuranceService
+     * @param customerInsuranceService
+     */
     @Autowired
     public CustomerController(CustomerService customerService, InsuranceService insuranceService, CustomerInsuranceService customerInsuranceService) {
         this.customerService = customerService;
@@ -65,12 +81,21 @@ public class CustomerController {
         this.customerInsuranceService = customerInsuranceService;
     }
 
+    /**
+     *
+     * @return
+     */
     @ModelAttribute("page")
     public String module() {
         return "customers";
     }
 
     // Zet een 'flag' om in Bootstrap header nav het actieve menu item te vinden.
+
+    /**
+     *
+     * @return
+     */
     @ModelAttribute("classActiveCustomer")
     public String highlightNavMenuItem() {
         return "active";
@@ -80,6 +105,7 @@ public class CustomerController {
 
     /**
      * Haal een lijst van Customers en toon deze in een view.
+     * @param user
      * @param model
      * @return
      */
@@ -99,6 +125,7 @@ public class CustomerController {
     /**
      * Hiermee open je de create view om een nieuwe customer aan te maken.
      *
+     * @param user
      * @param customer Dit object wordt aan de view meegegeven. Het object wordt
      * gevuld met de waarden uit het formulier.
      * @param model
@@ -114,7 +141,14 @@ public class CustomerController {
         return "views/customer/create";
     }
     
-    
+    /**
+     *
+     * @param user
+     * @param customer
+     * @param bindingResult
+     * @param model
+     * @return
+     */
     @RequestMapping(value="/customer/create", method = RequestMethod.POST)
     public String validateAndSaveCustomer(@ModelAttribute("user") User user, @Valid Customer customer, final BindingResult bindingResult, final ModelMap model) {
         if (!user.isAuthenticated()) {
@@ -155,6 +189,14 @@ public class CustomerController {
         return "views/customer/list";
     }
     
+    /**
+     *
+     * @param user
+     * @param customer
+     * @param model
+     * @param id
+     * @return
+     */
     @RequestMapping(value="/customer/{id}/edit", method = RequestMethod.GET)
     public String showEditCustomerForm(@ModelAttribute("user") User user, final Customer customer, final ModelMap model, @PathVariable int id) {
         if (!user.isAuthenticated()) {
@@ -166,6 +208,15 @@ public class CustomerController {
         return "views/customer/edit";
     }
     
+    /**
+     *
+     * @param user
+     * @param model
+     * @param customer
+     * @param bindingResult
+     * @param id
+     * @return
+     */
     @RequestMapping(value="/customer/{id}/edit", method = RequestMethod.POST)
     public String validateAndSaveEditedCustomer(@ModelAttribute("user") User user, final ModelMap model, @Valid Customer customer, final BindingResult bindingResult, @PathVariable String id) {
         if (!user.isAuthenticated()) {
@@ -192,6 +243,13 @@ public class CustomerController {
         return "views/customer/list";
     }
 
+    /**
+     *
+     * @param user
+     * @param model
+     * @param id
+     * @return
+     */
     @RequestMapping(value = "/customer/{id}", method = RequestMethod.DELETE)
     public String deleteCustomer(@ModelAttribute("user") User user, Model model, @PathVariable String id) {
         if (!user.isAuthenticated()) {
@@ -212,6 +270,10 @@ public class CustomerController {
 
     /**
      *
+     * @param pSearchTerm
+     * @param request
+     * @param response
+     * @return 
      */
     @RequestMapping(value = "customers/search")
     public ModelAndView Search(@RequestParam(value = "searchTerm", required = false) int pSearchTerm, HttpServletRequest request, HttpServletResponse response) {
@@ -227,6 +289,7 @@ public class CustomerController {
      * Haal het customer met gegeven ID uit de database en toon deze in een
      * view.
      *
+     * @param user
      * @param model
      * @param id
      * @return
@@ -242,6 +305,12 @@ public class CustomerController {
         return "views/customer/read";
     }
 
+    /**
+     *
+     * @param req
+     * @param ex
+     * @return
+     */
     @ExceptionHandler(value = SQLException.class)
     public ModelAndView handleError(HttpServletRequest req, SQLException ex) {
         // logger.error("Request: " + req.getRequestURL() + " raised " + ex);
@@ -256,6 +325,14 @@ public class CustomerController {
         return mav;
     }
     
+    /**
+     *
+     * @param user
+     * @param customer
+     * @param model
+     * @param id
+     * @return
+     */
     @RequestMapping(value="/customer/{id}/editinsurance", method = RequestMethod.GET)
     public String showEditCustomerInsuranceForm(@ModelAttribute("user") User user, final Customer customer, final ModelMap model, @PathVariable int id) {
         if (!user.isAuthenticated()) {
@@ -268,6 +345,15 @@ public class CustomerController {
         return "views/customer/editinsurance";
     }
     
+    /**
+     *
+     * @param user
+     * @param model
+     * @param customer
+     * @param bindingResult
+     * @param id
+     * @return
+     */
     @RequestMapping(value="/customer/{id}/editinsurance", method = RequestMethod.POST)
     public String validateAndSaveEditedCustomerwithInsurance(@ModelAttribute("user") User user, final ModelMap model, @Valid Customer customer, final BindingResult bindingResult, @PathVariable String id) {
         if (!user.isAuthenticated()) {

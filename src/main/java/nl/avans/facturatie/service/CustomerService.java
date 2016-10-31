@@ -58,6 +58,12 @@ public class CustomerService {
         return editedcustomer;
     }
 
+    /**
+     *
+     * @param customer
+     * @param id
+     * @return
+     */
     public Customer editInsurance(Customer customer, int id) {
         logger.info("edit - customer = " + customer.getFullName());
 

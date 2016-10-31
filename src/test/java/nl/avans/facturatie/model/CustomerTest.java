@@ -19,21 +19,37 @@ import static org.junit.Assert.*;
  */
 public class CustomerTest {
     
+    /**
+     *
+     */
     public CustomerTest() {
     }
     
+    /**
+     *
+     */
     @BeforeClass
     public static void setUpClass() {
     }
     
+    /**
+     *
+     */
     @AfterClass
     public static void tearDownClass() {
     }
     
+    /**
+     *
+     */
     @Before
     public void setUp() {
+        //Customer customer = new Customer("1254698762", "Achternaam", 13-12-2016, "Straatnaam", 12, "Stadnaam", "0231625463", "email@adres.com", "Verzekering naam", 500);
     }
     
+    /**
+     *
+     */
     @After
     public void tearDown() {
     }
@@ -131,6 +147,13 @@ public class CustomerTest {
         assertEquals(expResult, result);
         // TODO review the generated test code and remove the default call to fail.
         fail("The test case is a prototype.");
+        
+        
+        System.out.println("getDateObject");
+        FysioRest instance = new FysioRest("Date", "Done", "Tom", "12-12-16", "33", "Jan", "Gebroken been", "25", "3", "5");
+        String expResult = "Date";
+        String result = instance.getDateObject();
+        assertEquals(expResult, result);
     }
 
     /**

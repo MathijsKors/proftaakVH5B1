@@ -24,12 +24,21 @@ public class LoginService {
     private LoginRepository loginRepository;
     private User user;
     
+    /**
+     *
+     * @param loginRepository
+     */
     @Autowired
     public LoginService(LoginRepository loginRepository) {
         this.loginRepository = loginRepository;
     }
     
-    
+    /**
+     *
+     * @param username
+     * @param password
+     * @return
+     */
     public boolean checkPassword(String username, String password){
         logger.info("checkPassword - login" + username + password);
         return loginRepository.checkPassword(username, password);
