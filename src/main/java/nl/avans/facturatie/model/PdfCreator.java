@@ -24,7 +24,7 @@ public class PdfCreator {
 	String filename = FILE.split(".")[0] + df.format(new Date()) + FILE.split(".")[1];
 	*/
     
-    public final String DEST = "results/Factuur.pdf";
+    public final String DEST = "\\src\\main\\resources\\static\\pdf\\Factuur.pdf";
     
  
     public void createPdf(Invoice invoice, String DEST) throws FileNotFoundException {

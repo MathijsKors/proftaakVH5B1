@@ -78,24 +78,23 @@ public class InvoiceRepository {
     /**
      *
      * @param invoice
+     * @param customer
      * @return
      */
     public Invoice create(Invoice invoice, Customer customer) {
 
-           
+        
+        
         // Calendar vraagt huidige datum op, dit wordt omgezet naar sql formaat date 
-        //
         java.sql.Date invoiceDate = new java.sql.Date(Calendar.getInstance().getTime().getTime());
-
-        //
+  
         // Calendar vraagt huidige datum op en voegt hier 1 maan aan toe, zet het daarna om naar sql formaat date
-        //
         Calendar deadlineCalendar = Calendar.getInstance();
         deadlineCalendar.add(Calendar.MONTH, 1);
         java.sql.Date deadlineDate = new java.sql.Date(deadlineCalendar.getInstance().getTime().getTime());
 
-        final String sql = "INSERT INTO invoices(`Price`, `CustomerName`, `TreatmentName`, `Duration`, `Deadline`, `Adress`, `InvoiceDate`, `TotalPrice`, `InsuranceType`, `appointmentId`) "
-                + "VALUES(?,?,?,?,?,?,?,?,?,?)";
+        final String sql = "INSERT INTO invoices(`InvoiceID`, `Price`, `CustomerName`, `TreatmentName`, `Duration`, `Deadline`, `Adress`, `InvoiceDate`, `TotalPrice`, `InsuranceType`, `appointmentId`) "
+                + "VALUES(?,?,?,?,?,?,?,?,?,?,?)";
 
         // KeyHolder gaat de auto increment key uit de database bevatten.
         KeyHolder holder = new GeneratedKeyHolder();
@@ -105,16 +104,17 @@ public class InvoiceRepository {
             @Override
             public PreparedStatement createPreparedStatement(Connection connection) throws SQLException {
                 PreparedStatement ps = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
-                ps.setDouble(1, invoice.getPrice());
-                ps.setString(2, invoice.getCustomerName());
-                ps.setString(3, invoice.getTreatmentName());
-                ps.setInt(4, invoice.getDuration());
-                ps.setDate(5, deadlineDate);
-                ps.setString(6, invoice.getAdress());
-                ps.setDate(7, invoiceDate);
-                ps.setDouble(8, (invoice.getPrice() + invoice.getDuration()) );
-                ps.setString(9, customer.getInsurance());
-                ps.setString(10, invoice.getAppointmentId());
+                ps.setInt(1, invoice.getInvoiceID());
+                ps.setDouble(2, invoice.getPrice());
+                ps.setString(3, invoice.getCustomerName());
+                ps.setString(4, invoice.getTreatmentName());
+                ps.setInt(5, invoice.getDuration());
+                ps.setDate(6, deadlineDate);
+                ps.setString(7, invoice.getAdress());
+                ps.setDate(8, invoiceDate);
+                ps.setDouble(9, (invoice.getPrice() + invoice.getDuration()) );
+                ps.setString(10, customer.getInsurance());
+                ps.setString(11, invoice.getAppointmentId());
                 return ps;
             }
         }, holder);
@@ -123,7 +123,74 @@ public class InvoiceRepository {
         int newInvoiceId = holder.getKey().intValue();
         invoice.setInvoiceID(newInvoiceId);
         logger.info(sql);
+        
+        
+        
         return invoice;
+    }
+
+    /**
+     *
+     * @param invoice
+     * @param customer
+     * @return
+     */
+    public Boolean accept(Appointment appointment, Customer customer) {
+
+        //Invoice invoice = new Invoice();
+        
+        Boolean newinvoice = false;
+        
+        //Variabelen aanmaken
+//        logger.info(appointment.getTreatmentPrice());
+//        String priceString = appointment.getTreatmentPrice().replace(",",".");
+//        logger.info(priceString);
+//        double price = Double.parseDouble(priceString);
+//        logger.info(price+"");
+        
+        
+        // Calendar vraagt huidige datum op, dit wordt omgezet naar sql formaat date 
+        java.sql.Date invoiceDate = new java.sql.Date(Calendar.getInstance().getTime().getTime());
+  
+        // Calendar vraagt huidige datum op en voegt hier 1 maan aan toe, zet het daarna om naar sql formaat date
+        Calendar deadlineCalendar = Calendar.getInstance();
+        deadlineCalendar.add(Calendar.MONTH, 1);
+        java.sql.Date deadlineDate = new java.sql.Date(deadlineCalendar.getInstance().getTime().getTime());
+
+        final String sql = "INSERT INTO invoices(`InvoiceID`, `Price`, `CustomerName`, `TreatmentName`, `Duration`, `Deadline`, `Adress`, `InvoiceDate`, `TotalPrice`, `InsuranceType`, `appointmentId`) "
+                + "VALUES(?,?,?,?,?,?,?,?,?,?,?)";
+
+        // KeyHolder gaat de auto increment key uit de database bevatten.
+        KeyHolder holder = new GeneratedKeyHolder();
+
+        jdbcTemplate.update(new PreparedStatementCreator() {
+
+            @Override
+            public PreparedStatement createPreparedStatement(Connection connection) throws SQLException {
+                PreparedStatement ps = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
+                ps.setInt(1, Integer.parseInt(appointment.getAppointmentId()));
+                ps.setDouble(2, 80.0);
+                ps.setString(3, customer.getFullName());
+                ps.setString(4, appointment.getTreatmentName());
+                ps.setInt(5, appointment.getTreatmentTime());
+                ps.setDate(6, deadlineDate);
+                ps.setString(7, (customer.getStreet() + " " + customer.getHouseNumber() + " " + customer.getCity()));
+                ps.setDate(8, invoiceDate);
+                ps.setDouble(9, (80.0 * appointment.getTreatmentTime() ));
+                ps.setString(10, customer.getInsurance());
+                ps.setString(11, appointment.getAppointmentId());
+                return ps;
+            }
+        }, holder);
+
+        // Zet de auto increment waarde in de Customer
+//        int newInvoiceId = holder.getKey().intValue();
+//        invoice.setInvoiceID(newInvoiceId);
+        logger.info(sql);
+        
+        newinvoice = true;
+        
+        return newinvoice;
     }
 
     public void deleteInvoiceById(int id) {
@@ -131,4 +198,5 @@ public class InvoiceRepository {
         jdbcTemplate.update("DELETE FROM invoices WHERE InvoiceID=?", new Object[]{id});
     }
 
+   
 }

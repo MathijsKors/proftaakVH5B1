@@ -5,6 +5,7 @@
  */
 package nl.avans.facturatie.controller;
 
+import java.io.IOException;
 import java.sql.SQLException;
 import java.util.List;
 
@@ -82,6 +83,31 @@ public class AppointmentController {
         model.addAttribute("customer", customerService.findCustomerById(customerID));
         
        return "views/appointment/read";
+    }
+    
+    
+    
+        /**
+     * Haal de appointment met gegeven ID uit de database en toon deze in een view.
+     * @param model
+     * @param id
+     * @return
+     */
+    @RequestMapping(value = "/appointment/paid/{id}", method = RequestMethod.DELETE)
+    public String deleteAppointment(@ModelAttribute("user") User user, Model model, @PathVariable String id) throws IOException {
+        if (!user.isAuthenticated()) {
+            return "redirect:/login";
+        }        
+        logger.info("invoice is aangemaakt, apppointment verwijderen...");
+        appointmentService.delete(id);
+      
+        // We gaan de lijst met customers tonen, met een bericht dat de nieuwe customer toegevoegd is.
+        // Zet de opgevraagde customers in het model
+        model.addAttribute("appointmentObj", new Appointment());
+        model.addAttribute("appointments", appointmentService.getAllAppointments());
+        model.addAttribute("invoices", invoiceService.findAllInvoices());
+        // Open de juiste view template als resultaat.
+        return "views/invoice/list";
     }
     
    
