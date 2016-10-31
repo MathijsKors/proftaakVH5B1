@@ -40,13 +40,9 @@ public class InvoiceTest {
      * @throws java.text.ParseException
      */
     @Test
-    public void testGetInvoiceID() throws ParseException {
-    	
-    	SimpleDateFormat dateformat = new SimpleDateFormat("dd/MM/yyyy");
-
-        Date date1 = (Date) dateformat.parse("17/07/1989");
-        Date date2 = (Date) dateformat.parse("15/10/2007");
-        
+    public void testGetInvoiceID() {
+    	Date date1 = null;
+		Date date2 = null;
         System.out.println("getInvoiceID");
         Invoice instance = new Invoice(1, 10, "Harry", "Woord", "Basic", "Lovensdijkstraat2", 10, 15, date1, date2, "2");
         int expResult = 1;
@@ -77,7 +73,7 @@ public class InvoiceTest {
         Date date1 = null;
 		Date date2 = null;
         Invoice instance = new Invoice(1, 10, "Harry", "Woord", "Basic", "Lovensdijkstraat2", 10, 15, date1, date2, "2");
-        String expResult = "4816SJ";
+        String expResult = "Harry";
         String result = instance.getCustomerName();
         assertEquals(expResult, result);
     }
@@ -90,8 +86,8 @@ public class InvoiceTest {
         System.out.println("getTreatmentName");
         Date date1 = null;
 		Date date2 = null;
-        Invoice instance = new Invoice(1, 10, "Harry", "Woord", "Basic", "Lovensdijkstraat2", 10, 15, date1, date2, "2");
-        String expResult = "Breda";
+        Invoice instance = new Invoice(1, 10, "Harry", "Hamstring", "Basic", "Lovensdijkstraat2", 10, 15, date1, date2, "2");
+        String expResult = "Hamstring";
         String result = instance.getTreatmentName();
         assertEquals(expResult, result);
     }
@@ -119,7 +115,7 @@ public class InvoiceTest {
         Date date1 = null;
 		Date date2 = null;
         Invoice instance = new Invoice(1, 10, "Harry", "Woord", "Basic", "Lovensdijkstraat2", 10, 15, date1, date2, "2");
-        String expResult = "verzekeringsbedrijf@hotmail.com";
+        String expResult = "Lovensdijkstraat2";
         String result = instance.getAdress();
         assertEquals(expResult, result);
     }
@@ -133,7 +129,7 @@ public class InvoiceTest {
         Date date1 = null;
 		Date date2 = null;
         Invoice instance = new Invoice(1, 10, "Harry", "Woord", "Basic", "Lovensdijkstraat2", 10, 15, date1, date2, "2");
-        String expResult = "Verzekeringsbedrijf1";
+        String expResult = "2";
         String result = instance.getAppointmentId();
         assertEquals(expResult, result);
     }
