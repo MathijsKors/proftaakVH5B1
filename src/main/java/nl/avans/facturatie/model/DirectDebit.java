@@ -12,7 +12,7 @@ import java.time.LocalDate;
  *
  * @author Tom Maljaars
  */
-public class DirectDebit extends Billing{
+public class DirectDebit{
     LocalDate now = LocalDate.now();                    //Current date variable
     LocalDate firstOfMonth = now.withDayOfMonth(1);     //First day of the month variable
 

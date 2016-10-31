@@ -21,26 +21,46 @@ public class TreatmentService {
 
     WrapperTreatmentCode WrapperTreatmentCode;
 
+    /**
+     *
+     * @throws JAXBException
+     */
     public TreatmentService() throws JAXBException {
         this.setTreatmentsFromXML();
     }
 
+    /**
+     *
+     * @throws JAXBException
+     */
     public void setTreatmentsFromXML() throws JAXBException {
         JAXBContext jaxbContext = JAXBContext.newInstance(WrapperTreatmentCode.class);
         Unmarshaller jaxbUnmarshaller = jaxbContext.createUnmarshaller();
         WrapperTreatmentCode = (WrapperTreatmentCode) jaxbUnmarshaller.unmarshal(new File("src/main/resources/static/xml/behandelcodes.xml"));
     }
 
+    /**
+     *
+     * @return
+     */
     public ArrayList<Treatment> getSettedTreatments() {
         return WrapperTreatmentCode.getList();
     }
 
+    /**
+     *
+     */
     public void printAllTreatments() {
         for (Treatment t : this.getSettedTreatments()) {
             t.print();
         }
     }
 
+    /**
+     *
+     * @param id
+     * @return
+     */
     public Treatment findTreatmentById(String id) {
         Treatment treatment = new Treatment();
 

@@ -6,7 +6,6 @@
 package nl.avans.facturatie.repository;
 
 import java.sql.Connection;
-import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -15,7 +14,6 @@ import java.util.List;
 
 import javax.sql.DataSource;
 import nl.avans.facturatie.model.Appointment;
-import nl.avans.facturatie.model.Billing;
 import nl.avans.facturatie.model.Customer;
 
 import org.slf4j.Logger;
@@ -28,8 +26,6 @@ import org.springframework.jdbc.support.KeyHolder;
 import org.springframework.transaction.annotation.Transactional;
 
 import nl.avans.facturatie.model.Invoice;
-import nl.avans.facturatie.model.Treatment;
-import nl.avans.facturatie.service.AppointmentService;
 import nl.avans.facturatie.service.CustomerService;
 
 /**
@@ -145,7 +141,7 @@ public class InvoiceRepository {
 //        logger.info(appointment.getTreatmentPrice());
 //        String priceString = appointment.getTreatmentPrice().replace(",",".");
 //        logger.info(priceString);
-//        double price = Double.parseDouble(priceString);
+        double price = Double.parseDouble(appointment.getTreatmentPrice().replace(",","."));
 //        logger.info(price+"");
         
         
@@ -169,7 +165,7 @@ public class InvoiceRepository {
             public PreparedStatement createPreparedStatement(Connection connection) throws SQLException {
                 PreparedStatement ps = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
                 ps.setInt(1, Integer.parseInt(appointment.getAppointmentId()));
-                ps.setDouble(2, 80.0);
+                ps.setDouble(2,  price);
                 ps.setString(3, customer.getFullName());
                 ps.setString(4, appointment.getTreatmentName());
                 ps.setInt(5, appointment.getTreatmentTime());

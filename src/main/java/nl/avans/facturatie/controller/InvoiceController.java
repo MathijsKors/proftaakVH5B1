@@ -71,7 +71,10 @@ public class InvoiceController {
      * @return
      */
     @RequestMapping(value = "/invoices", method = RequestMethod.GET)
-    public String listAppointments(Model model) {
+    public String listAppointments(@ModelAttribute("user") User user, Model model) {
+        if (!user.isAuthenticated()) {
+            return "redirect:/login";
+        }
         //logger.info("listAppointments");
         // Zet de opgevraagde appointments in het model
         model.addAttribute("appointmentObj", new Appointment());
