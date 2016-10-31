@@ -73,7 +73,7 @@ public class Treatment {
      * @return
      */
     public String getTreatmentCode() {
-        return treatmentName;
+        return treatmentCode;
     }
     
     /**
