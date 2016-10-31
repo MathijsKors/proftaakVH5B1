@@ -6,7 +6,6 @@
 package nl.avans.facturatie.repository;
 
 import java.sql.Connection;
-import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -15,7 +14,6 @@ import java.util.List;
 
 import javax.sql.DataSource;
 import nl.avans.facturatie.model.Appointment;
-import nl.avans.facturatie.model.Billing;
 import nl.avans.facturatie.model.Customer;
 
 import org.slf4j.Logger;
@@ -28,8 +26,6 @@ import org.springframework.jdbc.support.KeyHolder;
 import org.springframework.transaction.annotation.Transactional;
 
 import nl.avans.facturatie.model.Invoice;
-import nl.avans.facturatie.model.Treatment;
-import nl.avans.facturatie.service.AppointmentService;
 import nl.avans.facturatie.service.CustomerService;
 
 /**
