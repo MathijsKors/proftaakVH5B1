@@ -9,6 +9,7 @@ import com.itextpdf.layout.element.List;
 import com.itextpdf.layout.element.ListItem;
 import com.itextpdf.layout.element.Paragraph;
 import java.io.FileNotFoundException;
+import java.text.SimpleDateFormat;
 
 
 
@@ -33,6 +34,12 @@ public class PdfCreator {
      * @throws FileNotFoundException
      */
     public void createPdf(Invoice invoice, String DEST) throws FileNotFoundException {
+        
+        //Datum factuur
+        Date date = new Date();
+        SimpleDateFormat format = new SimpleDateFormat("dd-MM-yyyy");
+        String DateToStr = format.format(date);
+        
         //Initialize PDF writer
         PdfWriter writer = new PdfWriter(DEST);
 
@@ -44,11 +51,11 @@ public class PdfCreator {
         Document document = new Document(pdf);
         
         //Add paragraph to the document
-        document.add(new Paragraph("Factuur"));
+        document.add(new Paragraph("Factuur - Stram en Stroperig"));
         document.add(new Paragraph("---------------------------------------------------"));
         
         //Add Date to document
-        document.add(new Paragraph(new Date().toString()));
+        document.add(new Paragraph(DateToStr));
         document.add(new Paragraph("---------------------------------------------------"));
         
         // Customer section
