@@ -126,12 +126,12 @@
                     </tr>
                     <tr th:each="invoice : ${invoices}">
                         <td th:text="${invoice.invoiceID}">1</td>
-                        <td th:text="${invoice.price}">1</td>
+                        <td th:text="'€ ' + ${invoice.price}">1</td>
                         <td th:text="${invoice.customerName}"> ...</td>
                         <td th:text="${invoice.treatmentName}"> ...</td>
                         <td th:text="${invoice.duration} + ' uur'"> ...</td>
                         <td th:text="${invoice.deadline}"> ...</td>
-                        <td th:text="${invoice.totalPrice}"> ...</td>
+                        <td th:text="'€ ' + ${invoice.totalPrice}"> ...</td>
                         <td>
                             <a class="btn btn-success pull-right" role="button" th:href="@{/invoice/createpdf/{id} (id=${invoice.invoiceID})}" ><i class="fa fa-paper-plane" aria-hidden="true"></i>&nbsp;Versturen</a>
                         </td>
