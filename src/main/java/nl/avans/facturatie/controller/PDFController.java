@@ -47,20 +47,36 @@ public class PDFController {
     private final Logger logger = LoggerFactory.getLogger(InvoiceService.class);;
     private final InvoiceService invoiceService;
     private final AppointmentService appointmentService;
+
+    /**
+     *
+     */
     public String DEST = "src\\main\\resources\\static\\Factuur.pdf";
    
-    
+    /**
+     *
+     * @param invoiceService
+     * @param appointmentService
+     */
     @Autowired
     public PDFController(InvoiceService invoiceService, AppointmentService appointmentService) {
         this.invoiceService = invoiceService;
         this.appointmentService = appointmentService;
     }
     
+    /**
+     *
+     * @return
+     */
     @ModelAttribute("user")
     public User getUser() {
         return new User();
     }     
 
+    /**
+     *
+     * @param binder
+     */
     @InitBinder
     public void initBinder(WebDataBinder binder) {
         String format = "yyyy-MM-dd";
@@ -71,6 +87,14 @@ public class PDFController {
         binder.registerCustomEditor(Date.class, customDateEditor);
     }
     
+    /**
+     *
+     * @param user
+     * @param model
+     * @param id
+     * @return
+     * @throws IOException
+     */
     @RequestMapping(value="/invoice/createpdf/{id}", method = RequestMethod.GET)
     public String createPDF(@ModelAttribute("user") User user, final ModelMap model, @PathVariable int id) throws IOException {
         if (!user.isAuthenticated()) {

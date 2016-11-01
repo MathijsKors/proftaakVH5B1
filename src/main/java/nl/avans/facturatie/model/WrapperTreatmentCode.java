@@ -17,9 +17,16 @@ import javax.xml.bind.annotation.XmlRootElement;
 @XmlRootElement(name = "behandelcodes")
 public class WrapperTreatmentCode {
 
+    /**
+     *
+     */
     @XmlElement(name = "behandeling")
     public ArrayList<Treatment> behandelingen;
 
+    /**
+     *
+     * @return
+     */
     public ArrayList getList() {
         return behandelingen;
     }

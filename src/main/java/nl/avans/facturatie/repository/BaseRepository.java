@@ -12,12 +12,19 @@ package nl.avans.facturatie.repository;
 public class BaseRepository {
     DatabaseConnection con;
     
-    
+    /**
+     *
+     * @param con
+     */
     public BaseRepository(DatabaseConnection con){
         this.con = con;
         
     }
     
+    /**
+     *
+     * @return
+     */
     public DatabaseConnection getDatabaseConnection(){
         return this.con;
     }

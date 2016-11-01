@@ -39,6 +39,11 @@ public class AppointmentRepository {
     private JdbcTemplate jdbcTemplate;
 
     // Deze constructor wordt aangeroepen vanuit de config/PersistenceContext class.
+
+    /**
+     *
+     * @param dataSource
+     */
     public AppointmentRepository(DataSource dataSource) { this.jdbcTemplate = new JdbcTemplate(dataSource); }
 
     /**
@@ -106,7 +111,13 @@ public class AppointmentRepository {
         return appointment;
     }
 
-     public Appointment edit(final Appointment appointment, int id) {
+    /**
+     *
+     * @param appointment
+     * @param id
+     * @return
+     */
+    public Appointment edit(final Appointment appointment, int id) {
 
         logger.info("edit repository = " + appointment.getAppointmentId());
         
@@ -141,13 +152,21 @@ public class AppointmentRepository {
         return appointment;
     }
     
+    /**
+     *
+     * @param id
+     */
     public void deleteAppointmentById(int id) {
         logger.debug("deleteAppointmentById");
         jdbcTemplate.update("DELETE FROM appointments WHERE AppointmentId=?", new Object[]{id});
     }
 
-    
-        public boolean findAppointmentByAppointmentID(int appointmentId) {
+    /**
+     *
+     * @param appointmentId
+     * @return
+     */
+    public boolean findAppointmentByAppointmentID(int appointmentId) {
         logger.debug("findAppointmentByAppointmentId");
         jdbcTemplate.update("SELECT FROM appointment WHERE AppointmentId=?", new Object[]{appointmentId});
         return Boolean.TRUE;

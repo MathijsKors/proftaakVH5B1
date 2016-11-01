@@ -8,6 +8,10 @@ import org.springframework.stereotype.Service;
 import nl.avans.facturatie.model.InsuranceCompany;
 import nl.avans.facturatie.repository.InsuranceCompanyRepository;
 
+/**
+ *
+ * @author Gebruiker
+ */
 @Service
 public class InsuranceCompanyService {
 
@@ -15,11 +19,20 @@ public class InsuranceCompanyService {
 
     private InsuranceCompanyRepository insuranceCompanyRepository;
 
+    /**
+     *
+     * @param insuranceCompanyRepository
+     */
     @Autowired
     public InsuranceCompanyService(InsuranceCompanyRepository insuranceCompanyRepository) {
         this.insuranceCompanyRepository = insuranceCompanyRepository;
     }
 
+    /**
+     *
+     * @param insuranceCompany
+     * @return
+     */
     public InsuranceCompany create(InsuranceCompany insuranceCompany) {
         logger.info("create - new insuranceCompany = " + insuranceCompany.getName());
 
@@ -28,17 +41,30 @@ public class InsuranceCompanyService {
         return newInsuranceCompany;
     }
 
+    /**
+     *
+     * @param id
+     */
     public void delete(int id) {
         logger.info("delete - insuranceCompany = " + id);
         this.insuranceCompanyRepository.deleteInsuranceCompanyById(id);
     }
 
+    /**
+     *
+     * @param id
+     * @return
+     */
     public InsuranceCompany findInsuranceCompanyById(int id) {
         logger.info("findInsuranceCompanyById - insurancecompany = " + id);
         InsuranceCompany result = insuranceCompanyRepository.findInsuranceCompanyById(id);
         return result;
     }
 
+    /**
+     *
+     * @return
+     */
     public List<InsuranceCompany> findAllInsuranceCompanies() {
         logger.info("findAllInsuranceCompanies");
         return insuranceCompanyRepository.findAll();

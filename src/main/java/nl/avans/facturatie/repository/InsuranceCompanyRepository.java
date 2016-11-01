@@ -14,6 +14,10 @@ import javax.sql.DataSource;
 import nl.avans.facturatie.model.InsuranceCompany;
 import org.springframework.transaction.annotation.Transactional;
 
+/**
+ *
+ * @author Gebruiker
+ */
 @Repository
 public class InsuranceCompanyRepository {
 
@@ -24,10 +28,18 @@ public class InsuranceCompanyRepository {
     @Autowired
     private JdbcTemplate jdbcTemplate;
 
+    /**
+     *
+     * @param dataSource
+     */
     public InsuranceCompanyRepository(DataSource dataSource) {
         this.jdbcTemplate = new JdbcTemplate(dataSource);
     }
 
+    /**
+     *
+     * @return
+     */
     @Transactional(readOnly = true)
     public List<InsuranceCompany> findAll() {
         logger.info("findAll");
@@ -36,6 +48,11 @@ public class InsuranceCompanyRepository {
         return result;
     }
 
+    /**
+     *
+     * @param id
+     * @return
+     */
     @Transactional(readOnly = true)
     public InsuranceCompany findInsuranceCompanyById(int id) {
         logger.info("findInsuranceCompanyById");
@@ -44,6 +61,11 @@ public class InsuranceCompanyRepository {
                 new Object[]{id}, new InsuranceCompanyRowMapper());
     }
 
+    /**
+     *
+     * @param insuranceCompany
+     * @return
+     */
     public InsuranceCompany create(final InsuranceCompany insuranceCompany) {
 
         logger.debug("create repository = " + insuranceCompany.getName());
@@ -74,6 +96,10 @@ public class InsuranceCompanyRepository {
         return insuranceCompany;
     }
 
+    /**
+     *
+     * @param id
+     */
     public void deleteInsuranceCompanyById(int id) {
         logger.debug("deleteInsuranceCompanyById");
         jdbcTemplate.update("DELETE FROM insurancecompany WHERE InsuranceCompanyID=?", new Object[]{id});

@@ -32,6 +32,10 @@ public class Application {
 
     private static final Logger logger = LoggerFactory.getLogger(Application.class);
 
+    /**
+     *
+     * @param args
+     */
     public static void main(String[] args) {
 
         // Enable Application configuration. The followinng files will be used.
@@ -67,6 +71,10 @@ public class Application {
         }
     };
 
+    /**
+     *
+     * @return
+     */
     @Bean
     public Java8TimeDialect java8TimeDialect() {
         return new Java8TimeDialect();

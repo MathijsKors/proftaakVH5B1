@@ -170,6 +170,12 @@ public class CustomerRepository
         return customer;
     }
     
+    /**
+     *
+     * @param customer
+     * @param id
+     * @return
+     */
     public Customer editInsurance(final Customer customer, int id) {
 
         logger.info("edit repository = " + customer.getFullName());

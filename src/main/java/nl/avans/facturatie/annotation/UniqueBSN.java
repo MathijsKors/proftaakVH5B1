@@ -22,11 +22,22 @@ import javax.validation.Payload;
 @Constraint(validatedBy = {UniqueBSNValidator.class})
 public @interface UniqueBSN {
     
-    
+    /**
+     *
+     * @return
+     */
     public String message();
 
+    /**
+     *
+     * @return
+     */
     public Class<?>[] groups() default {};
 
+    /**
+     *
+     * @return
+     */
     public Class<? extends Payload>[] payload() default {};
     
 }

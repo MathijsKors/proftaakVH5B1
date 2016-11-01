@@ -98,6 +98,12 @@ public class CustomerInsuranceRepository {
         return customer;
     }
 
+    /**
+     *
+     * @param customer
+     * @param id
+     * @return
+     */
     public Customer editOwnRisk(final Customer customer, int id) {
 
         logger.info("edit repository = " + customer.getFullName());

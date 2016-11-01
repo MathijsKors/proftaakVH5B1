@@ -17,9 +17,18 @@ import nl.avans.facturatie.model.Insurance;
 import nl.avans.facturatie.model.User;
 import nl.avans.facturatie.service.InsuranceService;
 
+/**
+ *
+ * @author Gebruiker
+ */
 @Controller
+@SessionAttributes (value = "user", types = {User.class} )
 public class InsuranceController {
     
+    /**
+     *
+     * @return
+     */
     @ModelAttribute("user")
     public User getUser() {
         return new User();
@@ -29,22 +38,36 @@ public class InsuranceController {
 
     private InsuranceService insuranceService;
 
+    /**
+     *
+     * @param insuranceService
+     */
     @Autowired
     public InsuranceController(InsuranceService insuranceService){
         this.insuranceService = insuranceService;
     }
 
+    /**
+     *
+     * @return
+     */
     @ModelAttribute("page")
     public String module() {
         return "insurances";
     }
 
     // Zet een 'flag' om in Bootstrap header nav het actieve menu item te vinden.
+
+    /**
+     *
+     * @return
+     */
     @ModelAttribute("classActiveInsurance")
     public String highlightNavMenuItem(){ return "active"; };
 
     /**
      * Haal een lijst van verzekeringen en toon deze in een view.
+     * @param user
      * @param model
      * @return
      */
@@ -64,6 +87,7 @@ public class InsuranceController {
     /**
      * Hiermee open je de create view om een nieuwe verzekering aan te maken.
      *
+     * @param user
      * @param insurance Dit object wordt aan de view meegegeven. Het object wordt gevuld met de waarden uit het formulier.
      * @param model
      * @return
@@ -78,7 +102,14 @@ public class InsuranceController {
         return "views/insurance/create";
     }
     
-    
+    /**
+     *
+     * @param user
+     * @param insurance
+     * @param bindingResult
+     * @param model
+     * @return
+     */
     @RequestMapping(value="/insurance/create", method = RequestMethod.POST)
     public String validateAndSaveInsurance(@ModelAttribute("user") User user, @Valid Insurance insurance, final BindingResult bindingResult, final ModelMap model) {
        if (!user.isAuthenticated()) {
@@ -109,6 +140,14 @@ public class InsuranceController {
         return "views/insurance/list";
     }
     
+    /**
+     *
+     * @param user
+     * @param insurance
+     * @param model
+     * @param id
+     * @return
+     */
     @RequestMapping(value="/insurance/{id}/edit", method = RequestMethod.GET)
     public String showEditInsuranceForm(@ModelAttribute("user") User user, final Insurance insurance, final ModelMap model, @PathVariable int id) {
         if (!user.isAuthenticated()) {
@@ -120,6 +159,15 @@ public class InsuranceController {
         return "views/insurance/edit";
     }
     
+    /**
+     *
+     * @param user
+     * @param insurance
+     * @param id
+     * @param bindingResult
+     * @param model
+     * @return
+     */
     @RequestMapping(value="/insurance/{id}/edit", method = RequestMethod.POST)
     public String validateAndSaveEditedInsurance(@ModelAttribute("user") User user, @Valid Insurance insurance, @PathVariable String id, final BindingResult bindingResult, final ModelMap model) {
         if (!user.isAuthenticated()) {
@@ -147,6 +195,13 @@ public class InsuranceController {
         return "views/insurance/list";
     }
 
+    /**
+     *
+     * @param user
+     * @param model
+     * @param id
+     * @return
+     */
     @RequestMapping(value = "/insurance/{id}", method = RequestMethod.DELETE)
     public String deleteInsurance(@ModelAttribute("user") User user, Model model, @PathVariable String id) {
         if (!user.isAuthenticated()) {
@@ -165,6 +220,13 @@ public class InsuranceController {
         return "views/insurance/list";
     }
     
+    /**
+     *
+     * @param user
+     * @param model
+     * @param id
+     * @return
+     */
     @RequestMapping(value = "/insurance/{id}", method = RequestMethod.GET)
     public String listOneInsurance(@ModelAttribute("user") User user, Model model, @PathVariable int id) {
         if (!user.isAuthenticated()) {
@@ -176,6 +238,12 @@ public class InsuranceController {
         return "views/insurance/read";
     }
 
+    /**
+     *
+     * @param req
+     * @param ex
+     * @return
+     */
     @ExceptionHandler(value = SQLException.class)
     public ModelAndView handleError(HttpServletRequest req, SQLException ex) {
         // logger.error("Request: " + req.getRequestURL() + " raised " + ex);

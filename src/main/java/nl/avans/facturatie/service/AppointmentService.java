@@ -30,13 +30,18 @@ public class AppointmentService {
     
      private final Logger logger = LoggerFactory.getLogger(AppointmentService.class);;
     
-    
+    /**
+     *
+     */
     public AppointmentService() {
         
     }
     
-    
-
+    /**
+     *
+     * @param id
+     * @return
+     */
     public Appointment findAppointmentById(String id) {
         Appointment appointment = new Appointment();
 
@@ -48,6 +53,10 @@ public class AppointmentService {
         return appointment;
     }
 
+    /**
+     *
+     * @return
+     */
     public ArrayList<Appointment> getAllAppointments() {
                 
         RestTemplate restTemplate = new RestTemplate();
@@ -73,6 +82,8 @@ public class AppointmentService {
     /**
      *
      * @param id
+     * @throws java.net.MalformedURLException
+     * @throws java.io.IOException
      */
     public void delete(String id) throws MalformedURLException, IOException {
         

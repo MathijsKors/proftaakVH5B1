@@ -14,24 +14,45 @@ public class OwnRisk {
 	private int amount;
     private int remnant;
     
+    /**
+     *
+     * @param amount
+     * @param remnant
+     */
     public OwnRisk(int amount, int remnant){
         this.amount = amount;
         this.remnant = remnant;
     }    
 	
-	public int getAmount() {
+    /**
+     *
+     * @return
+     */
+    public int getAmount() {
 		return amount;
 	}
 	
-	public void setAmount(int amount) {
+    /**
+     *
+     * @param amount
+     */
+    public void setAmount(int amount) {
 		this.amount = amount;
 	}
 	
-	public int getRemnant() {
+    /**
+     *
+     * @return
+     */
+    public int getRemnant() {
 		return remnant;
 	}
 	
-	public void setRemnant(int remnant) {
+    /**
+     *
+     * @param remnant
+     */
+    public void setRemnant(int remnant) {
 		this.remnant = remnant;
 	}
 }

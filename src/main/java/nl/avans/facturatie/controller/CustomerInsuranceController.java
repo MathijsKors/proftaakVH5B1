@@ -15,12 +15,18 @@ import nl.avans.facturatie.model.User;
 import nl.avans.facturatie.service.CustomerService;
 import nl.avans.facturatie.service.CustomerInsuranceService;
 
+/**
+ *
+ * @author Gebruiker
+ */
 @Controller
 @SessionAttributes (value = "user", types = {User.class} )
 public class CustomerInsuranceController {
 
-
-
+    /**
+     *
+     * @return
+     */
     @ModelAttribute("user")
     public User getUser() {
         return new User();
@@ -34,18 +40,32 @@ public class CustomerInsuranceController {
     
     private Customer customer;
 
+    /**
+     *
+     * @param customerInsuranceService
+     * @param customerService
+     */
     @Autowired
     public CustomerInsuranceController(CustomerInsuranceService customerInsuranceService, CustomerService customerService) {
         this.customerInsuranceService = customerInsuranceService;
         this.customerService = customerService;
     }
 
+    /**
+     *
+     * @return
+     */
     @ModelAttribute("page")
     public String module() {
         return "customers";
     }
 
     // Zet een 'flag' om in Bootstrap header nav het actieve menu item te vinden.
+
+    /**
+     *
+     * @return
+     */
     @ModelAttribute("classActiveCustomer")
     public String highlightNavMenuItem() {
         return "active";
@@ -55,6 +75,7 @@ public class CustomerInsuranceController {
 
     /**
      * Haal een lijst van Customers en toon deze in een view.
+     * @param user
      * @param model
      * @return
      */
@@ -71,10 +92,12 @@ public class CustomerInsuranceController {
         return "views/customerinsurance/list";
     }
 
-    
-
-
-
+    /**
+     *
+     * @param req
+     * @param ex
+     * @return
+     */
     @ExceptionHandler(value = SQLException.class)
     public ModelAndView handleError(HttpServletRequest req, SQLException ex) {
         // logger.error("Request: " + req.getRequestURL() + " raised " + ex);

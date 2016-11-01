@@ -25,7 +25,7 @@ public class CustomerInsuranceService {
 
     /**
      *
-     * @param customerRepository
+     * @param customerInsuranceRepository
      */
     @Autowired
     public CustomerInsuranceService(CustomerInsuranceRepository customerInsuranceRepository) {
@@ -46,7 +46,12 @@ public class CustomerInsuranceService {
         return editedcustomer;
     }
     
-    
+    /**
+     *
+     * @param customer
+     * @param id
+     * @return
+     */
     public Customer editOwnRisk(Customer customer, int id) {
         logger.info("edit - customer = " + customer.getFullName());
 

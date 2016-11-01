@@ -42,6 +42,11 @@ public class InvoiceRepository {
     private JdbcTemplate jdbcTemplate;
 
     // Deze constructor wordt aangeroepen vanuit de config/PersistenceContext class.
+
+    /**
+     *
+     * @param dataSource
+     */
     public InvoiceRepository(DataSource dataSource) {
         this.jdbcTemplate = new JdbcTemplate(dataSource);
     }
@@ -127,6 +132,7 @@ public class InvoiceRepository {
 
     /**
      *
+     * @param appointment
      * @param invoice
      * @param customer
      * @return
@@ -189,6 +195,10 @@ public class InvoiceRepository {
         return newinvoice;
     }
 
+    /**
+     *
+     * @param id
+     */
     public void deleteInvoiceById(int id) {
         logger.debug("deleteInvoiceById");
         jdbcTemplate.update("DELETE FROM invoices WHERE InvoiceID=?", new Object[]{id});

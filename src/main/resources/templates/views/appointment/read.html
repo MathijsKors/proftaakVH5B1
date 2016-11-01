@@ -81,9 +81,9 @@
                         <!-- Button trigger modal -->
                     </div>
                     <div class="col-sm-9 float-md-right">
-                       <a class="btn btn-success" th:href="@{/invoice/{id}/create(id=${appointment.appointmentId})}" ><i class="fa fa-check" aria-hidden="true"></i>&nbsp;Accepteren</a>
+                       <a class="btn btn-success" th:href="@{/invoice/create/{id} (id=${appointment.appointmentId})}" ><i class="fa fa-check" aria-hidden="true"></i>&nbsp;Accepteren</a>
                        <a class="btn btn-warning" th:href="@{/invoice/{id}/editandcreate(id=${appointment.appointmentId})}" ><i class="fa fa-check" aria-hidden="true"></i>&nbsp;Aanpassen en accepteren</a>
-                        <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#myModal"><i class="fa fa-trash-o fa-fw" ></i>&nbsp;Verwijderen</button>
+                        <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#myModal"><i class="fa fa-trash-o fa-fw" ></i>&nbsp;Zet op betaald</button>
                     </div>
                 </div>
             </div>
