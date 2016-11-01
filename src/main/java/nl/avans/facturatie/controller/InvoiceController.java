@@ -87,7 +87,7 @@ public class InvoiceController {
         }
         //logger.info("listAppointments");
         // Zet de opgevraagde appointments in het model
-        model.addAttribute("appointmentObj", new Appointment());
+        
         model.addAttribute("appointments", appointmentService.getAllAppointments());
         model.addAttribute("invoices", invoiceService.findAllInvoices());
         // Open de juiste view template als resultaat.
@@ -152,7 +152,7 @@ public class InvoiceController {
         }
         
         
-        model.addAttribute("appointmentObj", new Appointment());
+        
         model.addAttribute("appointments", appointmentService.getAllAppointments());
         model.addAttribute("invoices", invoiceService.findAllInvoices());
         
@@ -196,12 +196,27 @@ public class InvoiceController {
             model.addAttribute("info", "Invoice kon niet gemaakt worden.");
         }
         
-        model.addAttribute("appointmentObj", new Appointment());
+        
         model.addAttribute("appointments", appointmentService.getAllAppointments());
         model.addAttribute("invoices", invoiceService.findAllInvoices());
         
         return "views/invoice/list";
     }
+    
+    
+    @RequestMapping(value = "/invoice/{id}", method = RequestMethod.DELETE)
+    public String deleteAppointment(@ModelAttribute("user") User user, Model model, @PathVariable int id) throws IOException {
+        if (!user.isAuthenticated()) {
+            return "redirect:/login";
+        }        
+        invoiceService.delete(id);
+  
+        model.addAttribute("appointments", appointmentService.getAllAppointments());
+        model.addAttribute("invoices", invoiceService.findAllInvoices());
+        // Open de juiste view template als resultaat.
+        return "views/invoice/list";
+    }
+    
     
     /**
      *

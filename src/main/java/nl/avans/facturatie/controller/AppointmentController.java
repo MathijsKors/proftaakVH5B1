@@ -116,7 +116,7 @@ public class AppointmentController {
       
         // We gaan de lijst met customers tonen, met een bericht dat de nieuwe customer toegevoegd is.
         // Zet de opgevraagde customers in het model
-        model.addAttribute("appointmentObj", new Appointment());
+        
         model.addAttribute("appointments", appointmentService.getAllAppointments());
         model.addAttribute("invoices", invoiceService.findAllInvoices());
         // Open de juiste view template als resultaat.
