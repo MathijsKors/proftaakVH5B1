@@ -86,7 +86,7 @@ public class AppointmentTest {
     @Test
     public void testGetDate() {
         System.out.println("getDate");
-        Appointment instance = new Appointment("17-11-2016", "5", "Timothy", "open", "Missy", "1A", 20, 1, "Schoktherapie", "50");
+        Appointment instance = new Appointment("17-11-2016", "5", "Timothy", "open", "Missy", "1A", "20", 1, "Schoktherapie", "50");
         String expResult = "17-11-2016";
         String result = instance.getDate();
         assertEquals(expResult, result);
@@ -98,7 +98,7 @@ public class AppointmentTest {
     @Test
     public void testAppointmentID() {
         System.out.println("getAppointmentID");
-        Appointment instance = new Appointment("17-11-2016", "5", "Timothy", "open", "Missy", "1A", 20, 1, "Schoktherapie", "50");
+        Appointment instance = new Appointment("17-11-2016", "5", "Timothy", "open", "Missy", "1A", "20", 1, "Schoktherapie", "50");
         String expResult = "5";
         String result = instance.getAppointmentId();
         assertEquals(expResult, result);
@@ -110,7 +110,7 @@ public class AppointmentTest {
     @Test
     public void testGetStatus() {
         System.out.println("getStatus");
-        Appointment instance = new Appointment("17-11-2016", "5", "Timothy", "open", "Missy", "1A", 20, 1, "Schoktherapie", "50");
+        Appointment instance = new Appointment("17-11-2016", "5", "Timothy", "open", "Missy", "1A", "20", 1, "Schoktherapie", "50");
         String expResult = "open";
         String result = instance.getStatus();
         assertEquals(expResult, result);
@@ -122,7 +122,7 @@ public class AppointmentTest {
     @Test
     public void testGetPatientName() {
         System.out.println("getPatientName");
-        Appointment instance = new Appointment("17-11-2016", "5", "Timothy", "open", "Missy", "1A", 20, 1, "Schoktherapie", "50");
+        Appointment instance = new Appointment("17-11-2016", "5", "Timothy", "open", "Missy", "1A", "20", 1, "Schoktherapie", "50");
         String expResult = "Missy";
         String result = instance.getPatientName();
         assertEquals(expResult, result);
@@ -134,7 +134,7 @@ public class AppointmentTest {
     @Test
     public void testGetTreatmentCode() {
         System.out.println("getTreatmentCode");
-        Appointment instance = new Appointment("17-11-2016", "5", "Timothy", "open", "Missy", "1A", 20, 1, "Schoktherapie", "50");
+        Appointment instance = new Appointment("17-11-2016", "5", "Timothy", "open", "Missy", "1A", "20", 1, "Schoktherapie", "50");
         String expResult = "1A";
         String result = instance.getTreatmentCode();
         assertEquals(expResult, result);
@@ -146,9 +146,9 @@ public class AppointmentTest {
     @Test
     public void testGetTreatmentTime() {
         System.out.println("getTreatmentTime");
-        Appointment instance = new Appointment("17-11-2016", "5", "Timothy", "open", "Missy", "1A", 20, 1, "Schoktherapie", "50");
-        int expResult = 20;
-        int result = instance.getTreatmentTime();
+        Appointment instance = new Appointment("17-11-2016", "5", "Timothy", "open", "Missy", "1A", "20", 1, "Schoktherapie", "50");
+        String expResult = "20";
+        String result = instance.getTreatmentTime();
         assertEquals(expResult, result);
     }    
     
@@ -158,7 +158,7 @@ public class AppointmentTest {
     @Test
     public void testPatientID() {
         System.out.println("getPatientID");
-        Appointment instance = new Appointment("17-11-2016", "5", "Timothy", "open", "Missy", "1A", 20, 1, "Schoktherapie", "50");
+        Appointment instance = new Appointment("17-11-2016", "5", "Timothy", "open", "Missy", "1A", "20", 1, "Schoktherapie", "50");
         int expResult = 1;
         int result = instance.getPatientId();
         assertEquals(expResult, result);
@@ -170,7 +170,7 @@ public class AppointmentTest {
     @Test
     public void testGetTreatmentName() {
         System.out.println("getTreatmentName");
-        Appointment instance = new Appointment("17-11-2016", "5", "Timothy", "open", "Missy", "1A", 20, 1, "Schoktherapie", "50");
+        Appointment instance = new Appointment("17-11-2016", "5", "Timothy", "open", "Missy", "1A", "20", 1, "Schoktherapie", "50");
         String expResult = "Schoktherapie";
         String result = instance.getTreatmentName();
         assertEquals(expResult, result);
@@ -182,7 +182,7 @@ public class AppointmentTest {
     @Test
     public void testSetDate() {
         System.out.println("setDate");
-        Appointment instance = new Appointment("17-11-2016", "5", "Timothy", "open", "Missy", "1A", 20, 1, "Schoktherapie", "50");
+        Appointment instance = new Appointment("17-11-2016", "5", "Timothy", "open", "Missy", "1A", "20", 1, "Schoktherapie", "50");
         String newDate = "18-11-2016";
         instance.setDate(newDate);
         String expResult = newDate;
@@ -196,7 +196,7 @@ public class AppointmentTest {
     @Test
     public void testSetAppointmentID() {
         System.out.println("setAppointmentID");
-        Appointment instance = new Appointment("17-11-2016", "5", "Timothy", "open", "Missy", "1A", 20, 1, "Schoktherapie", "50");
+        Appointment instance = new Appointment("17-11-2016", "5", "Timothy", "open", "Missy", "1A", "20", 1, "Schoktherapie", "50");
         String newID = "3";
         instance.setAppointmentId(newID);
         String expResult = newID;
@@ -210,7 +210,7 @@ public class AppointmentTest {
     @Test
     public void testSetStatus() {
         System.out.println("setStatus");
-        Appointment instance = new Appointment("17-11-2016", "5", "Timothy", "open", "Missy", "1A", 20, 1, "Schoktherapie", "50");
+        Appointment instance = new Appointment("17-11-2016", "5", "Timothy", "open", "Missy", "1A", "20", 1, "Schoktherapie", "50");
         String newStatus = "Betaald";
         instance.setStatus(newStatus);
         String expResult = newStatus;
@@ -224,7 +224,7 @@ public class AppointmentTest {
     @Test
     public void testSetPatientName() {
         System.out.println("setPatientName");
-        Appointment instance = new Appointment("17-11-2016", "5", "Timothy", "open", "Missy", "1A", 20, 1, "Schoktherapie", "50");
+        Appointment instance = new Appointment("17-11-2016", "5", "Timothy", "open", "Missy", "1A", "20", 1, "Schoktherapie", "50");
         String newName = "Brock";
         instance.setPatientName(newName);
         String expResult = newName;
@@ -238,7 +238,7 @@ public class AppointmentTest {
     @Test
     public void testSetTreatmentCode() {
         System.out.println("setTreatmentCode");
-        Appointment instance = new Appointment("17-11-2016", "5", "Timothy", "open", "Missy", "1A", 20, 1, "Schoktherapie", "50");
+        Appointment instance = new Appointment("17-11-2016", "5", "Timothy", "open", "Missy", "1A", "20", 1, "Schoktherapie", "50");
         String newCode = "2B";
         instance.setTreatmentCode(newCode);
         String expResult = newCode;
@@ -252,11 +252,11 @@ public class AppointmentTest {
     @Test
     public void testSetTreatmentTime() {
         System.out.println("setTreatmentTime");
-        Appointment instance = new Appointment("17-11-2016", "5", "Timothy", "open", "Missy", "1A", 20, 1, "Schoktherapie", "50");
-        int newTime = 30;
+        Appointment instance = new Appointment("17-11-2016", "5", "Timothy", "open", "Missy", "1A", "20", 1, "Schoktherapie", "50");
+        String newTime = "30";
         instance.setTreatmentTime(newTime);
-        int expResult = newTime;
-        int result = instance.getTreatmentTime();
+        String expResult = newTime;
+        String result = instance.getTreatmentTime();
         assertEquals(expResult, result);
     }      
     
@@ -266,7 +266,7 @@ public class AppointmentTest {
     @Test
     public void testSetPatientID() {
         System.out.println("setPatientID");
-        Appointment instance = new Appointment("17-11-2016", "5", "Timothy", "open", "Missy", "1A", 20, 1, "Schoktherapie", "50");
+        Appointment instance = new Appointment("17-11-2016", "5", "Timothy", "open", "Missy", "1A", "20", 1, "Schoktherapie", "50");
         int newID = 3;
         instance.setPatientId(newID);
         int expResult = newID;
@@ -280,7 +280,7 @@ public class AppointmentTest {
     @Test
     public void testSetTreatmentName() {
         System.out.println("setTreatmentName");
-        Appointment instance = new Appointment("17-11-2016", "5", "Timothy", "open", "Missy", "1A", 20, 1, "Schoktherapie", "50");
+        Appointment instance = new Appointment("17-11-2016", "5", "Timothy", "open", "Missy", "1A", "20", 1, "Schoktherapie", "50");
         String newName = "Schouder";
         instance.setTreatmentName(newName);
         String expResult = newName;
