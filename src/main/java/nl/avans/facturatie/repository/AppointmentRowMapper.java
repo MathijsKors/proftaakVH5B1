@@ -18,7 +18,7 @@ class AppointmentRowMapper implements RowMapper<Appointment>
         appointment.setStatus(rs.getString("status"));
         appointment.setPatientName(rs.getString("patientName"));
         appointment.setTreatmentCode(rs.getString("treatmentCode"));
-        appointment.setTreatmentTime(rs.getInt("treatmentTime"));
+        appointment.setTreatmentTime(rs.getString("treatmentTime"));
         appointment.setPatientId(rs.getInt("patientId"));
         appointment.setTreatmentName(rs.getString("treatmentName"));
         appointment.setDate(rs.getString("Date"));

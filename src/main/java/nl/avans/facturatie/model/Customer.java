@@ -43,7 +43,7 @@ public class Customer {
     private String phoneNumber;
 
     @DateTimeFormat(pattern = "yyyy-MM-dd")
-    @NotEmpty(message = "Datum mag niet leeg zijn")
+    //@NotEmpty(message = "Datum mag niet leeg zijn")
     private java.util.Date birthDate;
 
     @Size(min = 1, max = 32, message = "Emailadres is te kort of te lang.")

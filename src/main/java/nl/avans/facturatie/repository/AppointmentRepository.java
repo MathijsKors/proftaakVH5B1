@@ -78,7 +78,8 @@ public class AppointmentRepository {
      */
     public Appointment create(final Appointment appointment) {
 
-        
+        double time = Double.parseDouble(appointment.getTreatmentTime().replace(",","."));
+
 
         final String sql = "INSERT INTO `appointments` (`physiotherapist`, `status`, `patientName`, `treatmentCode`, `treatmentTime`, `patientId`, `treatmentName`, `Date`) " +
                 "VALUES(?,?,?,?,?,?,?,?,?)";
@@ -95,7 +96,7 @@ public class AppointmentRepository {
                 ps.setString(3, appointment.getStatus());
                 ps.setString(4, appointment.getPatientName());
                 ps.setString(5, appointment.getTreatmentCode());
-                ps.setInt(6, appointment.getTreatmentTime());
+                ps.setDouble(6, time);
                 ps.setInt(7, appointment.getPatientId());
                 ps.setString(8, appointment.getTreatmentName());
                 ps.setString(9, appointment.getDate());
@@ -121,6 +122,9 @@ public class AppointmentRepository {
 
         logger.info("edit repository = " + appointment.getAppointmentId());
         
+        double time = Double.parseDouble(appointment.getTreatmentTime().replace(",","."));
+
+        
         final String sql = "UPDATE `appointments` SET `physiotherapist`, `status`, `patientName`, `treatmentCode`, `treatmentTime`, `patientId`, `treatmentName`, `Date` WHERE `AppointmentId` = ?;";
            
         // KeyHolder gaat de auto increment key uit de database bevatten.
@@ -136,7 +140,7 @@ public class AppointmentRepository {
                 ps.setString(3, appointment.getStatus());
                 ps.setString(4, appointment.getPatientName());
                 ps.setString(5, appointment.getTreatmentCode());
-                ps.setInt(6, appointment.getTreatmentTime());
+                ps.setDouble(6, time);
                 ps.setInt(7, appointment.getPatientId());
                 ps.setString(8, appointment.getTreatmentName());
                 ps.setString(9, appointment.getDate());

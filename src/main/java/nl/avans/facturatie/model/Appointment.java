@@ -33,7 +33,7 @@ public class Appointment {
     private String treatmentCode;
     
     @Size(min = 1, max = 32, message = "Te kort of te lang.")
-    private int treatmentTime;
+    private String treatmentTime;
     
     @Size(min = 1, max = 32, message = "Te kort of te lang.")
     private int patientId;
@@ -63,7 +63,7 @@ public class Appointment {
      * @param treatmentName
      * @param treatmentPrice
      */
-    public Appointment(String date, String appointmentId, String fysiotherapistName, String status, String patientName, String treatmentCode, int treatmentTime, int patientId, String treatmentName, String treatmentPrice) {
+    public Appointment(String date, String appointmentId, String fysiotherapistName, String status, String patientName, String treatmentCode, String treatmentTime, int patientId, String treatmentName, String treatmentPrice) {
         this.date = date;
         this.appointmentId = appointmentId;
         this.fysiotherapistName = fysiotherapistName;
@@ -152,7 +152,7 @@ public class Appointment {
      *
      * @return
      */
-    public int getTreatmentTime() {
+    public String getTreatmentTime() {
         return treatmentTime;
     }
 
@@ -224,7 +224,7 @@ public class Appointment {
      *
      * @param treatmentTime
      */
-    public void setTreatmentTime(int treatmentTime) {
+    public void setTreatmentTime(String treatmentTime) {
         this.treatmentTime = treatmentTime;
     }
 

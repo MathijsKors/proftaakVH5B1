@@ -70,12 +70,14 @@ public class PdfCreator {
         list2.add(new ListItem("Factuurnummer: " + invoice.getInvoiceID()));
         list2.add(new ListItem("Factuurdatum: " + invoice.getInvoiceDate()));
         list2.add(new ListItem("Verloopdatum: " + invoice.getDeadline()));
+        list2.add(new ListItem("Behandeling: " + invoice.getTreatmentName()));
+        list2.add(new ListItem("Duur: " + invoice.getDuration()));
         
         document.add(list2);
         
         
         document.add(new Paragraph("---------------------------------------------------"));
-        document.add(new Paragraph("Totaalprijs:         " + invoice.getTotalPrice()));
+        document.add(new Paragraph("Totaalprijs:         € " + invoice.getTotalPrice()));
         
         //Close document
         

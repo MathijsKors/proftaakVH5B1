@@ -88,6 +88,7 @@ public class InvoiceRepository {
         
         // Calendar vraagt huidige datum op, dit wordt omgezet naar sql formaat date 
         java.sql.Date invoiceDate = new java.sql.Date(Calendar.getInstance().getTime().getTime());
+        
   
         // Calendar vraagt huidige datum op en voegt hier 1 maan aan toe, zet het daarna om naar sql formaat date
         Calendar deadlineCalendar = Calendar.getInstance();
@@ -113,7 +114,7 @@ public class InvoiceRepository {
                 ps.setDate(6, deadlineDate);
                 ps.setString(7, invoice.getAdress());
                 ps.setDate(8, invoiceDate);
-                ps.setDouble(9, (invoice.getPrice() + invoice.getDuration()) );
+                ps.setDouble(9, (invoice.getPrice() * invoice.getDuration()) );
                 ps.setString(10, customer.getInsurance());
                 ps.setString(11, invoice.getAppointmentId());
                 return ps;
@@ -145,11 +146,14 @@ public class InvoiceRepository {
         
         //Variabelen aanmaken
 //        logger.info(appointment.getTreatmentPrice());
-//        String priceString = appointment.getTreatmentPrice().replace(",",".");
+       // String priceString = appointment.getTreatmentPrice().replace(",",".");
 //        logger.info(priceString);
         double price = Double.parseDouble(appointment.getTreatmentPrice().replace(",","."));
 //        logger.info(price+"");
         
+
+        double time = Double.parseDouble(appointment.getTreatmentTime().replace(",","."));
+
         
         // Calendar vraagt huidige datum op, dit wordt omgezet naar sql formaat date 
         java.sql.Date invoiceDate = new java.sql.Date(Calendar.getInstance().getTime().getTime());
@@ -174,11 +178,11 @@ public class InvoiceRepository {
                 ps.setDouble(2,  price);
                 ps.setString(3, customer.getFullName());
                 ps.setString(4, appointment.getTreatmentName());
-                ps.setInt(5, appointment.getTreatmentTime());
+                ps.setDouble(5, time);
                 ps.setDate(6, deadlineDate);
                 ps.setString(7, (customer.getStreet() + " " + customer.getHouseNumber() + " " + customer.getCity()));
                 ps.setDate(8, invoiceDate);
-                ps.setDouble(9, (80.0 * appointment.getTreatmentTime() ));
+                ps.setDouble(9, (price * time));
                 ps.setString(10, customer.getInsurance());
                 ps.setString(11, appointment.getAppointmentId());
                 return ps;
