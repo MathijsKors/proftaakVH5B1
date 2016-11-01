@@ -79,7 +79,7 @@ public class OwnRiskTest {
         int Remnant = 11;
         OwnRisk instance = new OwnRisk(11, 11);
         instance.setRemnant(Remnant);
-        int expResult = 1;
+        int expResult = 11;
         int result = instance.getRemnant();
         assertEquals(expResult, result);
     }
