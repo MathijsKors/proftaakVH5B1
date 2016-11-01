@@ -85,6 +85,7 @@
                         </div>
                         <div class="modal-body">
                             <p>Weet je zeker dat je deze rekening wilt verwijderen?</p>
+                            <p>De rekening kan niet meer terug worden gehaald, en de afspraak zal dan ook opnieuw moeten worden gepland.</p>
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-dismiss="modal">Nee, annuleer</button>
@@ -133,6 +134,7 @@
                         <td th:text="${invoice.deadline}"> ...</td>
                         <td th:text="'€ ' + ${invoice.totalPrice}"> ...</td>
                         <td>
+                            <button class="btn btn-danger" href="#" data-toggle="modal" th:attr="data-target='#popupinvoice-' + ${invoice.invoiceID}"><i class="fa fa-trash-o fa-fw"></i></button>
                             <a class="btn btn-success pull-right" role="button" th:href="@{/invoice/createpdf/{id} (id=${invoice.invoiceID})}" ><i class="fa fa-paper-plane" aria-hidden="true"></i>&nbsp;Versturen</a>
                         </td>
                     </tr>
@@ -140,15 +142,70 @@
             </table>
         </div>
         
+        <div th:each="invoice : ${invoices}">
+            
+                <!-- Popup verwijderen --> 
+            <div class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" th:id="'popupinvoice-' + ${invoice.invoiceID}">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                            <h4 class="modal-title" id="myModalLabel">Rekening verwijderen</h4>
+                        </div>
+                        <div class="modal-body">
+                            <p>Weet je zeker dat je deze factuur wilt verwijderen?</p>
+                            <p>De factuur kan niet meer terug worden gehaald, en de afspraak zal dan ook opnieuw moeten worden gepland.</p>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Nee, annuleer</button>
+                            <a type="button" class="btn btn-danger" th:onclick="'javascript:sendAjaxDeleteRequestInvoice(\'' + ${invoice.invoiceID} + '\');'"><i class="fa fa-trash-o fa-fw"></i>&nbsp;Ja, verwijder</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
         
-        
-       
     </div>
     
 
     <footer class="footer">
         <div th:replace="fragments/footer :: footer">&copy; 2016 Facturatie Systeem</div>
     </footer>
+    
+    <script>
+                function sendAjaxDeleteRequest(id) {
+                    $.ajax({
+                        url: '/appointment/paid/' + id,
+                        type: 'DELETE',
+                        success: function (result) {
+                            // Go to the list of invoices
+                            location.href = "/invoices"
+                        },
+                        error: function (result) {
+                            alert('Error: kon deze rekening niet verwijderen.');
+                        }
+                    });
+                }
+            </script>
+            
+            <script>
+                function sendAjaxDeleteRequestInvoice(id) {
+                    $.ajax({
+                        url: '/invoice/' + id,
+                        type: 'DELETE',
+                        success: function (result) {
+                            // Go to the list of invoices
+                            location.href = "/invoices"
+                        },
+                        error: function (result) {
+                            alert('Error: kon deze factuur niet verwijderen.');
+                        }
+                    });
+                }
+            </script>
+    
     
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>

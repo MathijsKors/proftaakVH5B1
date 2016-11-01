@@ -104,6 +104,7 @@
                     </div>
                     <div class="modal-body">
                         <p>Weet je zeker dat je deze rekening wilt verwijderen?</p>
+                        <p>De rekening kan niet meer terug worden gehaald, en de afspraak zal dan ook opnieuw moeten worden gepland.</p>
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Nee, annuleer</button>
@@ -124,14 +125,14 @@
     <script>
         function sendAjaxDeleteRequest(id) {
             $.ajax({
-                url: '/appointment/' + id,
+                url: '/appointment/paid/' + id,
                 type: 'DELETE',
                 success: function(result) {
                     // Go to the list of appointment
-                    location.href = "/appointments"
+                    location.href = "/invoices"
                 },
                 error: function(result) {
-                    alert('Error: kon deze persoon niet verwijderen.');
+                    alert('Error: kon deze rekening niet verwijderen.');
                 }
             });
          }

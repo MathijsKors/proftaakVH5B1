@@ -78,7 +78,7 @@ public class PdfCreator {
         list2.add(new ListItem("Factuurdatum: " + invoice.getInvoiceDate()));
         list2.add(new ListItem("Verloopdatum: " + invoice.getDeadline()));
         list2.add(new ListItem("Behandeling: " + invoice.getTreatmentName()));
-        list2.add(new ListItem("Duur: " + invoice.getDuration()));
+        list2.add(new ListItem("Duur: " + invoice.getDuration() + " uur"));
         
         document.add(list2);
         
