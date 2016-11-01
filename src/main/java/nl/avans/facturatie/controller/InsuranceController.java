@@ -22,6 +22,7 @@ import nl.avans.facturatie.service.InsuranceService;
  * @author Gebruiker
  */
 @Controller
+@SessionAttributes (value = "user", types = {User.class} )
 public class InsuranceController {
     
     /**
