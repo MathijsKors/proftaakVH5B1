@@ -8,6 +8,7 @@ package nl.avans.facturatie.model;
 import javax.validation.constraints.DecimalMin;
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
+import org.hibernate.validator.constraints.NotEmpty;
 import org.springframework.format.annotation.DateTimeFormat;
 
 /**
@@ -42,7 +43,7 @@ public class Customer {
     private String phoneNumber;
 
     @DateTimeFormat(pattern = "yyyy-MM-dd")
-    //@Pattern(regexp = "[0-9]{2}-[0-9]{2}-[0-9]{4}", message = "Gebruik het volgende formaat: 'dd-mm-jjjj'")
+    @NotEmpty(message = "Datum mag niet leeg zijn")
     private java.util.Date birthDate;
 
     @Size(min = 1, max = 32, message = "Emailadres is te kort of te lang.")
